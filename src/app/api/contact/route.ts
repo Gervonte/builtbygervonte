@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>', // Resend's verified domain
-      to: ['gervonte.fowler@hotmail.com'], // Your verified email address
+      from: 'BuiltByGervonte Contact Form <contact@builtbygervonte.com>', // Resend's verified domain
+      to: ['gervonte@builtbygervonte.com'], // Your verified email address
       subject: `Portfolio Contact: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

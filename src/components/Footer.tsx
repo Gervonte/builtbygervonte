@@ -184,7 +184,7 @@ export default function Footer() {
                   LinkedIn
                 </Anchor>
                 <Anchor
-                  href="mailto:gervontefowler.dev@outlook.com"
+                  href="mailto:gervonte@builtbygervonte.com"
                   style={{
                     color: commonColors.textSecondary,
                     transition: 'color 0.3s ease',
