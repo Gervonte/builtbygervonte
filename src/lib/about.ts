@@ -90,7 +90,10 @@ const deduplicateResearchProjects = (projects: ResearchProject[]): ResearchProje
 // about-metadata.json: Auto-generated from resume parsing (DO NOT EDIT)
 // manual-additions.json: Manual additions and custom data (EDIT THIS)
 const mergedData: AboutData = {
-  personalInfo: aboutMetadata.personalInfo,
+  personalInfo: {
+    ...aboutMetadata.personalInfo,
+    ...(manualAdditions.personalInfo || {}),
+  },
   skills: deduplicateSkills([
     ...aboutMetadata.skills,
     ...(manualAdditions.skills || []),

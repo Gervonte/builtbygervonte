@@ -1,6 +1,9 @@
 {
   "_comment": "✅ MANUAL ADDITIONS - EDIT THIS FILE FOR CUSTOM DATA ✅",
   "_note": "This file contains manually added data that supplements the auto-generated about-metadata.json. Add new skills, projects, or other data here.",
+  "personalInfo": {
+    "email": "gervonte@builtbygervonte.com"
+  },
   "leadership": [
     {
       "name": "Member, Alumni Leadership Committee",
