@@ -114,7 +114,7 @@ jobs:
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         pull_number: pr.number,
-                        merge_method: 'squash',
+                        merge_method: 'merge',
                         commit_title: `Deploy: ${updatedPr.title.replace(/Auto-deploy: Preview → Main \(.*\)/, '')}`,
                         commit_message: `Scheduled deployment from preview branch\n\nPR #${updatedPr.number}\nCloses #${updatedPr.number}`
                       });
@@ -128,7 +128,7 @@ jobs:
                       owner: context.repo.owner,
                       repo: context.repo.repo,
                       pull_number: pr.number,
-                      merge_method: 'squash',
+                      merge_method: 'merge',
                       commit_title: `Deploy: ${pr.title.replace(/Auto-deploy: Preview → Main \(.*\)/, '')}`,
                       commit_message: `Scheduled deployment from preview branch\n\nPR #${pr.number}\nCloses #${pr.number}`
                     });
@@ -155,7 +155,7 @@ jobs:
 
           # Ensure we have the latest main branch
           git fetch origin main
-          
+
           # Switch to preview branch
           git checkout preview
           git pull origin preview
