@@ -99,7 +99,7 @@ The project uses a multi-stage PR workflow for safe deployments:
    # After approval, preview → main happens automatically
    ```
 
-See [.github/README.md](.github/README.md) for detailed setup instructions.
+See [.github/GITHUB_ACTIONS.md](.github/GITHUB_ACTIONS.md) for detailed setup instructions.
 
 ## 📁 Project Structure
 
