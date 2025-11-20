@@ -40,4 +40,4 @@ echo "   - Push to the 'preview' branch"
 echo "   - Check the Actions tab for deployment"
 echo ""
 
-echo "Need help? Check the .github/README.md file for detailed instructions."
+echo "Need help? Check the .github/GITHUB_ACTIONS.md file for detailed instructions."
