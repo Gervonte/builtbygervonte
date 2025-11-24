@@ -86,6 +86,29 @@ jobs:
               }
 
               core.setOutput('result', 'prs-found');
+              
+              // Helper to build a nice deploy commit title + message
+              const buildDeployMetadata = (prLike) => {
+                const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+                const headSha =
+                  (prLike.head && prLike.head.sha
+                    ? prLike.head.sha
+                    : context.sha || ''
+                  ).substring(0, 7);
+
+                const commitTitle = `Deploy: Preview → Main — ${date}`;
+
+                const commitMessage = [
+                  'Scheduled auto-deployment from preview to main.',
+                  '',
+                  `Auto-deploy PR: #${prLike.number}`,
+                  headSha ? `Head SHA: ${headSha}` : null
+                ]
+                  .filter(Boolean)
+                  .join('\n');
+
+                return { commitTitle, commitMessage };
+              };
 
               // Merge all approved PRs
               for (const pr of approvedPRs) {
@@ -98,50 +121,59 @@ jobs:
                       repo: context.repo.repo,
                       pull_number: pr.number
                     });
-                    
+
                     // Wait for the update to complete
                     await new Promise(resolve => setTimeout(resolve, 10000));
-                    
+
                     // Re-fetch PR status after update
                     const { data: updatedPr } = await github.rest.pulls.get({
                       owner: context.repo.owner,
                       repo: context.repo.repo,
                       pull_number: pr.number
                     });
-                    
+
                     if (updatedPr.mergeable && updatedPr.mergeable_state === 'clean') {
+                      const { commitTitle, commitMessage } = buildDeployMetadata(updatedPr);
+
                       await github.rest.pulls.merge({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        pull_number: pr.number,
+                        pull_number: updatedPr.number,
                         merge_method: 'merge',
-                        commit_title: `Deploy: ${updatedPr.title.replace(/Auto-deploy: Preview → Main \(.*\)/, '')}`,
-                        commit_message: `Scheduled deployment from preview branch\n\nPR #${updatedPr.number}\nCloses #${updatedPr.number}`
+                        commit_title: commitTitle,
+                        commit_message: commitMessage
                       });
-                      console.log(`Updated and merged PR #${pr.number}`);
+
+                      console.log(`Updated and merged PR #${updatedPr.number}`);
                     } else {
-                      console.log(`PR #${pr.number} still not ready after update:`, updatedPr.mergeable_state);
+                      console.log(
+                        `PR #${pr.number} still not ready after update:`,
+                        updatedPr.mergeable_state
+                      );
                     }
                   } else {
                     // PR is clean, merge directly
+                    const { commitTitle, commitMessage } = buildDeployMetadata(pr);
+
                     await github.rest.pulls.merge({
                       owner: context.repo.owner,
                       repo: context.repo.repo,
-                      pull_number: pr.number,
+                      pull_number: updatedPr.number,
                       merge_method: 'merge',
-                      commit_title: `Deploy: ${pr.title.replace(/Auto-deploy: Preview → Main \(.*\)/, '')}`,
-                      commit_message: `Scheduled deployment from preview branch\n\nPR #${pr.number}\nCloses #${pr.number}`
+                      commit_title: commitTitle,
+                      commit_message: commitMessage
                     });
+
                     console.log(`Merged PR #${pr.number}`);
                   }
                 } catch (error) {
                   console.log(`Failed to merge PR #${pr.number}:`, error.message);
                 }
               }
-            } catch (error) {
-              console.log('Error in PR check script:', error.message);
-              core.setOutput('result', 'error');
-            }
+              } catch (error) {
+                console.log('Error in PR check script:', error.message);
+                core.setOutput('result', 'error');
+              }
 
       - name: Wait for deployment
         if: steps.check-prs.outputs.result != 'no-prs'
