@@ -184,7 +184,7 @@ export default function Footer() {
                   LinkedIn
                 </Anchor>
                 <Anchor
-                  href="mailto:gervonte@builtbygervonte.com"
+                  href="mailto:hello@builtbygervonte.com"
                   style={{
                     color: commonColors.textSecondary,
                     transition: 'color 0.3s ease',
@@ -229,7 +229,7 @@ export default function Footer() {
           {/* Copyright */}
           <Group justify="center" align="center">
             <Text size="sm" c="dimmed">
-              © {currentYear} Gervonte Fowler. All rights reserved.
+              © {currentYear} BuiltByGervonte LLC. All rights reserved.
             </Text>
           </Group>
         </Stack>
