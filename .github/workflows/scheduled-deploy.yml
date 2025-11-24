@@ -150,25 +150,24 @@ jobs:
       - name: Merge main back to preview
         if: steps.check-prs.outputs.result != 'no-prs'
         run: |
+          set -e
+
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action" 
+          git config --local user.name "GitHub Action"
 
-          # Ensure we have the latest main branch
-          git fetch origin main
+          # Make sure we have the latest branches
+          git fetch origin main preview
 
-          # Switch to preview branch
+          # Switch to preview and update it from remote
           git checkout preview
           git pull origin preview
 
-          # Check if there are differences between preview and main
-          if git diff --quiet preview origin/main; then
-            echo "Preview and main are already in sync"
+          # Check if origin/main is already contained in preview's history
+          if git merge-base --is-ancestor origin/main HEAD; then
+            echo "Preview already contains all commits from main"
           else
             echo "Merging main into preview..."
-            # Merge main into preview
             git merge origin/main --no-ff -m "Sync preview with main after deployment"
-            
-            # Push updated preview
             git push origin preview
             echo "Successfully synced preview with main"
           fi
