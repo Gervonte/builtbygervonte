@@ -229,7 +229,7 @@ export default function Footer() {
           {/* Copyright */}
           <Group justify="center" align="center">
             <Text size="sm" c="dimmed">
-              © {currentYear} Gervonte Fowler. All rights reserved.
+              © {currentYear} BuiltByGervonte LLC. All rights reserved.
             </Text>
           </Group>
         </Stack>
