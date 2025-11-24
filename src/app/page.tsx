@@ -5,7 +5,6 @@ import {
   LazyContactSection,
   LazyExperienceSection,
   LazyHeroSection,
-  LazyScrollIndicator,
   LazyWorkSection,
 } from '@/components/LazyComponents';
 import ParallaxElement from '@/components/ParallaxElement';
@@ -83,15 +82,15 @@ const HomePage = memo(() => {
           </Box>
         </ParallaxElement>
 
-        {/* Scroll Indicator */}
-        <LazyScrollIndicator
+        {/* Scroll Indicator - Disabled!*/}
+        {/* <LazyScrollIndicator
           sections={['hero', 'work', 'experience', 'about', 'contact']}
           showProgress={true}
           showNavigation={true}
           position="bottom"
           orientation="horizontal"
           variant="detailed"
-        />
+        /> */}
       </ParallaxProvider>
     </ModalProvider>
   );
