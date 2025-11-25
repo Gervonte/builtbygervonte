@@ -85,10 +85,10 @@ jobs:
                 - [x] Linting passed
 
                 ### 🚀 Ready for Review
-                Once approved, this PR will be automatically merged using squash merge and deployed to production.
+                Once approved, this PR will be automatically merged using a merge commit and deployed to production.
 
                 ### 🧹 Cleanup
-                After merge, the preview branch will be automatically reset to match main to prevent commit accumulation.
+                After merge, the main branch will be automatically merged into preview to keep the preview branch up to date with production.
 
                 ---
                 *This PR was automatically created by GitHub Actions*`
@@ -116,10 +116,10 @@ jobs:
                 - [x] Linting passed
 
                 ### 🚀 Ready for Review
-                Once approved, this PR will be automatically merged using squash merge and deployed to production.
+                Once approved, this PR will be automatically merged using a merge commit and deployed to production.
 
                 ### 🧹 Cleanup
-                After merge, the preview branch will be automatically reset to match main to prevent commit accumulation.
+                After merge, the main branch will be automatically merged into preview to keep the preview branch up to date with production.
 
                 ---
                 *This PR was automatically created by GitHub Actions*`
