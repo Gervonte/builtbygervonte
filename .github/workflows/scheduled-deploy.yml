@@ -158,7 +158,7 @@ jobs:
                     await github.rest.pulls.merge({
                       owner: context.repo.owner,
                       repo: context.repo.repo,
-                      pull_number: updatedPr.number,
+                      pull_number: pr.number,
                       merge_method: 'merge',
                       commit_title: commitTitle,
                       commit_message: commitMessage
