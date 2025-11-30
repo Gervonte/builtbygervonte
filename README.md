@@ -1,19 +1,41 @@
-# Portfolio AI
+# BuiltByGervonte - AI-Assisted Portfolio
 
-A modern, AI-assisted portfolio website built with Next.js, TypeScript, and Mantine UI, featuring a beautiful sakura theme inspired by mono no aware aesthetics.
+Built with Next.js, TypeScript, and Mantine UI, featuring a beautiful sakura theme inspired by mono no aware aesthetics and an ocean theme inspired by my home country 🇧🇸.
+
+## 💡 Why This Project Matters
+
+This portfolio isn’t just a website. It’s a fully engineered production-grade system built to:
+
+- showcase modern React/Next.js best practices
+- demonstrate TypeScript-first design
+- prove CI/CD proficiency
+- highlight clean UI/UX implementation
+- show ability to ship polished, complete software
+
+It represents the engineering quality I bring to every product I build.
+
+## 🧰 Tech Stack
+
+- Next.js 15 • React Server Components • TypeScript (strict)
+- Mantine UI • Zod • ESLint/Prettier • Husky
+- GitHub Actions • Vercel • Lighthouse CI
 
 ## ✨ Features
 
-- **AI-Assisted Development**: Built with Claude AI, GitHub Copilot, and ChatGPT
-- **Modern Tech Stack**: Next.js 15+, TypeScript, Mantine UI
-- **Beautiful Animations**: Custom sakura petal effects with sakura.js
-- **Responsive Design**: Mobile-first approach with Mantine components
-- **Dynamic Screenshots**: Automatic project thumbnails with fallback system
-- **Data Validation**: Comprehensive schemas with Zod
-- **Performance Optimized**: 26% smaller bundle, lazy loading, and optimized images
-- **CI/CD Pipeline**: Automated testing, building, and deployment with GitHub Actions
-- **Security Scanning**: Automated vulnerability detection and dependency updates
-- **Performance Monitoring**: Lighthouse CI with Core Web Vitals tracking
+- **AI-assisted development workflow** (Copilot, Claude, ChatGPT)
+- **Production-grade Next.js 15 architecture**
+- **Strong TypeScript discipline with full type safety**
+- **Performance optimized** (26% smaller bundle + smart code splitting)
+- **CI/CD pipeline** with automated testing + security scanning
+- **Dynamic asset generation** for project thumbnails
+- **Design system powered by Mantine**
+
+### 🤔 What is Mono no Aware?
+
+> **Mono no aware (物の哀れ)** is a Japanese aesthetic concept meaning:
+> **“the gentle sadness or deep appreciation that comes from recognizing the impermanence of things.”**
+>
+> In this portfolio, it reflects my story. Living life in seasons, appreciating temporary chapters, and finding beauty in the transitions that shaped who I am today!
 
 ## 🚀 Quick Start
 
@@ -46,60 +68,14 @@ This project includes comprehensive GitHub Actions workflows:
 
 The project uses a multi-stage PR workflow for safe deployments:
 
-1. **Create Feature Branch** (linked to GitHub issue):
-
-   ```bash
-   git checkout -b feature/issue-123-add-new-feature
-   # Make your changes
-   git add .
-   git commit -m "Add new feature (closes #123)"
-   git push origin feature/issue-123-add-new-feature
-   ```
-
+1. **Create Feature Branch** (linked to GitHub issue)
 2. **PR to Preview**: Create PR from feature branch → preview branch
 3. **Review & Test**: Review changes and test on preview deployment
-4. **Merge to Preview**: Approved PRs merge to preview branch
+4. **Squash Merge to Preview**: Approved PRs merge to preview branch
 5. **Auto-Create Production PR**: GitHub automatically creates PR from preview → main
 6. **Review & Approve**: Review the preview changes and approve the PR
-7. **Auto-Merge**: Approved PRs are automatically merged to main
+7. **Auto-Merge**: Approved PRs are automatically merged to main the next day at 9:00 AM EST
 8. **Auto-Deploy**: Vercel automatically deploys the main branch
-
-### Setup GitHub Actions
-
-1. **Get Vercel credentials**:
-
-   ```bash
-   ./scripts/setup-vercel.sh
-   ```
-
-2. **Add GitHub Secrets**:
-   - `VERCEL_TOKEN`: Your Vercel API token
-   - `VERCEL_ORG_ID`: Your Vercel team ID
-   - `VERCEL_PROJECT_ID`: Your Vercel project ID
-
-3. **Create Preview Branch**:
-
-   ```bash
-   git checkout -b preview
-   git push origin preview
-   ```
-
-4. **Development Workflow**:
-
-   ```bash
-   # Create feature branch linked to GitHub issue
-   git checkout -b feature/issue-123-add-new-feature
-
-   # Make changes and push
-   git add .
-   git commit -m "Add new feature (closes #123)"
-   git push origin feature/issue-123-add-new-feature
-
-   # Create PR: feature-branch → preview
-   # After approval, preview → main happens automatically
-   ```
-
-See [.github/GITHUB_ACTIONS.md](.github/GITHUB_ACTIONS.md) for detailed setup instructions.
 
 ## 📁 Project Structure
 
@@ -118,44 +94,14 @@ public/
 └── js/                 # Third-party scripts
 ```
 
-## 🖼️ Project Images
-
-The portfolio supports multiple image sources with automatic fallback:
-
-1. **Local Images** (Priority 1): Place images in `/public/images/projects/`
-2. **Live Screenshots** (Priority 2): Automatic screenshots from live URLs
-3. **Generated Placeholders** (Priority 3): SVG placeholders as final fallback
-
-### Adding Project Images
-
-1. Add your image to `/public/images/projects/`
-2. Update the project in `src/data/projects-metadata.json`:
-   ```json
-   {
-     "id": "my-project",
-     "title": "My Project",
-     "imagePath": "my-project.png",
-     "liveUrl": "https://my-project.vercel.app"
-   }
-   ```
-
 ## 🎨 Design System
 
-- **Color Palette**: Sakura pink, warm neutrals, earth tones
+- **Color Palette**: Sakura pink/red, Ocean blue, warm neutrals, earth tones
 - **Typography**: Modern, readable fonts
 - **Animations**: Smooth transitions and sakura petal effects
 - **Layout**: Clean, minimalist design with focus on content
 
 ## 🛠️ Development
-
-### Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run lint:fix` - Fix linting issues
-- `npm run format` - Format code with Prettier
 
 ### Code Quality
 
@@ -186,20 +132,12 @@ The project is optimized for Vercel deployment with:
 
 MIT License - see [LICENSE](LICENSE) for details.
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
-
 ## 📞 Contact
 
-- **Portfolio**: [portfolio-ai-xi.vercel.app](https://portfolio-ai-xi.vercel.app)
+- **Portfolio**: [Visit BuiltByGervonte.com](https://builtbygervonte.com/)
 - **GitHub**: [@gervonte](https://github.com/gervonte)
-- **Email**: [Your Email]
+- **Email**: [hello@builtbygervonte.com](mailto:hello@builtbygervonte.com)
 
 ---
 
-Built with ❤️ and AI assistance
+Built with care, clarity, and craftsmanship.
