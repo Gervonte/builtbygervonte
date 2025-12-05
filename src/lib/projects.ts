@@ -7,7 +7,7 @@ export interface Project {
   longDescription: string;
   type: 'vibe-coded' | 'standard-work';
   technologies: string[];
-  status: 'completed' | 'in-progress' | 'planned';
+  status: 'live' | 'in-progress' | 'planned';
   featured: boolean;
   liveUrl?: string;
   githubUrl?: string;
@@ -117,7 +117,7 @@ export const getProjectStats = () => {
   const vibeCoded = getProjectsByType('vibe-coded').length;
   const standardWork = getProjectsByType('standard-work').length;
   const featured = getFeaturedProjects().length;
-  const completed = getProjectsByStatus('completed').length;
+  const live = getProjectsByStatus('live').length;
   const inProgress = getProjectsByStatus('in-progress').length;
   const planned = getProjectsByStatus('planned').length;
 
@@ -126,7 +126,7 @@ export const getProjectStats = () => {
     vibeCoded,
     standardWork,
     featured,
-    completed,
+    live,
     inProgress,
     planned,
   };

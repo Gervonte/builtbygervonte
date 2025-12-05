@@ -116,7 +116,7 @@
       "longDescription": "This tool is comparable in output to Tunebat.com's key and bpm analyzer. The waveform display was inspired by Soundcloud and the algorithm behind the analysis uses essentia.js. It's main use case is for analyzing instrumental music files as a music producer with a lack of music theory knowledge.",
       "type": "vibe-coded",
       "technologies": ["Vite", "TypeScript", "Essentia.js", "Chakra UI", "Sentry", "Web Audio API"],
-      "status": "in-progress",
+      "status": "live",
       "featured": true,
       "liveUrl": "https://audio-key-bpm-analyzer-kiro.vercel.app/",
       "githubUrl": "https://github.com/Gervonte/audio-key-bpm-analyzer-kiro",
