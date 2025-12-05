@@ -2,9 +2,9 @@
   "projects": [
     {
       "id": "portfolio-ai",
-      "title": "Portfolio AI",
-      "description": "AI-assisted portfolio showcasing modern development practices with dynamic themes, automated CI/CD, and interactive technical deep-dives built with Cursor AI and Next.js.",
-      "longDescription": "A sophisticated portfolio website that demonstrates the power of AI-assisted development, built entirely with Cursor AI and Next.js. Features dynamic sakura/ocean themes with mono no aware aesthetics, comprehensive CI/CD automation, and interactive technical deep-dives. Showcases advanced engineering practices including automated PR management, scheduled deployments, data validation with Zod, and performance optimization. The project serves as both a portfolio and a case study of modern AI-human collaboration in software development.",
+      "title": "BuiltByGervonte",
+      "description": "Rebranded home for BuiltByGervonte LLC with refreshed SEO, structured data, brand assets, and performance-minded Next.js theming.",
+      "longDescription": "The former Portfolio AI site is now the official BuiltByGervonte studio home page. It blends AI-assisted build workflows with a refreshed brand system, expanded structured data (Organization + Person schemas), updated sitemap/robots, and regenerated favicon/touch icons. The experience keeps the sakura/ocean theming, deep technical write-ups, and CI/CD rigor while centering the studio's product work and services.",
       "type": "vibe-coded",
       "technologies": [
         "Next.js",
@@ -19,25 +19,21 @@
         "Resend",
         "Tabler Icons"
       ],
-      "status": "completed",
-      "featured": false,
-      "liveUrl": "https://portfolio-ai-xi.vercel.app/",
-      "githubUrl": "https://github.com/gervonte/portfolio-ai",
+      "status": "live",
+      "featured": true,
+      "liveUrl": "https://builtbygervonte.com/",
+      "githubUrl": "https://github.com/gervonte/builtbygervonte",
       "imagePath": "portfolio-ai2.png",
       "achievements": [
-        "AI-assisted development from concept to deployment",
-        "Custom sakura petal animations with sakura.js",
-        "Responsive design with Mantine UI components",
-        "Comprehensive data validation with Zod schemas",
-        "Advanced scroll indicator with keyboard navigation",
-        "Resume data extraction and structured display",
-        "Advanced CI/CD pipeline with scheduled deployments",
-        "Automated PR management and branch protection",
-        "Technical deep-dive modals with behind-the-scenes details",
-        "Comprehensive error handling and conflict resolution"
+        "Rebranded SEO metadata, sitemaps, and manifest for BuiltByGervonte",
+        "Organization + Person structured data with linked @id graph",
+        "Regenerated favicon, SVG, and Apple touch icons with proper color profiles",
+        "Dynamic sakura/ocean themes with Mantine UI and Framer Motion",
+        "CI/CD with scheduled deploys, PR automation, and branch protection",
+        "Interactive technical deep-dives and resume-driven data display"
       ],
       "aiTools": ["Claude AI", "GitHub Copilot", "ChatGPT", "Cursor"],
-      "timeline": "2 weeks",
+      "timeline": "Ongoing",
       "category": "Full Stack Web Development",
       "enableTechnicalDetails": true,
       "technicalDetails": {
@@ -50,7 +46,7 @@
             "pageViews": "1,200+",
             "bounceRate": "45%",
             "avgSessionDuration": "2m 30s",
-            "topPages": ["/", "/#work", "/#about"]
+            "topPages": ["/", "/#work", "/#contact"]
           }
         },
         "monitoring": {
@@ -67,12 +63,12 @@
           "showScreenshots": true,
           "screenshots": [
             {
-              "src": "portfolio-ai/cicd/scheduled-deploy-workflow.png",
+              "src": "builtbygervonte/cicd/scheduled-deploy-workflow.png",
               "caption": "Scheduled Daily Deploy workflow showing successful runs at 10:13 AM with ~2 minute duration",
               "alt": "GitHub Actions scheduled deployment workflow runs"
             },
             {
-              "src": "portfolio-ai/cicd/pr-workflow.png",
+              "src": "builtbygervonte/cicd/pr-workflow.png",
               "caption": "CI/CD pipeline status showing automated checks, deployment status, and merge readiness",
               "alt": "GitHub Actions CI/CD pipeline status and checks"
             }
