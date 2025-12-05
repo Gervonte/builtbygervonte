@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 export const seoConfig = {
   title: 'BuiltByGervonte — Software Engineering, Music, Ignition Labs',
   description:
-    'BuiltByGervonte LLC is a digital studio by Gervonté Fowler, building modern software, AI‑enhanced tools, and the Ignition Labs product suite.',
+    'BuiltByGervonte LLC is a digital studio by Gervonté Fowler, building modern software, AI-enhanced tools, and the Ignition Labs product suite.',
   keywords: [
     'BuiltByGervonte',
     'Built By Gervonte',
@@ -109,6 +109,7 @@ export function generateStructuredData() {
       addressCountry: 'US',
     },
     founder: {
+      '@type': 'Person',
       '@id': `${seoConfig.url}/#person`,
     },
   };
@@ -126,6 +127,7 @@ export function generatePersonStructuredData() {
       name: 'Florida Polytechnic University',
     },
     worksFor: {
+      '@type': 'Organization',
       '@id': `${seoConfig.url}/#organization`,
     },
     sameAs: [
