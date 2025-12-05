@@ -45,7 +45,7 @@ Each project in the `projects` array should have:
 
 ## Status Options
 
-- **completed**: Finished projects
+- **live**: Finished projects
 - **in-progress**: Currently working on
 - **planned**: Future projects
 
