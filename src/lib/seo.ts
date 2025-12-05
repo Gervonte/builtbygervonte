@@ -2,31 +2,33 @@ import { Metadata } from 'next';
 
 // SEO Configuration
 export const seoConfig = {
-  title: 'Gervonte Fowler - M.S. Computer Science | AI-Enhanced Developer',
+  title: 'BuiltByGervonte — Software Engineering, Music, Ignition Labs',
   description:
-    'M.S. Computer Science graduate with 2+ years of Series B fintech startup experience. Professional portfolio showcasing AI-assisted and traditional development work with modern web technologies.',
+    'BuiltByGervonte LLC is a digital studio by Gervonté Fowler, building modern software, AI-enhanced tools, and the Ignition Labs product suite.',
   keywords: [
+    'BuiltByGervonte',
+    'Built By Gervonte',
+    'Gervonté Fowler',
     'Gervonte Fowler',
-    'Full-Stack Developer',
+    'Ignition Labs',
+    'Personal Finance App',
+    'Fintech Tools',
+    'DBTH Records',
+    'BEYWHAT',
     'Software Engineer',
-    'AI Researcher',
-    'React Developer',
-    'Node.js Developer',
-    'TypeScript',
-    'Python',
-    'Machine Learning',
-    'LLM Evaluation',
-    'Explainable AI',
-    'Portfolio',
-    'Web Development',
-    'Fintech',
-    'NovaCredit',
+    'AI-Enhanced Developer',
+    'Full-Stack Developer',
+    'SaaS Studio',
+    'Fintech Apps',
+    'Caribbean Technology',
+    'Bahamian Founder',
+    'Bahamian Software Engineer',
+    'Software Engineer Bahamas',
   ],
-  author: 'Gervonte Fowler',
-  url: 'https://portfolio-ai-xi.vercel.app',
-  image: 'https://portfolio-ai-xi.vercel.app/og-image.png',
-  twitterHandle: '@gervontefowler',
-  linkedinHandle: 'gervonte-fowler',
+  author: 'BuiltByGervonte LLC',
+  url: 'https://builtbygervonte.com',
+  image: 'https://builtbygervonte.com/og-image.png',
+  linkedinHandle: 'gervonte-fowler-5a7781158',
   githubHandle: 'gervonte',
 };
 
@@ -66,7 +68,7 @@ export function generatePageMetadata(
       url: fullUrl,
       title: fullTitle,
       description: fullDescription,
-      siteName: seoConfig.title,
+      siteName: 'BuiltByGervonte',
       images: [
         {
           url: fullImage,
@@ -75,13 +77,6 @@ export function generatePageMetadata(
           alt: fullTitle,
         },
       ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: fullTitle,
-      description: fullDescription,
-      images: [fullImage],
-      creator: seoConfig.twitterHandle,
     },
     alternates: {
       canonical: fullUrl,
@@ -96,15 +91,16 @@ export function generatePageMetadata(
 export function generateStructuredData() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Gervonte Fowler',
-    jobTitle: 'M.S. Computer Science Graduate | AI-Enhanced Developer',
+    '@type': 'Organization',
+    '@id': `${seoConfig.url}/#organization`,
+    name: 'BuiltByGervonte LLC',
     description: seoConfig.description,
     url: seoConfig.url,
     image: seoConfig.image,
     sameAs: [
       `https://linkedin.com/in/${seoConfig.linkedinHandle}`,
       `https://github.com/${seoConfig.githubHandle}`,
+      'https://instagram.com/gervonte_',
     ],
     address: {
       '@type': 'PostalAddress',
@@ -112,26 +108,32 @@ export function generateStructuredData() {
       addressRegion: 'FL',
       addressCountry: 'US',
     },
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Florida Polytechnic University',
+    founder: {
+      '@type': 'Person',
+      '@id': `${seoConfig.url}/#person`,
     },
-    knowsAbout: [
-      'Full-Stack Development',
-      'React',
-      'Node.js',
-      'TypeScript',
-      'Python',
-      'Machine Learning',
-      'AI Research',
-      'LLM Evaluation',
-      'Explainable AI',
-      'Web Development',
-      'Software Engineering',
-    ],
+  };
+}
+
+export function generatePersonStructuredData() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${seoConfig.url}/#person`,
+    name: 'Gervonté Fowler',
+    url: seoConfig.url,
     alumniOf: {
       '@type': 'EducationalOrganization',
       name: 'Florida Polytechnic University',
     },
+    worksFor: {
+      '@type': 'Organization',
+      '@id': `${seoConfig.url}/#organization`,
+    },
+    sameAs: [
+      `https://linkedin.com/in/${seoConfig.linkedinHandle}`,
+      `https://github.com/${seoConfig.githubHandle}`,
+      'https://instagram.com/gervonte_',
+    ],
   };
 }

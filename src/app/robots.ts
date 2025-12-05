@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/_next/', '/admin/'],
     },
-    sitemap: 'https://portfolio-ai-xi.vercel.app/sitemap.xml',
+    sitemap: 'https://builtbygervonte.com/sitemap.xml',
   };
 }

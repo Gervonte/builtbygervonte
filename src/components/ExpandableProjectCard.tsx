@@ -19,7 +19,7 @@ const getProjectIcon = (type: Project['type']) => {
 
 const getStatusColor = (status: Project['status']) => {
   switch (status) {
-    case 'completed':
+    case 'live':
       return 'sakura';
     case 'in-progress':
       return 'pink';

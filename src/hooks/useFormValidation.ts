@@ -270,7 +270,7 @@ export function useProjectFormValidation() {
       type: 'standard-work',
       technologies: [],
       featured: false,
-      status: 'completed',
+      status: 'live',
     },
     validateOnChange: true,
     validateOnBlur: true,
