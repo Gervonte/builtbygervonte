@@ -1,4 +1,4 @@
-import { PortfolioData, Project, Experience, Education, Technology } from '@/lib/schemas';
+import { Education, Experience, PortfolioData, Project, Technology } from '@/lib/schemas';
 
 // Sample technologies
 export const sampleTechnologies: Technology[] = [
@@ -91,7 +91,7 @@ export const sampleProjects: Project[] = [
     githubUrl: 'https://github.com/yourusername/portfolio-ai',
     featured: true,
     completedAt: new Date('2024-01-15'),
-    status: 'completed',
+    status: 'live',
     tags: ['portfolio', 'nextjs', 'typescript', 'ai-assisted'],
     highlights: [
       'Implemented sakura petal animations with custom sakura.js integration',
@@ -138,7 +138,7 @@ export const sampleProjects: Project[] = [
     githubUrl: 'https://github.com/yourusername/ecommerce-platform',
     featured: true,
     completedAt: new Date('2023-11-20'),
-    status: 'completed',
+    status: 'live',
     tags: ['ecommerce', 'fullstack', 'react', 'nodejs'],
     highlights: [
       'Built complete payment integration with Stripe',
@@ -185,7 +185,7 @@ export const sampleProjects: Project[] = [
     githubUrl: 'https://github.com/yourusername/task-management-app',
     featured: false,
     completedAt: new Date('2023-08-10'),
-    status: 'completed',
+    status: 'live',
     tags: ['productivity', 'collaboration', 'react', 'typescript'],
     highlights: [
       'Implemented real-time collaboration with WebSockets',

@@ -39,5 +39,11 @@
   "[markdown]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "cSpell.words": [
+    "BEYWHAT",
+    "DBTH",
+    "Fintech",
+    "Gervonté"
+  ]
 }

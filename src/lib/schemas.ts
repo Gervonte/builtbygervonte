@@ -53,7 +53,7 @@ export const projectSchema = z.object({
   completedAt: z.date().optional(),
   startDate: z.date().optional(),
   endDate: z.date().optional(),
-  status: z.enum(['completed', 'in-progress', 'planned', 'on-hold']).default('completed'),
+  status: z.enum(['live', 'in-progress', 'planned', 'on-hold']).default('live'),
   tags: z.array(z.string()).optional(),
   highlights: z.array(z.string()).optional(), // Key achievements or features
   challenges: z.array(z.string()).optional(), // Technical challenges faced

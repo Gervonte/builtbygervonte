@@ -2,7 +2,11 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SkipLink from '@/components/SkipLink';
 import ThemeWrapper from '@/components/ThemeWrapper';
-import { generatePageMetadata, generateStructuredData } from '@/lib/seo';
+import {
+  generatePageMetadata,
+  generatePersonStructuredData,
+  generateStructuredData,
+} from '@/lib/seo';
 import { ThemeProvider } from '@/lib/theme-context';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
@@ -33,15 +37,24 @@ const navigationLinks = [
 export const metadata: Metadata = generatePageMetadata();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const structuredData = generateStructuredData();
+  const organizationStructuredData = generateStructuredData();
+  const personStructuredData = generatePersonStructuredData();
 
   return (
     <html lang="en">
       <head>
         <script
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
+            __html: JSON.stringify(organizationStructuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personStructuredData),
           }}
         />
         {/* Favicon */}

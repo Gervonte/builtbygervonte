@@ -90,7 +90,7 @@ export const projectTypeContexts: Record<string, BadgeContext> = {
 
 // Project status contexts
 export const projectStatusContexts: Record<string, BadgeContext> = {
-  completed: {
+  live: {
     title: 'Project Completed',
     description: 'Successfully delivered and deployed to production',
     capabilities: [

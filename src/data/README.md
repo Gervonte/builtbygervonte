@@ -27,7 +27,7 @@ Each project in the `projects` array should have:
   "longDescription": "Detailed description",
   "type": "vibe-coded" | "standard-work",
   "technologies": ["Tech1", "Tech2", "Tech3"],
-  "status": "completed" | "in-progress" | "planned",
+  "status": "live" | "in-progress" | "planned",
   "featured": true | false,
   "liveUrl": "https://example.com",
   "githubUrl": "https://github.com/user/repo",
@@ -45,7 +45,7 @@ Each project in the `projects` array should have:
 
 ## Status Options
 
-- **completed**: Finished projects
+- **live**: Finished projects
 - **in-progress**: Currently working on
 - **planned**: Future projects
 
