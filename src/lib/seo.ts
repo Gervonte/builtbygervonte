@@ -7,6 +7,7 @@ export const seoConfig = {
     'BuiltByGervonte LLC is a digital studio by Gervonté Fowler, building modern software, AI‑enhanced tools, and the Ignition Labs product suite.',
   keywords: [
     'BuiltByGervonte',
+    'Built By Gervonte',
     'Gervonté Fowler',
     'Gervonte Fowler',
     'Ignition Labs',
@@ -91,8 +92,8 @@ export function generateStructuredData() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${seoConfig.url}/#organization`,
     name: 'BuiltByGervonte LLC',
-    jobTitle: 'Digital Studio & Software Development Company',
     description: seoConfig.description,
     url: seoConfig.url,
     image: seoConfig.image,
@@ -107,21 +108,30 @@ export function generateStructuredData() {
       addressRegion: 'FL',
       addressCountry: 'US',
     },
-    worksFor: {
-      '@type': 'Person',
-      name: 'Gervonté Fowler',
+    founder: {
+      '@id': `${seoConfig.url}/#person`,
     },
-    knowsAbout: [
-      'Software Engineering',
-      'AI-Enhanced Development',
-      'Product Design',
-      'SaaS Platforms',
-      'Fintech Tools',
-      'Startup Development',
-    ],
+  };
+}
+
+export function generatePersonStructuredData() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${seoConfig.url}/#person`,
+    name: 'Gervonté Fowler',
+    url: seoConfig.url,
     alumniOf: {
       '@type': 'EducationalOrganization',
       name: 'Florida Polytechnic University',
     },
+    worksFor: {
+      '@id': `${seoConfig.url}/#organization`,
+    },
+    sameAs: [
+      `https://linkedin.com/in/${seoConfig.linkedinHandle}`,
+      `https://github.com/${seoConfig.githubHandle}`,
+      'https://instagram.com/gervonte_',
+    ],
   };
 }
