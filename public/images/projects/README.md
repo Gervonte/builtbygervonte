@@ -70,3 +70,4 @@ This directory contains local images for project thumbnails. These images will b
 If local images aren't working, the system will automatically fall back to:
 1. Live URL screenshots (if `liveUrl` is provided)
 2. Generated SVG placeholders (final fallback)
+
