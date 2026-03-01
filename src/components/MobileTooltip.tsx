@@ -23,7 +23,7 @@ export function MobileTooltip({
   delay = 200,
   disabled = false,
   trigger = 'both',
-  mobileBehavior = 'tap', // eslint-disable-line @typescript-eslint/no-unused-vars
+  mobileBehavior = 'tap',
   multiline = true,
   withArrow = true,
   position = 'top',
