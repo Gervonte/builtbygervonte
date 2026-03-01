@@ -22,11 +22,12 @@ export default function ParallaxElement({
   style = {},
 }: ParallaxElementProps) {
   const elementRef = useRef<HTMLDivElement>(null);
-  const instanceRef = useRef<
-    ReturnType<typeof useParallax>['createRellaxInstance'] extends (...args: any[]) => infer R // eslint-disable-line @typescript-eslint/no-explicit-any
-      ? R
-      : never | null
-  >(null);
+  const instanceRef =
+    useRef<
+      ReturnType<typeof useParallax>['createRellaxInstance'] extends (...args: any[]) => infer R
+        ? R
+        : never | null
+    >(null);
   const { createRellaxInstance, destroyRellaxInstance, isReducedMotion, globalSpeedMultiplier } =
     useParallax();
 
