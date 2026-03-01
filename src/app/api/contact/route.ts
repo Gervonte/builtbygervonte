@@ -30,6 +30,10 @@ function isValidEmailAddress(input: string): boolean {
     return false;
   }
 
+  if (localPart.startsWith('.') || localPart.endsWith('.') || localPart.includes('..')) {
+    return false;
+  }
+
   if (domainPart.startsWith('.') || domainPart.endsWith('.') || !domainPart.includes('.')) {
     return false;
   }
@@ -88,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const name = typeof body.name === 'string' ? body.name.trim() : '';
-    const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
+    const email = typeof body.email === 'string' ? body.email.trim() : '';
     const subject = typeof body.subject === 'string' ? body.subject.trim() : '';
     const message = typeof body.message === 'string' ? body.message.trim() : '';
 
