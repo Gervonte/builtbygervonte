@@ -4,6 +4,85 @@ import { Resend } from 'resend';
 // Initialize Resend only if API key is available
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
+function isAsciiLetterOrDigit(char: string): boolean {
+  const code = char.charCodeAt(0);
+  return (
+    (code >= 48 && code <= 57) || // 0-9
+    (code >= 65 && code <= 90) || // A-Z
+    (code >= 97 && code <= 122) // a-z
+  );
+}
+
+function isValidEmailAddress(input: string): boolean {
+  if (input.length < 3 || input.length > 254) {
+    return false;
+  }
+
+  const atIndex = input.indexOf('@');
+  if (atIndex <= 0 || atIndex !== input.lastIndexOf('@') || atIndex === input.length - 1) {
+    return false;
+  }
+
+  const localPart = input.slice(0, atIndex);
+  const domainPart = input.slice(atIndex + 1);
+
+  if (localPart.length > 64 || domainPart.length < 3) {
+    return false;
+  }
+
+  if (localPart.startsWith('.') || localPart.endsWith('.') || localPart.includes('..')) {
+    return false;
+  }
+
+  if (domainPart.startsWith('.') || domainPart.endsWith('.') || !domainPart.includes('.')) {
+    return false;
+  }
+
+  for (let i = 0; i < localPart.length; i++) {
+    const char = localPart[i];
+    if (
+      !isAsciiLetterOrDigit(char) &&
+      char !== '.' &&
+      char !== '_' &&
+      char !== '%' &&
+      char !== '+' &&
+      char !== '-'
+    ) {
+      return false;
+    }
+  }
+
+  const labels = domainPart.split('.');
+  for (const label of labels) {
+    if (!label || label.length > 63 || label.startsWith('-') || label.endsWith('-')) {
+      return false;
+    }
+
+    for (let i = 0; i < label.length; i++) {
+      const char = label[i];
+      if (!isAsciiLetterOrDigit(char) && char !== '-') {
+        return false;
+      }
+    }
+  }
+
+  // TLD should be alphabetic and at least 2 chars.
+  const tld = labels[labels.length - 1];
+  if (tld.length < 2) {
+    return false;
+  }
+  for (let i = 0; i < tld.length; i++) {
+    const char = tld[i];
+    const code = char.charCodeAt(0);
+    const isLetter = (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+    if (!isLetter) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Check if Resend is properly configured
@@ -11,16 +90,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email service not configured' }, { status: 503 });
     }
 
-    const { name, email, subject, message } = await request.json();
+    const body = await request.json();
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
+    const email = typeof body.email === 'string' ? body.email.trim() : '';
+    const subject = typeof body.subject === 'string' ? body.subject.trim() : '';
+    const message = typeof body.message === 'string' ? body.message.trim() : '';
 
     // Validate required fields
     if (!name || !email || !subject || !message) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    // Validate email format with linear-time checks (no regex backtracking risk)
+    if (!isValidEmailAddress(email)) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
     }
 

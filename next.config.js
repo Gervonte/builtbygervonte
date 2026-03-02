@@ -19,7 +19,18 @@ const nextConfig = {
     },
   },
   images: {
-    domains: ['localhost', 'v1.screenshot.11ty.dev'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'v1.screenshot.11ty.dev',
+        pathname: '/**',
+      },
+    ],
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
