@@ -6,6 +6,7 @@ import {
   useWarmColors,
   useWithOpacity,
 } from '@/lib/theme-aware-colors';
+import { useTheme } from '@/lib/theme-context';
 import { Anchor, Box, Burger, Container, Group, Paper, Stack, Transition } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
@@ -24,10 +25,15 @@ export default function Header({ links }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   // Theme-aware colors
+  const { resolvedColorScheme } = useTheme();
   const commonColors = useCommonColors();
   const primaryColors = usePrimaryColors();
   const warmColors = useWarmColors();
   const withOpacity = useWithOpacity;
+  const headerTextColor =
+    scrolled || resolvedColorScheme !== 'dark'
+      ? commonColors.textPrimary
+      : commonColors.textInverse;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +52,7 @@ export default function Header({ links }: HeaderProps) {
       aria-label={`Navigate to ${link.label} section`}
       style={{
         textDecoration: 'none',
-        color: scrolled ? commonColors.textPrimary : commonColors.textInverse,
+        color: headerTextColor,
         fontWeight: 500,
         transition: 'color 0.3s ease',
         position: 'relative',
@@ -117,7 +123,7 @@ export default function Header({ links }: HeaderProps) {
             opened={opened}
             onClick={toggle}
             size="sm"
-            color={scrolled ? commonColors.textPrimary : commonColors.textInverse}
+            color={headerTextColor}
             hiddenFrom="sm"
             aria-label="Toggle mobile menu"
             aria-expanded={opened}

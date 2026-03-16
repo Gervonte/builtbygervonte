@@ -1,6 +1,7 @@
 'use client';
 
 import { useColorCombinations, useCommonColors, usePrimaryColors } from '@/lib/theme-aware-colors';
+import { useTheme } from '@/lib/theme-context';
 import { Anchor, Group, Stack } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
@@ -26,6 +27,7 @@ export default function Navigation({
   const colorCombinations = useColorCombinations();
   const commonColors = useCommonColors();
   const primaryColors = usePrimaryColors();
+  const { resolvedColorScheme } = useTheme();
   const [activeLink, setActiveLink] = useState('');
 
   useEffect(() => {
@@ -80,7 +82,10 @@ export default function Navigation({
       case 'header':
         return {
           ...baseStyles,
-          color: scrolled ? commonColors.textPrimary : commonColors.textInverse,
+          color:
+            scrolled || resolvedColorScheme !== 'dark'
+              ? commonColors.textPrimary
+              : commonColors.textInverse,
           fontSize: '0.875rem',
           '&:hover': {
             color: primaryColors[3],
