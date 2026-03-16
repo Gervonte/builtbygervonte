@@ -120,7 +120,7 @@ export function useCommonColors() {
 
     backgroundPrimary: warmSurface,
     backgroundSecondary: warmElevated,
-    backgroundCard: isDark ? warmElevated : warmSurface,
+    backgroundCard: warmSurface,
     backgroundHero: isDark
       ? `linear-gradient(135deg, ${warmSurface}, rgba(${hexToRgb(primaryStrongAccent)}, 0.22))`
       : `linear-gradient(135deg, ${warmSurface}, ${primaryColors[0] ?? '#FFEBEE'})`,

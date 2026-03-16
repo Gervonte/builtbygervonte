@@ -53,8 +53,8 @@ const WorkSection = memo(() => {
             My Work
           </Title>
           <Text size="xl" c="dimmed" maw={800} mx="auto">
-            A showcase of my projects, highlighting both AI-assisted development and traditional
-            programming approaches
+            A showcase of my most recent projects, highlighting both &apos;vibe coded&apos;
+            development and traditional programming approaches
           </Text>
         </Box>
 
@@ -88,6 +88,7 @@ const WorkSection = memo(() => {
                     alt: `${project.title} preview`,
                     fallbackIcon: getProjectIcon(project.type),
                     objectPosition: project.thumbnailPosition?.featured,
+                    scale: project.thumbnailScale?.featured,
                   }}
                   headerIcon={getProjectIcon(project.type)}
                   headerIconColor={getTypeColor(project.type)}
@@ -164,7 +165,7 @@ const WorkSection = memo(() => {
                   size="lg"
                   radius="xl"
                 >
-                  AI-Assisted Development
+                  AI-Led Development
                 </Badge>
               </Group>
               <Text ta="center" c="dimmed" mb="xl" maw={600} mx="auto">
@@ -191,7 +192,7 @@ const WorkSection = memo(() => {
                   size="lg"
                   radius="xl"
                 >
-                  Traditional Development
+                  HandCrafted Development
                 </Badge>
               </Group>
               <Text ta="center" c="dimmed" mb="xl" maw={600} mx="auto">

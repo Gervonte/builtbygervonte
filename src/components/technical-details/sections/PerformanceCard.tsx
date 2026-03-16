@@ -22,7 +22,6 @@ const PerformanceCard = memo(({ section, commonColors }: SectionCardProps) => {
           padding="lg"
           radius="md"
           style={{
-            background: commonColors.backgroundCard,
             boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
             transition: 'all 0.2s ease-in-out',
             transform: 'scale(1)',
@@ -113,7 +112,6 @@ const PerformanceCard = memo(({ section, commonColors }: SectionCardProps) => {
           padding="lg"
           radius="md"
           style={{
-            background: commonColors.backgroundCard,
             boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
             transition: 'all 0.2s ease-in-out',
             transform: 'scale(1)',

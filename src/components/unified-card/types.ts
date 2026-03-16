@@ -6,6 +6,7 @@ export interface ThumbnailProps {
   alt: string;
   fallbackIcon?: ReactNode;
   objectPosition?: string;
+  scale?: number;
 }
 
 export interface StatusBadgeProps {

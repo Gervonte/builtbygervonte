@@ -30,6 +30,7 @@ export interface TechnicalDetailsModalProps {
 export interface CommonColors {
   backgroundModal: string;
   backgroundCard: string;
+  backgroundSecondary: string;
   borderModal: string;
   borderPrimary: string;
   textPrimary: string;
@@ -51,10 +52,13 @@ export interface ScreenshotItem {
   src: string;
   caption?: string;
   alt?: string;
+  modalPosition?: string;
+  modalScale?: number;
+  modalFit?: 'contain' | 'cover';
 }
 
 export interface ScreenshotGalleryProps {
-  screenshots: string[] | ScreenshotItem[];
+  screenshots: Array<string | ScreenshotItem>;
   sectionKey: string;
   commonColors: CommonColors;
   onImageSelect: (image: ScreenshotItem) => void;
@@ -75,8 +79,8 @@ export interface ModalHeaderProps {
 
 // Modal configuration constants
 export const MODAL_CONFIG = {
-  size: '90vw',
-  maxWidth: '1000px',
-  maxHeight: '90vh',
-  imageMaxHeight: '70vh',
+  detailsSize: '86vw',
+  detailsMaxWidth: '1120px',
+  detailsMaxHeight: '78vh',
+  imageMaxHeight: '86vh',
 } as const;

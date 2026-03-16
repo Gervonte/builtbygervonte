@@ -15,7 +15,7 @@ This directory contains metadata files for the About section of the portfolio.
 The `about-metadata.json` file is automatically generated from your resume using the resume parser script:
 
 ```bash
-npm run parse-resume
+pnpm parse-resume
 ```
 
 **⚠️ Important**: This file should **NEVER** be edited manually as it will be overwritten when you run the parser.
@@ -27,6 +27,7 @@ The `manual-additions.json` file is for adding data that isn't in your resume or
 - **Skills** not mentioned in resume (e.g., Vercel, Sentry)
 - **Research projects** with different descriptions
 - **Additional experience** or education entries
+- **Current roles** that should appear before older resume-parsed experience
 - **Custom leadership** roles or descriptions
 
 **✅ This is the file you should edit** for manual updates.
@@ -69,7 +70,7 @@ The `about-metadata.json` file contains the following sections:
     {
       "name": "Skill Name",
       "level": "beginner|intermediate|advanced|expert",
-      "category": "frontend|backend|devops|tools|soft"
+      "category": "frontend|backend|database|devops|tools|ai-ml|soft"
     }
   ]
 }
@@ -86,8 +87,10 @@ The `about-metadata.json` file contains the following sections:
 
 - `frontend` - Frontend technologies (React, TypeScript, etc.)
 - `backend` - Backend technologies (Node.js, Python, etc.)
+- `database` - Database platforms and storage systems
 - `devops` - DevOps tools (Docker, CI/CD, etc.)
 - `tools` - Development tools and methodologies
+- `ai-ml` - AI tools and copilots used in day-to-day work
 - `soft` - Soft skills (Communication, Leadership, etc.)
 
 ### Experience
@@ -100,6 +103,8 @@ The `about-metadata.json` file contains the following sections:
       "company": "Company Name",
       "period": "Start Date - End Date",
       "description": "Brief job description",
+      "location": "City, ST",
+      "companyUrl": "https://example.com",
       "technologies": ["Tech1", "Tech2", "Tech3"],
       "achievements": ["Achievement 1", "Achievement 2"]
     }
@@ -160,7 +165,7 @@ The About section component automatically loads and merges data from both metada
 ### For Resume-Based Data:
 
 1. Update your resume in `src/assets/resume.txt`
-2. Run `npm run parse-resume` to regenerate `about-metadata.json`
+2. Run `pnpm parse-resume` to regenerate `about-metadata.json`
 3. The changes will be reflected immediately in the About section
 
 ### For Custom/Manual Data:
@@ -168,6 +173,8 @@ The About section component automatically loads and merges data from both metada
 1. Edit `manual-additions.json` with your custom information
 2. The changes will be reflected immediately in the About section
 3. No code changes or parsing required
+
+Manual `experience` entries are rendered before resume-parsed entries, which is useful for adding a current founder role or other recent work that is not in the parsed resume yet.
 
 ### Best Practice Workflow:
 
@@ -202,12 +209,12 @@ If the About section doesn't display correctly:
 
 1. **Duplicates showing**: Check if same data exists in both files
 2. **Manual changes not showing**: Ensure you're editing `manual-additions.json`, not `about-metadata.json`
-3. **Resume changes not reflected**: Run `npm run parse-resume` after updating resume
+3. **Resume changes not reflected**: Run `pnpm parse-resume` after updating resume
 4. **Skills missing**: Add to `manual-additions.json` (takes priority over resume)
 
 ### Technical Issues:
 
 1. Check the browser console for error messages
-2. Run `npm run type-check` to verify TypeScript types
+2. Run `pnpm type-check` to verify TypeScript types
 3. Verify the merging logic in `src/lib/about.ts`
 4. Check that both files are properly imported

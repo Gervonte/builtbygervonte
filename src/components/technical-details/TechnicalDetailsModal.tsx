@@ -153,12 +153,13 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       background: commonColors.backgroundModal,
       border: `1px solid ${commonColors.borderModal}`,
       boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
-      height: MODAL_CONFIG.imageMaxHeight,
-      maxHeight: MODAL_CONFIG.imageMaxHeight,
+      width: MODAL_CONFIG.detailsSize,
+      maxWidth: MODAL_CONFIG.detailsMaxWidth,
+      maxHeight: MODAL_CONFIG.detailsMaxHeight,
     },
     body: {
       background: commonColors.backgroundCard,
-      padding: '2rem',
+      padding: '1.5rem 2rem 1.25rem',
       marginTop: '-2px',
       position: 'relative' as const,
       zIndex: 5,
@@ -196,6 +197,31 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
     },
   };
 
+  const imageModalStyles = {
+    content: {
+      background: commonColors.backgroundModal,
+      border: 'none',
+      boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
+      padding: 0,
+      display: 'flex',
+      flexDirection: 'column' as const,
+      height: '100dvh',
+    },
+    body: {
+      background: commonColors.backgroundSecondary,
+      padding: 0,
+      display: 'flex',
+      flex: '1 1 auto',
+      minHeight: 0,
+    },
+    header: {
+      background: commonColors.backgroundModal,
+      borderBottom: `1px solid ${commonColors.borderPrimary}`,
+      padding: '1rem 1.5rem',
+      flex: '0 0 auto',
+    },
+  };
+
   if (!project.technicalDetails) {
     return (
       <Modal
@@ -203,7 +229,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         onClose={onClose}
         title="Technical Details"
         centered
-        size="xl"
+        size={MODAL_CONFIG.detailsSize}
         withCloseButton={false}
         classNames={{
           content: 'technical-modal-content',
@@ -234,7 +260,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         trapFocus={true}
         returnFocus={true}
         centered
-        size="xl"
+        size={MODAL_CONFIG.detailsSize}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         role="dialog"
@@ -332,8 +358,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
       <Modal
         opened={!!selectedImage}
         onClose={() => setSelectedImage(null)}
-        size={MODAL_CONFIG.size}
-        centered
+        fullScreen
         title={
           <Group justify="space-between" w="100%">
             <Text size="lg" fw={600} c={commonColors.textPrimary}>
@@ -344,37 +369,16 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             </Text>
           </Group>
         }
-        styles={{
-          content: {
-            background: commonColors.backgroundModal,
-            border: `1px solid ${commonColors.borderModal}`,
-            boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
-            maxHeight: MODAL_CONFIG.maxHeight,
-            padding: 0,
-            maxWidth: MODAL_CONFIG.maxWidth,
-            width: MODAL_CONFIG.size,
-          },
-          body: {
-            background: commonColors.backgroundCard,
-            padding: 0,
-          },
-          header: {
-            background: commonColors.backgroundCard,
-            borderBottom: `1px solid ${commonColors.borderPrimary}`,
-            padding: '1rem 1.5rem',
-          },
-        }}
+        styles={imageModalStyles}
       >
         {selectedImage && (
-          <Box>
+          <Box style={{ display: 'flex', flex: 1, minHeight: 0 }}>
             <Box
               style={{
                 position: 'relative',
-                maxHeight: MODAL_CONFIG.imageMaxHeight,
+                flex: 1,
+                minHeight: 0,
                 overflow: 'hidden',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 background: commonColors.backgroundSecondary,
               }}
             >
@@ -457,14 +461,13 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
               <Image
                 src={`/images/technical/${selectedImage.src}`}
                 alt={selectedImage.alt || 'Technical screenshot'}
-                width={1200}
-                height={800}
+                fill
+                sizes="100vw"
                 style={{
-                  maxWidth: '100%',
-                  maxHeight: MODAL_CONFIG.imageMaxHeight,
-                  width: 'auto',
-                  height: 'auto',
-                  objectFit: 'contain',
+                  objectFit: selectedImage.modalFit || 'contain',
+                  objectPosition: selectedImage.modalPosition || 'center center',
+                  transform: `scale(${selectedImage.modalScale || 1})`,
+                  transformOrigin: 'center center',
                 }}
               />
             </Box>

@@ -2,8 +2,8 @@
 
 import { Box, Card, Group, Text, ThemeIcon, Title } from '@mantine/core';
 import { memo } from 'react';
-import { getTechnicalIcon, formatSectionTitle } from '../utils';
 import { SectionCardProps } from '../types';
+import { formatSectionTitle, getTechnicalIcon } from '../utils';
 
 const OverviewCard = memo(({ section, sectionKey, commonColors }: SectionCardProps) => {
   return (
@@ -11,7 +11,6 @@ const OverviewCard = memo(({ section, sectionKey, commonColors }: SectionCardPro
       padding="xl"
       radius="md"
       style={{
-        background: commonColors.backgroundCard,
         boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
         minHeight: '120px',
         display: 'flex',
@@ -29,13 +28,14 @@ const OverviewCard = memo(({ section, sectionKey, commonColors }: SectionCardPro
         e.currentTarget.style.boxShadow = `0 2px 8px ${commonColors.shadowLight}`;
       }}
     >
-      <Group gap="sm" mb="sm">
+      <Group gap="sm" mb="sm" align="flex-start">
         <ThemeIcon
           color={commonColors.accentPrimary}
           variant="light"
           size="xl"
           style={{
             cursor: 'default',
+            flexShrink: 0,
             transition: 'all 0.2s ease-in-out',
             transform: 'scale(1)',
           }}
@@ -54,7 +54,12 @@ const OverviewCard = memo(({ section, sectionKey, commonColors }: SectionCardPro
           <Title order={3} c={commonColors.textPrimary} fw={700} mb="xs">
             {formatSectionTitle(sectionKey)} Overview
           </Title>
-          <Text size="md" c={commonColors.textSecondary} lh={1.6}>
+          <Text
+            size="md"
+            c={commonColors.textSecondary}
+            lh={1.6}
+            style={{ whiteSpace: 'pre-wrap' }}
+          >
             {section.description}
           </Text>
         </Box>
