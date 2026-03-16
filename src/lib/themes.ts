@@ -83,7 +83,7 @@ const lightWarmColors = [
 
 const darkWarmColors = [
   '#0E141B', // warm[0] - app background
-  '#16202A', // warm[1] - elevated surface
+  '#101820', // warm[1] - elevated surface
   '#273341', // warm[2] - border color
   '#6C7C8B', // warm[3] - muted text
   '#96A7B5', // warm[4] - secondary text
