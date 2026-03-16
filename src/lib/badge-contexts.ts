@@ -65,7 +65,7 @@ export const projectTypeContexts: Record<string, BadgeContext> = {
     capabilitiesLabel: 'How It Works:',
   },
   'standard-work': {
-    title: 'Hand Crafted Development',
+    title: 'HandCrafted Development',
     description: 'Built using established methodologies and proven practices',
     capabilities: [
       'Writing maintainable, well-documented code',
