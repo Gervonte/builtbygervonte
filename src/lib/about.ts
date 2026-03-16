@@ -1,11 +1,12 @@
 import aboutMetadata from '@/data/about-metadata.json';
 import manualAdditions from '@/data/manual-additions.json';
+import type { ResolvedColorScheme } from './themes';
 
 // Type definitions
 export interface Skill {
   name: string;
   level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
-  category: 'frontend' | 'backend' | 'devops' | 'tools' | 'soft';
+  category: 'frontend' | 'backend' | 'database' | 'devops' | 'tools' | 'ai-ml' | 'soft';
 }
 
 export interface Experience {
@@ -14,6 +15,8 @@ export interface Experience {
   period: string;
   description: string;
   longDescription?: string;
+  location?: string;
+  companyUrl?: string;
   technologies: string[];
   achievements: string[];
 }
@@ -74,6 +77,10 @@ const deduplicateSkills = (skills: Skill[]): Skill[] => {
   });
 };
 
+// Hide resume-parsed skills that should not appear in the public About skills section.
+const excludedSkillNames = new Set(['GraphQL']);
+const databaseSkillNames = new Set(['PostgreSQL', 'Supabase', 'Supabase Auth']);
+
 // Helper function to deduplicate research projects by title
 const deduplicateResearchProjects = (projects: ResearchProject[]): ResearchProject[] => {
   const seen = new Set<string>();
@@ -94,11 +101,17 @@ const mergedData: AboutData = {
     ...aboutMetadata.personalInfo,
     ...(manualAdditions.personalInfo || {}),
   },
-  skills: deduplicateSkills([
-    ...aboutMetadata.skills,
-    ...(manualAdditions.skills || []),
-  ] as Skill[]),
-  experience: [...aboutMetadata.experience, ...(manualAdditions.experience || [])],
+  skills: deduplicateSkills([...aboutMetadata.skills, ...(manualAdditions.skills || [])] as Skill[])
+    .filter(skill => !excludedSkillNames.has(skill.name))
+    .map(skill =>
+      databaseSkillNames.has(skill.name)
+        ? {
+            ...skill,
+            category: 'database',
+          }
+        : skill
+    ),
+  experience: [...(manualAdditions.experience || []), ...aboutMetadata.experience],
   education: [...aboutMetadata.education, ...(manualAdditions.education || [])],
   researchProjects: deduplicateResearchProjects([
     ...(manualAdditions.researchProjects || []),
@@ -172,7 +185,8 @@ export const getSkillColor = (level: Skill['level']): string => {
 // This function provides better color choices for each theme without changing global mappings
 export const getThemeAwareSkillColor = (
   level: Skill['level'],
-  theme: 'sakura' | 'ocean'
+  theme: 'sakura' | 'ocean',
+  colorScheme: ResolvedColorScheme = 'light'
 ): string => {
   if (theme === 'ocean') {
     switch (level) {
@@ -181,7 +195,7 @@ export const getThemeAwareSkillColor = (
       case 'advanced':
         return 'earth'; // Use earth color for advanced in ocean theme (better contrast)
       case 'intermediate':
-        return 'warm'; // Use warm color for intermediate in ocean theme
+        return colorScheme === 'dark' ? 'mist' : 'warm'; // Keep intermediate badges readable in dark ocean mode
       case 'beginner':
         return 'gray'; // Keep gray for beginner
       default:
@@ -197,7 +211,8 @@ export const getThemeAwareSkillColor = (
 // This function provides different variants for better visual distinction
 export const getThemeAwareSkillVariant = (
   level: Skill['level'],
-  theme: 'sakura' | 'ocean'
+  theme: 'sakura' | 'ocean',
+  colorScheme: ResolvedColorScheme = 'light'
 ): 'light' | 'filled' | 'outline' => {
   if (theme === 'ocean') {
     switch (level) {
@@ -206,7 +221,7 @@ export const getThemeAwareSkillVariant = (
       case 'advanced':
         return 'light'; // Use light variant for advanced in ocean theme
       case 'intermediate':
-        return 'outline'; // Use outline variant for intermediate in ocean theme
+        return colorScheme === 'dark' ? 'light' : 'outline'; // Use a lighter treatment for dark ocean mode
       case 'beginner':
         return 'light'; // Use light variant for beginner
       default:
@@ -225,10 +240,14 @@ export const getCategoryIcon = (category: Skill['category']): string => {
       return 'IconCode';
     case 'backend':
       return 'IconDatabase';
+    case 'database':
+      return 'IconDatabase';
     case 'devops':
       return 'IconCloud';
     case 'tools':
       return 'IconTools';
+    case 'ai-ml':
+      return 'IconTarget';
     case 'soft':
       return 'IconUsers';
     default:

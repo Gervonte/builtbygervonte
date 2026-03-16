@@ -12,26 +12,45 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   imageUrl?: string;
+  imagePath?: string;
   achievements: string[];
   aiTools?: string[];
   timeline: string;
   category: string;
+  thumbnailPosition?: {
+    featured?: string;
+    grid?: string;
+  };
+  thumbnailScale?: {
+    featured?: number;
+    grid?: number;
+  };
   enableTechnicalDetails?: boolean;
   technicalDetails?: TechnicalDetails;
 }
 
 export interface TechnicalDetails {
-  analytics: TechnicalSection;
-  monitoring: TechnicalSection;
-  cicd: TechnicalSection;
+  analytics?: TechnicalSection;
+  monitoring?: TechnicalSection;
+  cicd?: TechnicalSection;
   performance?: TechnicalSection;
-  architecture: TechnicalSection;
+  architecture?: TechnicalSection;
+  product?: TechnicalSection;
+}
+
+export interface ProjectScreenshot {
+  src: string;
+  caption?: string;
+  alt?: string;
+  modalPosition?: string;
+  modalScale?: number;
+  modalFit?: 'contain' | 'cover';
 }
 
 export interface TechnicalSection {
   enabled?: boolean;
   showScreenshots?: boolean;
-  screenshots: string[];
+  screenshots: Array<string | ProjectScreenshot>;
   description: string;
   [key: string]: unknown; // Allow for flexible additional properties
 }

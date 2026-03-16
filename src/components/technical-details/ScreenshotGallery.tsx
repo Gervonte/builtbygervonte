@@ -27,7 +27,8 @@ const ScreenshotGallery = memo(
     return (
       <Box
         style={{
-          maxWidth: '800px',
+          width: '100%',
+          maxWidth: '1120px',
           margin: '0 auto',
         }}
       >
@@ -35,7 +36,6 @@ const ScreenshotGallery = memo(
           padding="xl"
           radius="md"
           style={{
-            background: commonColors.backgroundCard,
             boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
             transition: 'all 0.2s ease-in-out',
             transform: 'scale(1)',
@@ -103,7 +103,6 @@ const ScreenshotGallery = memo(
                   cursor: 'pointer',
                   transition: 'all 0.2s ease-in-out',
                   transform: 'scale(1)',
-                  background: commonColors.backgroundCard,
                   border: `1px solid ${commonColors.borderPrimary}`,
                 }}
                 onClick={() => onImageSelect(screenshot)}

@@ -1,157 +1,184 @@
-import { useCurrentTheme } from './theme-context';
+import { useCurrentTheme, useTheme } from './theme-context';
+
+const LIGHT_PRIMARY_FALLBACK = ['#FFEBEE', '#FFCDD2', '#EF9A9A', '#F44336'];
+const LIGHT_EFFECT_FALLBACK = ['#FCE4EC', '#F8BBD9', '#F48FB1', '#F06292'];
+const EARTH_FALLBACK = ['#FDF4E3', '#F4E4BC', '#D4A574', '#8B4513'];
+const LIGHT_WARM_FALLBACK = ['#FDFCFB', '#F5F5F5', '#E8E8E8', '#999999', '#666666', '#2C2C2C'];
+const DARK_WARM_FALLBACK = ['#0E141B', '#16202A', '#273341', '#6C7C8B', '#96A7B5', '#D9E2EA'];
 
 /**
  * Theme-aware color utility functions
- * These functions automatically adapt to the current theme
+ * These functions automatically adapt to the current theme and appearance mode.
  */
 
-// Hook to get current theme colors
+function getWarmFallback(resolvedColorScheme: 'light' | 'dark') {
+  return resolvedColorScheme === 'dark' ? DARK_WARM_FALLBACK : LIGHT_WARM_FALLBACK;
+}
+
 export function useThemeColors() {
   const theme = useCurrentTheme();
   return theme.colors || {};
 }
 
-// Hook to get primary color palette based on current theme
 export function usePrimaryColors() {
   const theme = useCurrentTheme();
   const primaryColorName = theme.primaryColor as keyof typeof theme.colors;
-  return (theme.colors?.[primaryColorName] as readonly string[]) || [];
+  return (theme.colors?.[primaryColorName] as readonly string[]) || LIGHT_PRIMARY_FALLBACK;
 }
 
-// Hook to get effect colors (pink for sakura, mist for ocean)
 export function useEffectColors() {
   const theme = useCurrentTheme();
   const isSakura = theme.primaryColor === 'sakura';
   const effectColorName = isSakura ? 'pink' : 'mist';
-  return (theme.colors?.[effectColorName as keyof typeof theme.colors] as readonly string[]) || [];
+
+  return (
+    (theme.colors?.[effectColorName as keyof typeof theme.colors] as readonly string[]) || [
+      ...LIGHT_EFFECT_FALLBACK,
+    ]
+  );
 }
 
-// Hook to get warm colors (same for both themes)
 export function useWarmColors() {
   const theme = useCurrentTheme();
-  return (theme.colors?.warm as readonly string[]) || [];
+  const { resolvedColorScheme } = useTheme();
+
+  return (theme.colors?.warm as readonly string[]) || getWarmFallback(resolvedColorScheme);
 }
 
-// Hook to get earth colors (same for both themes)
 export function useEarthColors() {
   const theme = useCurrentTheme();
-  return (theme.colors?.earth as readonly string[]) || [];
+  return (theme.colors?.earth as readonly string[]) || EARTH_FALLBACK;
 }
 
-// Hook to get common color combinations
 export function useColorCombinations() {
+  const { resolvedColorScheme } = useTheme();
   const primaryColors = usePrimaryColors();
   const effectColors = useEffectColors();
   const warmColors = useWarmColors();
   const earthColors = useEarthColors();
+  const isDark = resolvedColorScheme === 'dark';
 
-  // Fallback colors (Sakura theme defaults)
-  const fallbackPrimary = ['#FFEBEE', '#FFCDD2', '#EF9A9A', '#F44336'];
-  const fallbackEffect = ['#FCE4EC', '#F8BBD9', '#F48FB1', '#F06292'];
-  const fallbackWarm = ['#FDFCFB', '#F5F5F5', '#E8E8E8', '#999999'];
-  const fallbackEarth = ['#FDF4E3', '#F4E4BC', '#D4A574', '#8B4513'];
-
-  // Safe array access with fallbacks
-  const safePrimary = primaryColors.length >= 4 ? primaryColors : fallbackPrimary;
-  const safeEffect = effectColors.length >= 4 ? effectColors : fallbackEffect;
-  const safeWarm = warmColors.length >= 2 ? warmColors : fallbackWarm;
-  const safeEarth = earthColors.length >= 2 ? earthColors : fallbackEarth;
+  const safePrimary = primaryColors.length >= 4 ? primaryColors : LIGHT_PRIMARY_FALLBACK;
+  const safeEffect = effectColors.length >= 4 ? effectColors : LIGHT_EFFECT_FALLBACK;
+  const safeWarm =
+    warmColors.length >= 3 ? warmColors : getWarmFallback(resolvedColorScheme ?? 'light');
+  const safeEarth = earthColors.length >= 4 ? earthColors : EARTH_FALLBACK;
+  const footerAccent = isDark
+    ? `rgba(${hexToRgb(safePrimary[4] || safePrimary[3])}, 0.24)`
+    : safePrimary[0];
+  const primaryModalStart = isDark
+    ? `rgba(${hexToRgb(safePrimary[4] || safePrimary[3])}, 0.2)`
+    : safePrimary[0];
+  const primaryModalEnd = isDark
+    ? `rgba(${hexToRgb(safePrimary[6] || safePrimary[3])}, 0.42)`
+    : safePrimary[1];
 
   return {
-    // Primary gradients
     primaryGradient: `linear-gradient(135deg, ${safePrimary[3]}, ${safePrimary[1]})`,
-    primaryGradientLight: `linear-gradient(135deg, ${safePrimary[1]}, ${safePrimary[0]})`,
-
-    // Effect gradients
+    primaryGradientLight: isDark
+      ? `linear-gradient(135deg, rgba(${hexToRgb(safePrimary[3])}, 0.45), rgba(${hexToRgb(safePrimary[1])}, 0.15))`
+      : `linear-gradient(135deg, ${safePrimary[1]}, ${safePrimary[0]})`,
     effectGradient: `linear-gradient(135deg, ${safeEffect[3]}, ${safeEffect[1]})`,
-    effectGradientLight: `linear-gradient(135deg, ${safeEffect[1]}, ${safeEffect[0]})`,
-
-    // Footer gradient (theme-aware subtle colors)
-    footerGradient: `linear-gradient(135deg, ${safePrimary[0]}, ${safeWarm[1]})`,
-
-    // Technical modal gradients
+    effectGradientLight: isDark
+      ? `linear-gradient(135deg, rgba(${hexToRgb(safeEffect[3])}, 0.4), rgba(${hexToRgb(safeEffect[1])}, 0.14))`
+      : `linear-gradient(135deg, ${safeEffect[1]}, ${safeEffect[0]})`,
+    footerGradient: `linear-gradient(135deg, ${footerAccent}, ${safeWarm[1]})`,
     earthGradientModal: `linear-gradient(135deg, ${safeEarth[0]}, ${safeEarth[1]})`,
     warmGradientModal: `linear-gradient(135deg, ${safeWarm[0]}, ${safeWarm[1]})`,
-    primaryGradientModal: `linear-gradient(135deg, ${safePrimary[0]}, ${safePrimary[1]})`,
-
-    // Skeleton loading gradients
+    primaryGradientModal: `linear-gradient(135deg, ${primaryModalStart}, ${primaryModalEnd})`,
     skeletonGradient: `linear-gradient(90deg, ${safeWarm[1]} 25%, ${safeWarm[2]} 50%, ${safeWarm[1]} 75%)`,
-    skeletonGradientDark: `linear-gradient(90deg, ${safeWarm[3]} 25%, ${safeWarm[4]} 50%, ${safeWarm[3]} 75%)`,
+    skeletonGradientDark: `linear-gradient(90deg, ${safeWarm[1]} 25%, ${safeWarm[2]} 50%, ${safeWarm[1]} 75%)`,
   };
 }
 
-// Hook to get common color usage patterns
 export function useCommonColors() {
+  const { resolvedColorScheme } = useTheme();
   const primaryColors = usePrimaryColors();
   const warmColors = useWarmColors();
   const earthColors = useEarthColors();
+  const isDark = resolvedColorScheme === 'dark';
+
+  const primaryAccent = primaryColors[3] ?? '#F44336';
+  const primaryStrongAccent = primaryColors[4] ?? primaryAccent;
+  const primarySoftAccent = primaryColors[1] ?? '#FFCDD2';
+  const warmSurface = warmColors[0] ?? (isDark ? '#0E141B' : '#FDFCFB');
+  const warmElevated = warmColors[1] ?? (isDark ? '#16202A' : '#F5F5F5');
+  const warmBorder = warmColors[2] ?? (isDark ? '#273341' : '#E8E8E8');
+  const warmMuted = warmColors[3] ?? (isDark ? '#6C7C8B' : '#999999');
+  const warmSecondary = warmColors[4] ?? (isDark ? '#96A7B5' : '#666666');
+  const warmPrimary = warmColors[5] ?? (isDark ? '#D9E2EA' : '#2C2C2C');
+  const inverseText = isDark ? (warmColors[8] ?? '#FFFFFF') : warmSurface;
+  const earthAccent = earthColors[2] ?? '#D4A574';
 
   return {
-    // Text colors (fallback to sakura theme)
-    textPrimary: warmColors[5] ?? '#2C2C2C',
-    textSecondary: warmColors[4] ?? '#666666',
-    textMuted: warmColors[3] ?? '#999999',
-    textInverse: warmColors[0] ?? '#FDFCFB',
-    textOnPrimary: primaryColors[6] ?? '#C62828', // Dark text for primary backgrounds (sakura[6])
-    textOnPrimaryLight: primaryColors[5] ?? '#D32F2F', // Medium text for primary backgrounds (sakura[5])
+    textPrimary: warmPrimary,
+    textSecondary: warmSecondary,
+    textMuted: warmMuted,
+    textInverse: inverseText,
+    textOnPrimary: isDark ? inverseText : (primaryColors[6] ?? '#C62828'),
+    textOnPrimaryLight: isDark ? (warmColors[6] ?? '#EEF3F7') : (primaryColors[5] ?? '#D32F2F'),
 
-    // Background colors (fallback to sakura theme)
-    backgroundPrimary: warmColors[0] ?? '#FDFCFB',
-    backgroundSecondary: warmColors[1] ?? '#F5F5F5',
-    backgroundCard: warmColors[0] ?? '#FDFCFB',
-    backgroundHero: `linear-gradient(135deg, ${warmColors[0] ?? '#FDFCFB'}, ${primaryColors[0] ?? '#FFEBEE'})`,
-    backgroundWork: earthColors[0] ?? '#FDF4E3',
-    backgroundContact: primaryColors[0] ?? '#FFEBEE', // sakura[0]
-    backgroundPrimaryLight: primaryColors[0] ?? '#FFEBEE', // Light primary background (sakura[0])
-    backgroundPrimarySubtle: primaryColors[1] ?? '#FFCDD2', // Subtle primary background (sakura[1])
+    backgroundPrimary: warmSurface,
+    backgroundSecondary: warmElevated,
+    backgroundCard: warmSurface,
+    backgroundHero: isDark
+      ? `linear-gradient(135deg, ${warmSurface}, rgba(${hexToRgb(primaryStrongAccent)}, 0.22))`
+      : `linear-gradient(135deg, ${warmSurface}, ${primaryColors[0] ?? '#FFEBEE'})`,
+    backgroundWork: isDark
+      ? `linear-gradient(135deg, ${warmSurface}, rgba(${hexToRgb(earthColors[6] ?? '#3D2314')}, 0.24))`
+      : (earthColors[0] ?? '#FDF4E3'),
+    backgroundContact: isDark
+      ? `rgba(${hexToRgb(primaryStrongAccent)}, 0.16)`
+      : (primaryColors[0] ?? '#FFEBEE'),
+    backgroundPrimaryLight: isDark
+      ? `rgba(${hexToRgb(primaryStrongAccent)}, 0.18)`
+      : (primaryColors[0] ?? '#FFEBEE'),
+    backgroundPrimarySubtle: isDark ? `rgba(${hexToRgb(primaryAccent)}, 0.12)` : primarySoftAccent,
 
-    // Border colors (fallback to sakura theme)
-    borderPrimary: warmColors[2] ?? '#E8E8E8',
-    borderSecondary: primaryColors[1] ?? '#FFCDD2', // sakura[1]
-    borderFocus: primaryColors[5] ?? '#D32F2F', // sakura[5]
-    borderPrimaryLight: primaryColors[2] ?? '#EF9A9A', // Primary-themed border (sakura[2])
+    borderPrimary: warmBorder,
+    borderSecondary: isDark ? `rgba(${hexToRgb(primaryAccent)}, 0.3)` : primarySoftAccent,
+    borderFocus: primaryStrongAccent,
+    borderPrimaryLight: isDark
+      ? `rgba(${hexToRgb(primaryColors[2] ?? primaryAccent)}, 0.35)`
+      : (primaryColors[2] ?? '#EF9A9A'),
 
-    // Accent colors (fallback to sakura theme)
-    accentPrimary: primaryColors[5] ?? '#D32F2F', // sakura[5]
-    accentSecondary: primaryColors[1] ?? '#FFCDD2', // sakura[1]
-    accentPrimaryDark: primaryColors[4] ?? '#E53935', // Darker primary accent (sakura[4])
+    accentPrimary: isDark ? (primaryColors[2] ?? primaryAccent) : (primaryColors[5] ?? '#D32F2F'),
+    accentSecondary: isDark ? primarySoftAccent : primarySoftAccent,
+    accentPrimaryDark: isDark ? primaryAccent : primaryStrongAccent,
 
-    // Shadow colors (fallback to sakura theme)
-    shadowLight: 'rgba(0, 0, 0, 0.05)',
-    shadowMedium: 'rgba(0, 0, 0, 0.1)',
-    shadowHeavy: 'rgba(0, 0, 0, 0.15)',
-    shadowCard: '0 2px 8px rgba(0, 0, 0, 0.08)',
-    shadowPrimary: `rgba(${hexToRgb(primaryColors[3] || '#F44336')}, 0.25)`, // sakura[3]
-    shadowPrimaryLight: `rgba(${hexToRgb(primaryColors[3] || '#F44336')}, 0.15)`, // Primary-themed shadow (sakura[3])
+    shadowLight: isDark ? 'rgba(0, 0, 0, 0.35)' : 'rgba(0, 0, 0, 0.05)',
+    shadowMedium: isDark ? 'rgba(0, 0, 0, 0.45)' : 'rgba(0, 0, 0, 0.1)',
+    shadowHeavy: isDark ? 'rgba(0, 0, 0, 0.72)' : 'rgba(0, 0, 0, 0.15)',
+    shadowCard: isDark ? '0 12px 32px rgba(0, 0, 0, 0.35)' : '0 2px 8px rgba(0, 0, 0, 0.08)',
+    shadowPrimary: `rgba(${hexToRgb(primaryAccent)}, ${isDark ? 0.35 : 0.25})`,
+    shadowPrimaryLight: `rgba(${hexToRgb(primaryAccent)}, ${isDark ? 0.24 : 0.15})`,
 
-    // Technical modal colors (fallback to sakura theme)
-    backgroundModal: warmColors[0] ?? '#FDFCFB',
-    borderModal: warmColors[2] ?? '#E8E8E8',
-    borderEarth: earthColors[2] ?? '#D4A574',
-    borderWarm: warmColors[2] ?? '#E8E8E8',
-    borderPrimaryColor: primaryColors[1] ?? '#FFCDD2', // sakura[1]
+    backgroundModal: isDark ? warmElevated : warmSurface,
+    borderModal: warmBorder,
+    borderEarth: isDark ? `rgba(${hexToRgb(earthAccent)}, 0.4)` : earthAccent,
+    borderWarm: warmBorder,
+    borderPrimaryColor: isDark ? `rgba(${hexToRgb(primaryAccent)}, 0.3)` : primarySoftAccent,
   };
 }
 
-// Helper function to convert hex to RGB
 function hexToRgb(hex: string): string {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+
   if (result) {
     const r = parseInt(result[1], 16);
     const g = parseInt(result[2], 16);
     const b = parseInt(result[3], 16);
     return `${r}, ${g}, ${b}`;
   }
+
   return '0, 0, 0';
 }
 
-// Helper function to get color with opacity
 export function useWithOpacity(color: string, opacity: number): string {
   const rgb = hexToRgb(color);
   return `rgba(${rgb}, ${opacity})`;
 }
 
-// Helper function to get theme color by name and shade
 export function useThemeColor(colorName: string, shade: number = 3): string {
   const theme = useCurrentTheme();
   const colors = theme.colors?.[colorName as keyof typeof theme.colors] as readonly string[];

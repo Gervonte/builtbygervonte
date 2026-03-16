@@ -22,11 +22,24 @@ const getStatusColor = (status: Project['status']) => {
     case 'live':
       return 'sakura';
     case 'in-progress':
-      return 'pink';
+      return 'earth';
     case 'planned':
       return 'gray';
     default:
       return 'gray';
+  }
+};
+
+const getStatusLabel = (status: Project['status']) => {
+  switch (status) {
+    case 'in-progress':
+      return 'Active Development';
+    case 'live':
+      return 'Live';
+    case 'planned':
+      return 'Planned';
+    default:
+      return status;
   }
 };
 
@@ -45,11 +58,13 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
           src: screenshots.thumbnail,
           alt: project.title,
           fallbackIcon: getProjectIcon(type),
+          objectPosition: project.thumbnailPosition?.grid,
+          scale: project.thumbnailScale?.grid,
         }}
         headerIcon={getProjectIcon(type)}
         headerIconColor={type === 'vibe-coded' ? 'sakura' : 'earth'}
         statusBadge={{
-          text: project.status,
+          text: getStatusLabel(project.status),
           color: getStatusColor(project.status),
           contextType: 'status',
           contextValue: project.status,

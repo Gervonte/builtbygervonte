@@ -1,6 +1,5 @@
 'use client';
 
-import { usePrimaryColors } from '@/lib/theme-aware-colors';
 import { Box } from '@mantine/core';
 import { useCallback, useEffect, useRef } from 'react';
 
@@ -11,41 +10,34 @@ interface SakuraBackgroundProps {
   children?: React.ReactNode;
 }
 
+const PETAL_COLORS = ['#FFEBEE', '#FFCDD2', '#EF9A9A', '#F8BBD9'] as const;
+const SPAWN_OFFSET = 72;
+
 export default function SakuraBackground({
   intensity = 'moderate',
   variant = 'falling',
   className = '',
   children,
 }: SakuraBackgroundProps) {
-  const primaryColors = usePrimaryColors();
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Configuration based on intensity and variant
   const getConfig = useCallback(() => {
     const baseConfig = {
       subtle: { petalSize: 12, fallSpeed: 0.3, delay: 500 },
-      moderate: { petalSize: 15, fallSpeed: 0.5, delay: 300 },
+      moderate: { petalSize: 15, fallSpeed: 0.7, delay: 450 },
       intense: { petalSize: 18, fallSpeed: 0.8, delay: 200 },
     };
 
     const variantConfig = {
       falling: {
-        colors: [
-          primaryColors[1] ?? '#FFCDD2',
-          primaryColors[0] ?? '#FFEBEE',
-          primaryColors[2] ?? '#EF9A9A',
-          primaryColors[3] ?? '#F44336',
-        ],
+        colors: [PETAL_COLORS[1], PETAL_COLORS[0], PETAL_COLORS[2], PETAL_COLORS[3]],
       },
       floating: {
-        colors: [
-          primaryColors[0] ?? '#FFEBEE',
-          primaryColors[1] ?? '#FFCDD2',
-          primaryColors[2] ?? '#EF9A9A',
-        ],
+        colors: [PETAL_COLORS[0], PETAL_COLORS[1], PETAL_COLORS[2]],
       },
       gentle: {
-        colors: [primaryColors[0] ?? '#FFEBEE', primaryColors[1] ?? '#FFCDD2'],
+        colors: [PETAL_COLORS[0], PETAL_COLORS[1]],
       },
     };
 
@@ -125,10 +117,10 @@ export default function SakuraBackground({
             sakuraContainer.className = 'sakura-container';
             sakuraContainer.style.cssText = `
               position: absolute;
-              top: 0;
+              top: -${SPAWN_OFFSET}px;
               left: 0;
               width: 100%;
-              height: 100%;
+              height: calc(100% + ${SPAWN_OFFSET}px);
               pointer-events: none;
               z-index: 1;
               overflow: hidden;

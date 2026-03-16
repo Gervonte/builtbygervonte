@@ -16,6 +16,9 @@ const ThumbnailSection = memo(
     backgroundGradient,
     aspectRatio,
   }: ThumbnailSectionProps) => {
+    const baseScale = thumbnail.scale ?? 1;
+    const hoverScale = interactive ? baseScale * 1.05 : baseScale;
+
     return (
       <Box
         component={thumbnail.src ? 'a' : 'div'}
@@ -74,8 +77,10 @@ const ThumbnailSection = memo(
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              objectPosition: 'center top',
+              objectPosition: thumbnail.objectPosition || 'center top',
               transition: 'transform 0.3s ease',
+              transform: `scale(${baseScale})`,
+              transformOrigin: 'center center',
               position: 'absolute',
               top: 0,
               left: 0,
@@ -85,14 +90,14 @@ const ThumbnailSection = memo(
             onMouseEnter={
               interactive
                 ? (e: React.MouseEvent<HTMLImageElement>) => {
-                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.transform = `scale(${hoverScale})`;
                   }
                 : undefined
             }
             onMouseLeave={
               interactive
                 ? (e: React.MouseEvent<HTMLImageElement>) => {
-                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.transform = `scale(${baseScale})`;
                   }
                 : undefined
             }

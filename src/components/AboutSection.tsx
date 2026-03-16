@@ -7,7 +7,7 @@ import {
   getThemeAwareSkillVariant,
   type Skill,
 } from '@/lib/about';
-import { useColorCombinations } from '@/lib/theme-aware-colors';
+import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { useTheme } from '@/lib/theme-context';
 import {
   Badge,
@@ -37,6 +37,7 @@ import {
   IconCode,
   IconDatabase,
   IconFileText,
+  IconRobot,
   IconSchool,
   IconShield,
   IconTarget,
@@ -58,10 +59,14 @@ const getCategoryIconComponent = (category: Skill['category']) => {
       return <IconCode size={16} />;
     case 'backend':
       return <IconDatabase size={16} />;
+    case 'database':
+      return <IconDatabase size={16} />;
     case 'devops':
       return <IconCloud size={16} />;
     case 'tools':
       return <IconTools size={16} />;
+    case 'ai-ml':
+      return <IconRobot size={16} />;
     case 'soft':
       return <IconUsers size={16} />;
     default:
@@ -76,10 +81,14 @@ const getCategoryDisplayName = (category: string) => {
       return 'Frontend';
     case 'backend':
       return 'Backend';
+    case 'database':
+      return 'Database';
     case 'devops':
       return 'DevOps & Workflow';
     case 'tools':
       return 'Development Tools';
+    case 'ai-ml':
+      return 'AI';
     case 'soft':
       return 'Soft Skills';
     default:
@@ -94,10 +103,14 @@ const getCategoryELI5Description = (category: string): string => {
       return 'What users see and click on';
     case 'backend':
       return 'The hidden engine that powers everything';
+    case 'database':
+      return 'Where application data is stored, queried, and secured';
     case 'devops':
       return 'Getting software from code to users';
     case 'tools':
       return 'The digital toolbox that helps developers work smarter';
+    case 'ai-ml':
+      return 'AI copilots and workflow tools that sharpen product and engineering work';
     case 'soft':
       return 'The people skills that make technical work successful';
     default:
@@ -137,7 +150,10 @@ const getSkillIconComponent = (skillName: string) => {
 
     // Database
     case 'postgresql':
+    case 'supabase':
       return <IconDatabase size={16} />;
+    case 'supabase auth':
+      return <IconShield size={16} />;
 
     // DevOps & Tools
     case 'git':
@@ -148,6 +164,10 @@ const getSkillIconComponent = (skillName: string) => {
       return <IconCloud size={16} />;
     case 'sentry':
       return <IconShield size={16} />;
+    case 'codex':
+      return <IconRobot size={16} />;
+    case 'linear mcp':
+      return <IconRobot size={16} />;
 
     // Default fallback
     default:
@@ -157,7 +177,8 @@ const getSkillIconComponent = (skillName: string) => {
 
 const AboutSection = memo(() => {
   const colorCombinations = useColorCombinations();
-  const { currentTheme } = useTheme();
+  const commonColors = useCommonColors();
+  const { currentTheme, resolvedColorScheme } = useTheme();
   const skillCategories = getSkillsByCategory();
 
   return (
@@ -192,7 +213,7 @@ const AboutSection = memo(() => {
           >
             About Me
           </Title>
-          <Text size="xl" c="gray.6" maw={800} mx="auto">
+          <Text size="xl" c={commonColors.textSecondary} maw={800} mx="auto">
             {personalInfo.summary}
           </Text>
         </Box>
@@ -211,7 +232,6 @@ const AboutSection = memo(() => {
                 subtitleColor="dimmed"
                 headerIcon={getCategoryIconComponent(category as Skill['category'])}
                 headerIconColor="sakura"
-                variant="outlined"
                 size="md"
                 interactive={false}
                 hoverable={true}
@@ -222,8 +242,16 @@ const AboutSection = memo(() => {
                       <Group gap="xs" align="center">
                         <ThemeIconWithTooltip
                           technologyName={skill.name}
-                          color={getThemeAwareSkillColor(skill.level, currentTheme)}
-                          variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
+                          color={getThemeAwareSkillColor(
+                            skill.level,
+                            currentTheme,
+                            resolvedColorScheme
+                          )}
+                          variant={getThemeAwareSkillVariant(
+                            skill.level,
+                            currentTheme,
+                            resolvedColorScheme
+                          )}
                           size="sm"
                           radius="sm"
                         >
@@ -236,8 +264,16 @@ const AboutSection = memo(() => {
                       <BadgeWithTooltip
                         contextType="skill"
                         contextValue={skill.level}
-                        color={getThemeAwareSkillColor(skill.level, currentTheme)}
-                        variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
+                        color={getThemeAwareSkillColor(
+                          skill.level,
+                          currentTheme,
+                          resolvedColorScheme
+                        )}
+                        variant={getThemeAwareSkillVariant(
+                          skill.level,
+                          currentTheme,
+                          resolvedColorScheme
+                        )}
                         size="sm"
                       >
                         {skill.level}
@@ -362,7 +398,6 @@ const AboutSection = memo(() => {
               title="Education"
               headerIcon={<IconSchool size={20} />}
               headerIconColor="sakura"
-              variant="outlined"
               size="md"
               interactive={false}
               hoverable={true}
@@ -409,11 +444,11 @@ const AboutSection = memo(() => {
                         <Text c="sakura" size="sm" mb="xs">
                           {edu.institution} • {edu.year}
                         </Text>
-                        <Text size="sm" c="gray.6" mb="xs">
+                        <Text size="sm" c={commonColors.textSecondary} mb="xs">
                           {edu.location}
                         </Text>
                         {descriptionWithoutGpa && (
-                          <Text size="sm" c="gray.6">
+                          <Text size="sm" c={commonColors.textSecondary}>
                             {descriptionWithoutGpa}
                           </Text>
                         )}
@@ -431,7 +466,6 @@ const AboutSection = memo(() => {
               title="Leadership"
               headerIcon={<IconUsers size={20} />}
               headerIconColor="sakura"
-              variant="outlined"
               size="md"
               interactive={false}
               hoverable={true}
@@ -459,7 +493,7 @@ const AboutSection = memo(() => {
                         {role.organization}
                       </Text>
                       {role.description && (
-                        <Text size="sm" c="gray.6">
+                        <Text size="sm" c={commonColors.textSecondary}>
                           {role.description}
                         </Text>
                       )}

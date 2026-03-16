@@ -1,26 +1,17 @@
 'use client';
 
 import {
-  useColorCombinations,
   useCommonColors,
   usePrimaryColors,
   useWarmColors,
   useWithOpacity,
 } from '@/lib/theme-aware-colors';
-import {
-  Anchor,
-  Box,
-  Burger,
-  Container,
-  Group,
-  Paper,
-  Stack,
-  Text,
-  Transition,
-} from '@mantine/core';
+import { useTheme } from '@/lib/theme-context';
+import { Anchor, Box, Burger, Container, Group, Paper, Stack, Transition } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconCode } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
+import ProfileAvatar from './ProfileAvatar';
+import ThemeModeSelector from './ThemeModeSelector';
 import ThemeToggle from './ThemeToggle';
 
 const HEADER_HEIGHT = 60;
@@ -34,11 +25,15 @@ export default function Header({ links }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   // Theme-aware colors
-  const colorCombinations = useColorCombinations();
+  const { resolvedColorScheme } = useTheme();
   const commonColors = useCommonColors();
   const primaryColors = usePrimaryColors();
   const warmColors = useWarmColors();
   const withOpacity = useWithOpacity;
+  const headerTextColor =
+    scrolled || resolvedColorScheme !== 'dark'
+      ? commonColors.textPrimary
+      : commonColors.textInverse;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +52,7 @@ export default function Header({ links }: HeaderProps) {
       aria-label={`Navigate to ${link.label} section`}
       style={{
         textDecoration: 'none',
-        color: scrolled ? commonColors.textPrimary : commonColors.textInverse,
+        color: headerTextColor,
         fontWeight: 500,
         transition: 'color 0.3s ease',
         position: 'relative',
@@ -97,37 +92,30 @@ export default function Header({ links }: HeaderProps) {
       <Container size="lg" style={{ height: HEADER_HEIGHT }}>
         <Group justify="space-between" h="100%">
           {/* Logo */}
-          <Group gap="xs">
-            <IconCode
-              size={28}
-              aria-hidden="true"
-              style={{
-                color: scrolled ? commonColors.accentPrimary : commonColors.accentSecondary,
-                transition: 'color 0.3s ease',
-              }}
-            />
-            <Text
-              size="lg"
-              fw={700}
-              style={{
-                backgroundImage: scrolled
-                  ? colorCombinations.primaryGradient
-                  : `linear-gradient(135deg, ${commonColors.accentSecondary}, ${primaryColors[0]})`,
-                backgroundSize: '100% 100%',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                transition: 'all 0.3s ease',
-              }}
-            >
-              Gervonte&apos;s Portfolio
-            </Text>
-          </Group>
+          <Anchor
+            href="#hero"
+            aria-label="Back to top"
+            style={{
+              textDecoration: 'none',
+              display: 'inline-flex',
+              borderRadius: '999px',
+            }}
+            onClick={e => {
+              e.preventDefault();
+              document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
+              close();
+            }}
+          >
+            <ProfileAvatar />
+          </Anchor>
 
           {/* Desktop Navigation */}
           <Group gap="xl" visibleFrom="sm" role="navigation" aria-label="Main navigation">
             {items}
-            <ThemeToggle />
+            <Group gap="xs">
+              <ThemeModeSelector />
+              <ThemeToggle />
+            </Group>
           </Group>
 
           {/* Mobile Menu Button */}
@@ -135,7 +123,7 @@ export default function Header({ links }: HeaderProps) {
             opened={opened}
             onClick={toggle}
             size="sm"
-            color={scrolled ? commonColors.textPrimary : commonColors.textInverse}
+            color={headerTextColor}
             hiddenFrom="sm"
             aria-label="Toggle mobile menu"
             aria-expanded={opened}
@@ -166,6 +154,7 @@ export default function Header({ links }: HeaderProps) {
               <Stack gap="md">
                 {items}
                 <Group justify="center" mt="md">
+                  <ThemeModeSelector />
                   <ThemeToggle />
                 </Group>
               </Stack>

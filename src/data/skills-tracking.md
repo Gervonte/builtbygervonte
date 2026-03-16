@@ -11,6 +11,7 @@ This document tracks all skills mentioned throughout the portfolio and which one
 - **React** - Advanced (from resume)
 - **HTML** - Advanced (from resume)
 - **CSS** - Advanced (from resume)
+- **Next.js** - Advanced (manual addition from Rainy Day)
 
 ### Backend Skills
 
@@ -18,8 +19,14 @@ This document tracks all skills mentioned throughout the portfolio and which one
 - **Node.js** - Advanced (from resume)
 - **Express** - Advanced (from resume)
 - **REST APIs** - Advanced (from resume)
-- **PostgreSQL** - Advanced (from resume)
-- **GraphQL** - Intermediate (from resume)
+- **Resend** - Intermediate (manual addition from Rainy Day)
+- **CSV Ingestion** - Intermediate (manual addition from Rainy Day)
+
+### Database Skills
+
+- **PostgreSQL** - Advanced (resume skill grouped into database section)
+- **Supabase** - Advanced (manual addition from Rainy Day)
+- **Supabase Auth** - Intermediate (manual addition from Rainy Day)
 
 ### DevOps & Workflow Skills
 
@@ -27,10 +34,17 @@ This document tracks all skills mentioned throughout the portfolio and which one
 - **GitHub Actions** - Intermediate (from resume)
 - **Vercel** - Advanced (manual addition)
 - **Sentry** - Intermediate (manual addition)
+- **Google Cloud Platform** - Intermediate (manual addition from Rainy Day)
 
 ### Development Tools Skills
 
-- _Currently empty - no tools category skills displayed_
+- **Linear** - Advanced (manual addition from Rainy Day)
+- **Mintlify** - Intermediate (manual addition from Rainy Day)
+
+### AI Tools Skills
+
+- **Codex** - Intermediate (manual addition from Rainy Day workflow)
+- **Linear MCP** - Intermediate (manual addition from Rainy Day workflow)
 
 ### Soft Skills
 
@@ -40,7 +54,6 @@ This document tracks all skills mentioned throughout the portfolio and which one
 
 ### Frontend Technologies
 
-- **Next.js** - Used in Portfolio AI project
 - **Mantine UI** - Used in Portfolio AI project
 - **Chakra UI** - Used in Audio Analyzer project
 - **Framer Motion** - Used in Portfolio AI project
@@ -64,7 +77,6 @@ This document tracks all skills mentioned throughout the portfolio and which one
 ### Tools & Libraries
 
 - **Zod** - Used in Portfolio AI project
-- **Resend** - Used in Portfolio AI project
 - **Essentia.js** - Used in Audio Analyzer project
 - **Web Audio API** - Used in Audio Analyzer project
 
@@ -79,11 +91,15 @@ This document tracks all skills mentioned throughout the portfolio and which one
 ### Included in Skills Section
 
 - **Core resume skills** - All skills from the parsed resume are included
+- **Rainy Day stack** - Added current production tools where they reflect repeatable workflow or platform skill
+- **Database split** - Moved storage and data-platform skills into their own card for clearer grouping
+- **AI workflow tools** - Added Codex and Linear MCP because they are now part of the active product workflow
 - **Vercel & Sentry** - Added as they are actively used in current projects and represent important DevOps skills
 
 ### Not Included in Skills Section
 
 - **Project-specific libraries** - Tools like Mantine UI, Chakra UI, Framer Motion are project-specific and don't represent core skills
+- **GraphQL** - Removed from the public skills section so the stack better reflects current work
 - **Research tools** - Jupyter, Pandas, Scikit-learn are research-specific and not part of the main professional skillset
 - **AI tools** - OpenAI API, Gemini API are tools used for research, not core development skills
 - **Specialized libraries** - Essentia.js, Web Audio API are very specific to audio processing
@@ -92,12 +108,10 @@ This document tracks all skills mentioned throughout the portfolio and which one
 
 ### Potential Additions
 
-- **Next.js** - Could be added as it's a significant framework used in the main portfolio
 - **Docker** - Could be added if the level is upgraded from "basic" to "intermediate" or higher
 
 ### Categories to Consider
 
-- **Tools** - Could add a "Development Tools" category for things like Zod, Resend
 - **Soft Skills** - Could add soft skills if they become relevant to the professional profile
 
 ## Data Sources
@@ -109,5 +123,5 @@ This document tracks all skills mentioned throughout the portfolio and which one
 
 ## Last Updated
 
-- **Date**: September 2025
-- **Reason**: Initial skills tracking setup and Vercel/Sentry addition
+- **Date**: March 2026
+- **Reason**: Added Rainy Day stack to the About technical skills sections

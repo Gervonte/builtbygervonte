@@ -19,9 +19,7 @@ export function getProjectScreenshot(
 
   // Use our API route for screenshots
   const baseUrl =
-    process.env.NODE_ENV === 'production'
-      ? 'https://portfolio-67q0nnn1i-gervontes-projects.vercel.app'
-      : 'http://localhost:3001';
+    process.env.NODE_ENV === 'production' ? 'https://builtbygervonte.com' : 'http://localhost:3001';
 
   const params = new URLSearchParams({
     url: projectUrl,
