@@ -15,7 +15,36 @@
     }
   ],
   "education": [],
-  "experience": [],
+  "experience": [
+    {
+      "title": "Founder & Software Engineer",
+      "company": "BuiltByGervonte LLC",
+      "period": "November 2025 - Present",
+      "location": "Lakeland, Florida",
+      "companyUrl": "https://builtbygervonte.com",
+      "description": "Building consumer fintech software focused on practical financial clarity for underserved Caribbean users.",
+      "longDescription": "BuiltByGervonte LLC is the parent company behind Ignition Labs, the software product suite focused on building thoughtful SaaS products with real user value.\n\nIgnition Labs was created to separate smaller vibe-coded experiments from more traditionally engineered products designed to grow into larger SAAS products.\n\nRainy Day is the first product in the suite, a consumer fintech app focused on practical financial clarity through local bank data aggregation.",
+      "technologies": [
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Supabase",
+        "PostgreSQL",
+        "CSV Ingestion",
+        "Linear",
+        "Vercel",
+        "Mintlify",
+        "Resend",
+        "Supabase Auth",
+        "Google Cloud Platform"
+      ],
+      "achievements": [
+        "Established a software product suite within the company (Ignition Labs) focused on building consumer fintech tools for underserved Caribbean (Bahamian) users.",
+        "Built Rainy Day as the first product in the suite, focused on practical financial clarity through data aggregation for regions with limited banking integrations and CSV/PDF-only data access.",
+        "Lead product strategy, UX, documentation, and full-stack engineering efforts across the software side as well as managing business operations including company budgeting, vendor setup, virtual address and mail handling, business account administration, and early business credit-building workflows."
+      ]
+    }
+  ],
   "researchProjects": [
     {
       "title": "AI-Assisted User Story Generation",

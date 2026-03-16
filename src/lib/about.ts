@@ -15,6 +15,8 @@ export interface Experience {
   period: string;
   description: string;
   longDescription?: string;
+  location?: string;
+  companyUrl?: string;
   technologies: string[];
   achievements: string[];
 }
@@ -99,7 +101,7 @@ const mergedData: AboutData = {
     ...aboutMetadata.skills,
     ...(manualAdditions.skills || []),
   ] as Skill[]),
-  experience: [...aboutMetadata.experience, ...(manualAdditions.experience || [])],
+  experience: [...(manualAdditions.experience || []), ...aboutMetadata.experience],
   education: [...aboutMetadata.education, ...(manualAdditions.education || [])],
   researchProjects: deduplicateResearchProjects([
     ...(manualAdditions.researchProjects || []),

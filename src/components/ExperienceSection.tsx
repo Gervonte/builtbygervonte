@@ -11,6 +11,18 @@ const ExperienceSection = memo(() => {
   const { experience } = aboutData;
   const colorCombinations = useColorCombinations();
 
+  const getExperienceLocation = (company: string, location?: string) => {
+    if (location) return location;
+    if (company === 'NovaCredit') return 'San Francisco, California';
+    return undefined;
+  };
+
+  const getExperienceCompanyUrl = (company: string, companyUrl?: string) => {
+    if (companyUrl) return companyUrl;
+    if (company === 'NovaCredit') return 'https://novacredit.com';
+    return undefined;
+  };
+
   return (
     <Container size="lg">
       <Stack gap="xl">
@@ -38,9 +50,67 @@ const ExperienceSection = memo(() => {
         {/* Experience Timeline or Single Card */}
         {experience.length > 1 ? (
           <Timeline bulletSize={24} lineWidth={2}>
-            {experience.map((exp, index) => (
-              <Timeline.Item key={index}>
+            {experience.map((exp, index) => {
+              const experienceLocation = getExperienceLocation(exp.company, exp.location);
+              const experienceCompanyUrl = getExperienceCompanyUrl(exp.company, exp.companyUrl);
+
+              return (
+                <Timeline.Item key={`${exp.company}-${exp.title}-${index}`}>
+                  <UnifiedCard
+                    title={exp.company}
+                    subtitle={exp.title}
+                    description={exp.description}
+                    longDescription={exp.longDescription}
+                    headerIcon={<IconBriefcase size={20} />}
+                    headerIconColor="sakura"
+                    timeline={exp.period}
+                    metadata={[
+                      ...(experienceLocation
+                        ? [
+                            {
+                              icon: <IconMapPin size={14} />,
+                              text: experienceLocation,
+                            },
+                          ]
+                        : []),
+                    ]}
+                    secondaryAction={
+                      experienceCompanyUrl
+                        ? {
+                            label: 'Website',
+                            icon: <IconExternalLink size={14} />,
+                            href: experienceCompanyUrl,
+                            tooltip: `Visit ${exp.company} website`,
+                          }
+                        : undefined
+                    }
+                    technologies={exp.technologies?.map(tech => ({
+                      name: tech,
+                      color: 'sakura',
+                      contextType: 'technology' as const,
+                      contextValue: tech,
+                    }))}
+                    achievements={exp.achievements}
+                    professionalAchievements={true}
+                    infoBoxDescription={true}
+                    variant="default"
+                    size="md"
+                    interactive={false}
+                    hoverable={true}
+                  />
+                </Timeline.Item>
+              );
+            })}
+          </Timeline>
+        ) : (
+          <Stack gap="md">
+            {experience.map((exp, index) => {
+              const experienceLocation = getExperienceLocation(exp.company, exp.location);
+              const experienceCompanyUrl = getExperienceCompanyUrl(exp.company, exp.companyUrl);
+
+              return (
                 <UnifiedCard
+                  key={`${exp.company}-${exp.title}-${index}`}
                   title={exp.company}
                   subtitle={exp.title}
                   description={exp.description}
@@ -49,17 +119,25 @@ const ExperienceSection = memo(() => {
                   headerIconColor="sakura"
                   timeline={exp.period}
                   metadata={[
-                    {
-                      icon: <IconMapPin size={14} />,
-                      text: 'San Francisco, California',
-                    },
+                    ...(experienceLocation
+                      ? [
+                          {
+                            icon: <IconMapPin size={14} />,
+                            text: experienceLocation,
+                          },
+                        ]
+                      : []),
                   ]}
-                  secondaryAction={{
-                    label: 'Website',
-                    icon: <IconExternalLink size={14} />,
-                    href: 'https://novacredit.com',
-                    tooltip: 'Visit NovaCredit website',
-                  }}
+                  secondaryAction={
+                    experienceCompanyUrl
+                      ? {
+                          label: 'Website',
+                          icon: <IconExternalLink size={14} />,
+                          href: experienceCompanyUrl,
+                          tooltip: `Visit ${exp.company} website`,
+                        }
+                      : undefined
+                  }
                   technologies={exp.technologies?.map(tech => ({
                     name: tech,
                     color: 'sakura',
@@ -74,48 +152,8 @@ const ExperienceSection = memo(() => {
                   interactive={false}
                   hoverable={true}
                 />
-              </Timeline.Item>
-            ))}
-          </Timeline>
-        ) : (
-          <Stack gap="md">
-            {experience.map((exp, index) => (
-              <UnifiedCard
-                key={index}
-                title={exp.company}
-                subtitle={exp.title}
-                description={exp.description}
-                longDescription={exp.longDescription}
-                headerIcon={<IconBriefcase size={20} />}
-                headerIconColor="sakura"
-                timeline={exp.period}
-                metadata={[
-                  {
-                    icon: <IconMapPin size={14} />,
-                    text: 'San Francisco, California',
-                  },
-                ]}
-                secondaryAction={{
-                  label: 'Website',
-                  icon: <IconExternalLink size={14} />,
-                  href: 'https://novacredit.com',
-                  tooltip: 'Visit NovaCredit website',
-                }}
-                technologies={exp.technologies?.map(tech => ({
-                  name: tech,
-                  color: 'sakura',
-                  contextType: 'technology' as const,
-                  contextValue: tech,
-                }))}
-                achievements={exp.achievements}
-                professionalAchievements={true}
-                infoBoxDescription={true}
-                variant="default"
-                size="md"
-                interactive={false}
-                hoverable={true}
-              />
-            ))}
+              );
+            })}
           </Stack>
         )}
       </Stack>
