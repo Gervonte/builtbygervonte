@@ -24,6 +24,10 @@
       "liveUrl": "https://builtbygervonte.com/",
       "githubUrl": "https://github.com/gervonte/builtbygervonte",
       "imagePath": "portfolio-ai2.png",
+      "thumbnailPosition": {
+        "featured": "center 55%",
+        "grid": "center 55%"
+      },
       "achievements": [
         "Rebranded SEO metadata, sitemaps, and manifest for BuiltByGervonte",
         "Organization + Person structured data with linked @id graph",
