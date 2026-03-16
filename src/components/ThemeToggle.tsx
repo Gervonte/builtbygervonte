@@ -13,7 +13,7 @@ export default function ThemeToggle() {
   // Show loading state while hydrating to prevent mismatch
   if (!isHydrated) {
     return (
-      <Tooltip label="Loading theme..." position="bottom" withArrow>
+      <Tooltip label="Loading palette..." position="bottom" withArrow>
         <ActionIcon
           variant="subtle"
           size="lg"
@@ -24,7 +24,7 @@ export default function ThemeToggle() {
             opacity: 0.6,
             cursor: 'not-allowed',
           }}
-          aria-label="Theme toggle (loading)"
+          aria-label="Palette toggle (loading)"
         >
           <Loader size="sm" />
         </ActionIcon>
@@ -37,7 +37,7 @@ export default function ThemeToggle() {
 
   return (
     <Tooltip
-      label={isSakura ? 'Switch to Ocean Theme' : 'Switch to Sakura Theme'}
+      label={isSakura ? 'Switch palette to Ocean' : 'Switch palette to Sakura'}
       position="bottom"
       withArrow
     >
@@ -51,7 +51,7 @@ export default function ThemeToggle() {
           transition: 'all 0.2s ease-in-out',
           transform: isHovered ? 'scale(1.1)' : 'scale(1)',
         }}
-        aria-label={`Switch to ${isSakura ? 'Ocean' : 'Sakura'} theme`}
+        aria-label={`Switch palette to ${isSakura ? 'Ocean' : 'Sakura'}`}
       >
         <Icon
           size={20}

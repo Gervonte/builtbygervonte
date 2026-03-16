@@ -48,10 +48,11 @@ The portfolio now features a comprehensive theme system that allows users to swi
 
 #### Theme Switching
 
-- **Toggle Component**: User-friendly theme switcher in header
-- **Persistent State**: Theme preference saved in localStorage
+- **Palette Toggle**: User-friendly sakura/ocean switcher in the header
+- **Appearance Toggle**: Single-button `Auto / Light / Dark` control next to the palette toggle
+- **Persistent State**: Palette and appearance preferences saved in localStorage
 - **Smooth Transitions**: Seamless switching between themes
-- **System Integration**: Respects user's system theme preferences
+- **System Integration**: `Auto` respects the user's system theme preference
 
 ### Design Tokens
 
@@ -538,7 +539,7 @@ const oceanTheme = {
 
 - **Header**: Sakura pink gradient background with floating petal pattern
 - **Card Design**: Rounded corners (12px), sakura pink accent border with petal shadows
-- **Badge**: "AI-Assisted" with soft pink background and petal icon
+- **Badge**: "Vibe Coded" with soft pink background and petal icon
 - **Icons**: AI-themed symbols with cherry blossom accents
 - **Hover Effect**: Gentle pink glow with floating petal animation
 - **Background**: Subtle sakura petal particles floating gently
@@ -1207,9 +1208,9 @@ const getSkillBadgeColor = (level: string, theme: string) => {
 
 #### Dynamic Theme Switching
 
-- **User Control**: Theme toggle in header for instant switching
-- **Persistent Preferences**: Theme choice saved in localStorage
-- **System Integration**: Respects user's system theme preferences
+- **User Control**: Header controls for palette and appearance mode
+- **Persistent Preferences**: Palette and appearance choices saved in localStorage
+- **System Integration**: `Auto` follows the user's system theme preference
 - **Smooth Transitions**: Seamless switching between sakura and ocean themes
 
 #### Enhanced Visual Effects

@@ -7,7 +7,7 @@ import {
   getThemeAwareSkillVariant,
   type Skill,
 } from '@/lib/about';
-import { useColorCombinations } from '@/lib/theme-aware-colors';
+import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { useTheme } from '@/lib/theme-context';
 import {
   Badge,
@@ -157,7 +157,8 @@ const getSkillIconComponent = (skillName: string) => {
 
 const AboutSection = memo(() => {
   const colorCombinations = useColorCombinations();
-  const { currentTheme } = useTheme();
+  const commonColors = useCommonColors();
+  const { currentTheme, resolvedColorScheme } = useTheme();
   const skillCategories = getSkillsByCategory();
 
   return (
@@ -192,7 +193,7 @@ const AboutSection = memo(() => {
           >
             About Me
           </Title>
-          <Text size="xl" c="gray.6" maw={800} mx="auto">
+          <Text size="xl" c={commonColors.textSecondary} maw={800} mx="auto">
             {personalInfo.summary}
           </Text>
         </Box>
@@ -211,7 +212,6 @@ const AboutSection = memo(() => {
                 subtitleColor="dimmed"
                 headerIcon={getCategoryIconComponent(category as Skill['category'])}
                 headerIconColor="sakura"
-                variant="outlined"
                 size="md"
                 interactive={false}
                 hoverable={true}
@@ -222,8 +222,16 @@ const AboutSection = memo(() => {
                       <Group gap="xs" align="center">
                         <ThemeIconWithTooltip
                           technologyName={skill.name}
-                          color={getThemeAwareSkillColor(skill.level, currentTheme)}
-                          variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
+                          color={getThemeAwareSkillColor(
+                            skill.level,
+                            currentTheme,
+                            resolvedColorScheme
+                          )}
+                          variant={getThemeAwareSkillVariant(
+                            skill.level,
+                            currentTheme,
+                            resolvedColorScheme
+                          )}
                           size="sm"
                           radius="sm"
                         >
@@ -236,8 +244,16 @@ const AboutSection = memo(() => {
                       <BadgeWithTooltip
                         contextType="skill"
                         contextValue={skill.level}
-                        color={getThemeAwareSkillColor(skill.level, currentTheme)}
-                        variant={getThemeAwareSkillVariant(skill.level, currentTheme)}
+                        color={getThemeAwareSkillColor(
+                          skill.level,
+                          currentTheme,
+                          resolvedColorScheme
+                        )}
+                        variant={getThemeAwareSkillVariant(
+                          skill.level,
+                          currentTheme,
+                          resolvedColorScheme
+                        )}
                         size="sm"
                       >
                         {skill.level}
@@ -362,7 +378,6 @@ const AboutSection = memo(() => {
               title="Education"
               headerIcon={<IconSchool size={20} />}
               headerIconColor="sakura"
-              variant="outlined"
               size="md"
               interactive={false}
               hoverable={true}
@@ -409,11 +424,11 @@ const AboutSection = memo(() => {
                         <Text c="sakura" size="sm" mb="xs">
                           {edu.institution} • {edu.year}
                         </Text>
-                        <Text size="sm" c="gray.6" mb="xs">
+                        <Text size="sm" c={commonColors.textSecondary} mb="xs">
                           {edu.location}
                         </Text>
                         {descriptionWithoutGpa && (
-                          <Text size="sm" c="gray.6">
+                          <Text size="sm" c={commonColors.textSecondary}>
                             {descriptionWithoutGpa}
                           </Text>
                         )}
@@ -431,7 +446,6 @@ const AboutSection = memo(() => {
               title="Leadership"
               headerIcon={<IconUsers size={20} />}
               headerIconColor="sakura"
-              variant="outlined"
               size="md"
               interactive={false}
               hoverable={true}
@@ -459,7 +473,7 @@ const AboutSection = memo(() => {
                         {role.organization}
                       </Text>
                       {role.description && (
-                        <Text size="sm" c="gray.6">
+                        <Text size="sm" c={commonColors.textSecondary}>
                           {role.description}
                         </Text>
                       )}

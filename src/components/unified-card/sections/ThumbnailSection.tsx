@@ -74,7 +74,7 @@ const ThumbnailSection = memo(
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              objectPosition: 'center top',
+              objectPosition: thumbnail.objectPosition || 'center top',
               transition: 'transform 0.3s ease',
               position: 'absolute',
               top: 0,

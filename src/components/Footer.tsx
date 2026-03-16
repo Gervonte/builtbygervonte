@@ -1,25 +1,15 @@
 'use client';
 
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
-import {
-  Anchor,
-  Box,
-  Container,
-  Divider,
-  Group,
-  SimpleGrid,
-  Stack,
-  Text,
-  Title,
-} from '@mantine/core';
+import { Anchor, Box, Container, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import {
   IconBrandGithub,
   IconBrandLinkedin,
-  IconCode,
   IconHeart,
   IconMail,
   IconMapPin,
 } from '@tabler/icons-react';
+import BrandLogo from './BrandLogo';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -57,29 +47,6 @@ export default function Footer() {
 
       <Container size="xl" style={{ position: 'relative', zIndex: 1 }}>
         <Stack gap="xl">
-          {/* Header Section */}
-          <Box ta="center" mb="xl">
-            <Group justify="center" gap="md" mb="md">
-              <IconCode size={32} style={{ color: commonColors.accentPrimary }} />
-              <Title
-                order={2}
-                size="h2"
-                style={{
-                  backgroundImage: colorCombinations.primaryGradient,
-                  backgroundSize: '100% 100%',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                Gervonte&apos;s Portfolio
-              </Title>
-            </Group>
-            <Text size="lg" c="dimmed" maw={600} mx="auto" mb="md">
-              M.S. Computer Science | 2 Years of Engineering Experience at Series B Fintech Startup
-            </Text>
-          </Box>
-
           {/* Main Footer Content */}
           <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="xl">
             {/* About Section */}
@@ -212,7 +179,7 @@ export default function Footer() {
                 Built With
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
-                Built with Cursor AI, Next.js, TypeScript, Mantine UI, and sakura.js for a modern,
+                Built with Codex, Next.js, TypeScript, Mantine UI, and sakura.js for a modern,
                 responsive experience.
               </Text>
               <Group gap="xs">
@@ -224,10 +191,16 @@ export default function Footer() {
             </Stack>
           </SimpleGrid>
 
-          <Divider color="rgba(248, 187, 217, 0.4)" />
-
+          <Stack>
+            {/* Logo Section */}
+            <Box ta="center" mt="xl">
+              <Group justify="center">
+                <BrandLogo />
+              </Group>
+            </Box>
+          </Stack>
           {/* Copyright */}
-          <Group justify="center" align="center">
+          <Group justify="center" align="center" mb={'xl'}>
             <Text size="sm" c="dimmed">
               © {currentYear} BuiltByGervonte LLC. All rights reserved.
             </Text>

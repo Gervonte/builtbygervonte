@@ -45,6 +45,7 @@ const ExpandableProjectCard = memo(({ project, type }: ExpandableProjectCardProp
           src: screenshots.thumbnail,
           alt: project.title,
           fallbackIcon: getProjectIcon(type),
+          objectPosition: project.thumbnailPosition?.grid,
         }}
         headerIcon={getProjectIcon(type)}
         headerIconColor={type === 'vibe-coded' ? 'sakura' : 'earth'}

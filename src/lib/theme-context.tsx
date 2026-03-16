@@ -1,63 +1,139 @@
 'use client';
 
-import { getTheme, type ThemeName } from '@/lib/themes';
+import { defaultTheme, getTheme, type ResolvedColorScheme, type ThemeName } from '@/lib/themes';
 import { createContext, useContext, useEffect, useState } from 'react';
+
+export type ThemeMode = 'auto' | 'light' | 'dark';
 
 interface ThemeContextType {
   currentTheme: ThemeName;
+  themeMode: ThemeMode;
+  resolvedColorScheme: ResolvedColorScheme;
   setTheme: (theme: ThemeName) => void;
+  setThemeMode: (mode: ThemeMode) => void;
   toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// Theme storage key
 const THEME_STORAGE_KEY = 'portfolio-theme';
+const THEME_MODE_STORAGE_KEY = 'portfolio-theme-mode';
 
-// Get initial theme from localStorage or default
-const getInitialTheme = (): ThemeName => {
+function getSystemColorScheme(): ResolvedColorScheme {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    return 'light';
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function getStoredTheme(): ThemeName {
   if (typeof window === 'undefined') {
-    return 'sakura'; // Default for SSR
+    return defaultTheme;
   }
 
-  const stored = localStorage.getItem(THEME_STORAGE_KEY);
-  if (stored && (stored === 'sakura' || stored === 'ocean')) {
-    return stored as ThemeName;
+  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  return storedTheme === 'sakura' || storedTheme === 'ocean' ? storedTheme : defaultTheme;
+}
+
+function getStoredThemeMode(): ThemeMode {
+  if (typeof window === 'undefined') {
+    return 'auto';
   }
 
-  return 'sakura'; // Default theme
-};
+  const storedThemeMode = localStorage.getItem(THEME_MODE_STORAGE_KEY);
+  return storedThemeMode === 'light' || storedThemeMode === 'dark' || storedThemeMode === 'auto'
+    ? storedThemeMode
+    : 'auto';
+}
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [currentTheme, setCurrentTheme] = useState<ThemeName>('sakura'); // Always start with default
+  const [currentTheme, setCurrentTheme] = useState<ThemeName>(defaultTheme);
+  const [themeMode, setCurrentThemeMode] = useState<ThemeMode>('auto');
+  const [autoColorScheme, setAutoColorScheme] = useState<ResolvedColorScheme>('light');
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Handle hydration
+  const resolvedColorScheme =
+    themeMode === 'auto' ? autoColorScheme : (themeMode as ResolvedColorScheme);
+
   useEffect(() => {
     setIsHydrated(true);
-    const storedTheme = getInitialTheme();
-    setCurrentTheme(storedTheme);
+    setCurrentTheme(getStoredTheme());
+    setCurrentThemeMode(getStoredThemeMode());
+    setAutoColorScheme(getSystemColorScheme());
   }, []);
 
-  // Update localStorage when theme changes (only after hydration)
   useEffect(() => {
-    if (isHydrated) {
-      localStorage.setItem(THEME_STORAGE_KEY, currentTheme);
+    if (!isHydrated) {
+      return;
     }
+
+    localStorage.setItem(THEME_STORAGE_KEY, currentTheme);
   }, [currentTheme, isHydrated]);
 
-  const setTheme = (theme: ThemeName) => {
-    setCurrentTheme(theme);
-  };
+  useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
 
-  const toggleTheme = () => {
-    setCurrentTheme(prev => (prev === 'sakura' ? 'ocean' : 'sakura'));
-  };
+    localStorage.setItem(THEME_MODE_STORAGE_KEY, themeMode);
+  }, [themeMode, isHydrated]);
+
+  useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
+    if (themeMode !== 'auto') {
+      setAutoColorScheme(themeMode);
+      return;
+    }
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const syncAutoColorScheme = () => {
+      setAutoColorScheme(mediaQuery.matches ? 'dark' : 'light');
+    };
+    const handleChange = (event: MediaQueryListEvent) => {
+      setAutoColorScheme(event.matches ? 'dark' : 'light');
+    };
+
+    syncAutoColorScheme();
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', handleChange);
+      return () => {
+        mediaQuery.removeEventListener('change', handleChange);
+      };
+    }
+
+    mediaQuery.addListener(handleChange);
+    return () => {
+      mediaQuery.removeListener(handleChange);
+    };
+  }, [themeMode, isHydrated]);
+
+  useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
+    document.documentElement.dataset.paletteTheme = currentTheme;
+    document.documentElement.dataset.appearanceMode = resolvedColorScheme;
+  }, [currentTheme, resolvedColorScheme, isHydrated]);
 
   const value = {
     currentTheme,
-    setTheme,
-    toggleTheme,
+    themeMode,
+    resolvedColorScheme,
+    setTheme: (theme: ThemeName) => {
+      setCurrentTheme(theme);
+    },
+    setThemeMode: (mode: ThemeMode) => {
+      setCurrentThemeMode(mode);
+    },
+    toggleTheme: () => {
+      setCurrentTheme(previousTheme => (previousTheme === 'sakura' ? 'ocean' : 'sakura'));
+    },
   };
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
@@ -65,19 +141,24 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 export function useTheme() {
   const context = useContext(ThemeContext);
+
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
+
   return context;
 }
 
-// Get current theme object
 export function useCurrentTheme() {
-  const { currentTheme } = useTheme();
-  return getTheme(currentTheme);
+  const { currentTheme, resolvedColorScheme } = useTheme();
+  return getTheme(currentTheme, resolvedColorScheme);
 }
 
-// Hook to check if component is hydrated
+export function useResolvedColorScheme() {
+  const { resolvedColorScheme } = useTheme();
+  return resolvedColorScheme;
+}
+
 export function useIsHydrated() {
   const [isHydrated, setIsHydrated] = useState(false);
 

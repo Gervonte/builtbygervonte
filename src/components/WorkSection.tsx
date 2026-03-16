@@ -87,11 +87,12 @@ const WorkSection = memo(() => {
                     src: screenshots.card,
                     alt: `${project.title} preview`,
                     fallbackIcon: getProjectIcon(project.type),
+                    objectPosition: project.thumbnailPosition?.featured,
                   }}
                   headerIcon={getProjectIcon(project.type)}
                   headerIconColor={getTypeColor(project.type)}
                   statusBadge={{
-                    text: project.type === 'vibe-coded' ? 'AI-Assisted' : 'Traditional',
+                    text: project.type === 'vibe-coded' ? 'Vibe Coded' : 'Traditional',
                     color: getTypeColor(project.type),
                     contextType: 'projectType',
                     contextValue: project.type,

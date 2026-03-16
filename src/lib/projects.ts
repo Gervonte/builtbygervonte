@@ -16,6 +16,10 @@ export interface Project {
   aiTools?: string[];
   timeline: string;
   category: string;
+  thumbnailPosition?: {
+    featured?: string;
+    grid?: string;
+  };
   enableTechnicalDetails?: boolean;
   technicalDetails?: TechnicalDetails;
 }

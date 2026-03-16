@@ -8,6 +8,7 @@ import {
   generateStructuredData,
 } from '@/lib/seo';
 import { ThemeProvider } from '@/lib/theme-context';
+import { ColorSchemeScript } from '@mantine/core';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
@@ -41,8 +42,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const personStructuredData = generatePersonStructuredData();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <ColorSchemeScript defaultColorScheme="auto" />
         <script
           type="application/ld+json"
           suppressHydrationWarning
