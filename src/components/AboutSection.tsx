@@ -37,6 +37,7 @@ import {
   IconCode,
   IconDatabase,
   IconFileText,
+  IconRobot,
   IconSchool,
   IconShield,
   IconTarget,
@@ -58,10 +59,14 @@ const getCategoryIconComponent = (category: Skill['category']) => {
       return <IconCode size={16} />;
     case 'backend':
       return <IconDatabase size={16} />;
+    case 'database':
+      return <IconDatabase size={16} />;
     case 'devops':
       return <IconCloud size={16} />;
     case 'tools':
       return <IconTools size={16} />;
+    case 'ai-ml':
+      return <IconRobot size={16} />;
     case 'soft':
       return <IconUsers size={16} />;
     default:
@@ -76,10 +81,14 @@ const getCategoryDisplayName = (category: string) => {
       return 'Frontend';
     case 'backend':
       return 'Backend';
+    case 'database':
+      return 'Database';
     case 'devops':
       return 'DevOps & Workflow';
     case 'tools':
       return 'Development Tools';
+    case 'ai-ml':
+      return 'AI';
     case 'soft':
       return 'Soft Skills';
     default:
@@ -94,10 +103,14 @@ const getCategoryELI5Description = (category: string): string => {
       return 'What users see and click on';
     case 'backend':
       return 'The hidden engine that powers everything';
+    case 'database':
+      return 'Where application data is stored, queried, and secured';
     case 'devops':
       return 'Getting software from code to users';
     case 'tools':
       return 'The digital toolbox that helps developers work smarter';
+    case 'ai-ml':
+      return 'AI copilots and workflow tools that sharpen product and engineering work';
     case 'soft':
       return 'The people skills that make technical work successful';
     default:
@@ -137,7 +150,10 @@ const getSkillIconComponent = (skillName: string) => {
 
     // Database
     case 'postgresql':
+    case 'supabase':
       return <IconDatabase size={16} />;
+    case 'supabase auth':
+      return <IconShield size={16} />;
 
     // DevOps & Tools
     case 'git':
@@ -148,6 +164,10 @@ const getSkillIconComponent = (skillName: string) => {
       return <IconCloud size={16} />;
     case 'sentry':
       return <IconShield size={16} />;
+    case 'codex':
+      return <IconRobot size={16} />;
+    case 'linear mcp':
+      return <IconRobot size={16} />;
 
     // Default fallback
     default:

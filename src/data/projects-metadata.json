@@ -220,7 +220,7 @@
         "Released overview, auth, settings, and stability polish while deferring richer forecasting, additional banks and review logic to [v0.2.0]"
       ],
       "timeline": "Ongoing",
-      "category": "Fintech SAAS",
+      "category": "Early Stage Fintech SAAS",
       "enableTechnicalDetails": true,
       "technicalDetails": {
         "product": {
@@ -285,7 +285,7 @@
     "vibe-coded": {
       "title": "Vibe Coded Projects",
       "subtitle": "AI-Led Development",
-      "description": "Projects where I collaborated with AI tools to enhance development speed, creativity, and problem-solving capabilities",
+      "description": "Projects where I collaborated heavily with AI tools to enhance development speed, creativity, and problem-solving capabilities",
       "icon": "brain",
       "color": "sakura"
     },

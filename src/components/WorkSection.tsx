@@ -192,7 +192,7 @@ const WorkSection = memo(() => {
                   size="lg"
                   radius="xl"
                 >
-                  Traditional Development
+                  Hand Crafted Development
                 </Badge>
               </Group>
               <Text ta="center" c="dimmed" mb="xl" maw={600} mx="auto">

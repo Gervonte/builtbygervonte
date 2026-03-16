@@ -6,7 +6,7 @@ import type { ResolvedColorScheme } from './themes';
 export interface Skill {
   name: string;
   level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
-  category: 'frontend' | 'backend' | 'devops' | 'tools' | 'soft';
+  category: 'frontend' | 'backend' | 'database' | 'devops' | 'tools' | 'ai-ml' | 'soft';
 }
 
 export interface Experience {
@@ -77,6 +77,10 @@ const deduplicateSkills = (skills: Skill[]): Skill[] => {
   });
 };
 
+// Hide resume-parsed skills that should not appear in the public About skills section.
+const excludedSkillNames = new Set(['GraphQL']);
+const databaseSkillNames = new Set(['PostgreSQL', 'Supabase', 'Supabase Auth']);
+
 // Helper function to deduplicate research projects by title
 const deduplicateResearchProjects = (projects: ResearchProject[]): ResearchProject[] => {
   const seen = new Set<string>();
@@ -97,10 +101,16 @@ const mergedData: AboutData = {
     ...aboutMetadata.personalInfo,
     ...(manualAdditions.personalInfo || {}),
   },
-  skills: deduplicateSkills([
-    ...aboutMetadata.skills,
-    ...(manualAdditions.skills || []),
-  ] as Skill[]),
+  skills: deduplicateSkills([...aboutMetadata.skills, ...(manualAdditions.skills || [])] as Skill[])
+    .filter(skill => !excludedSkillNames.has(skill.name))
+    .map(skill =>
+      databaseSkillNames.has(skill.name)
+        ? {
+            ...skill,
+            category: 'database',
+          }
+        : skill
+    ),
   experience: [...(manualAdditions.experience || []), ...aboutMetadata.experience],
   education: [...aboutMetadata.education, ...(manualAdditions.education || [])],
   researchProjects: deduplicateResearchProjects([
@@ -230,10 +240,14 @@ export const getCategoryIcon = (category: Skill['category']): string => {
       return 'IconCode';
     case 'backend':
       return 'IconDatabase';
+    case 'database':
+      return 'IconDatabase';
     case 'devops':
       return 'IconCloud';
     case 'tools':
       return 'IconTools';
+    case 'ai-ml':
+      return 'IconTarget';
     case 'soft':
       return 'IconUsers';
     default:

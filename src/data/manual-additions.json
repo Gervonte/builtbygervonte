@@ -135,12 +135,7 @@
     {
       "name": "PostgreSQL",
       "level": "advanced",
-      "category": "backend"
-    },
-    {
-      "name": "GraphQL",
-      "level": "advanced",
-      "category": "backend"
+      "category": "database"
     },
     {
       "name": "Git",
@@ -161,6 +156,56 @@
       "name": "Sentry",
       "level": "intermediate",
       "category": "devops"
+    },
+    {
+      "name": "Next.js",
+      "level": "advanced",
+      "category": "frontend"
+    },
+    {
+      "name": "Supabase",
+      "level": "advanced",
+      "category": "database"
+    },
+    {
+      "name": "Supabase Auth",
+      "level": "intermediate",
+      "category": "database"
+    },
+    {
+      "name": "Resend",
+      "level": "intermediate",
+      "category": "backend"
+    },
+    {
+      "name": "CSV Ingestion",
+      "level": "intermediate",
+      "category": "backend"
+    },
+    {
+      "name": "Google Cloud Platform",
+      "level": "intermediate",
+      "category": "devops"
+    },
+    {
+      "name": "Linear",
+      "level": "advanced",
+      "category": "tools"
+    },
+    {
+      "name": "Mintlify",
+      "level": "advanced",
+      "category": "tools"
+    },
+    {
+      "name": "Codex",
+      "level": "intermediate",
+      "category": "ai-ml"
+    },
+    {
+      "name": "Linear MCP",
+      "level": "intermediate",
+      "category": "ai-ml"
     }
   ]
 }

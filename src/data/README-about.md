@@ -70,7 +70,7 @@ The `about-metadata.json` file contains the following sections:
     {
       "name": "Skill Name",
       "level": "beginner|intermediate|advanced|expert",
-      "category": "frontend|backend|devops|tools|soft"
+      "category": "frontend|backend|database|devops|tools|ai-ml|soft"
     }
   ]
 }
@@ -87,8 +87,10 @@ The `about-metadata.json` file contains the following sections:
 
 - `frontend` - Frontend technologies (React, TypeScript, etc.)
 - `backend` - Backend technologies (Node.js, Python, etc.)
+- `database` - Database platforms and storage systems
 - `devops` - DevOps tools (Docker, CI/CD, etc.)
 - `tools` - Development tools and methodologies
+- `ai-ml` - AI tools and copilots used in day-to-day work
 - `soft` - Soft skills (Communication, Leadership, etc.)
 
 ### Experience
