@@ -1,5 +1,6 @@
 'use client';
 
+import { useCommonColors } from '@/lib/theme-aware-colors';
 import { Badge, Box, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
 import { memo } from 'react';
 import { MobileTooltip } from '../../MobileTooltip';
@@ -18,6 +19,8 @@ const HeaderSection = memo(
     timeline,
     titleHeadingOrder = 3,
   }: HeaderSectionProps) => {
+    const commonColors = useCommonColors();
+
     return (
       <Group justify="space-between" align="flex-start" mb="sm">
         <Group>
@@ -53,7 +56,7 @@ const HeaderSection = memo(
                         <Title
                           order={titleHeadingOrder}
                           size="h3"
-                          c="dark"
+                          c={commonColors.textPrimary}
                           style={{
                             wordBreak: 'break-word',
                             lineHeight: 1.2,
@@ -82,7 +85,7 @@ const HeaderSection = memo(
                             component="span"
                             size="sm"
                             lh={1.6}
-                            c="gray.6"
+                            c={commonColors.textSecondary}
                             fs="italic"
                             style={{
                               letterSpacing: '0.01em',
@@ -163,7 +166,7 @@ const HeaderSection = memo(
                       <Title
                         order={titleHeadingOrder}
                         size="h4"
-                        c="dark"
+                        c={commonColors.textPrimary}
                         style={{
                           wordBreak: 'break-word',
                           lineHeight: 1.2,
@@ -192,7 +195,7 @@ const HeaderSection = memo(
                 <Text
                   size="sm"
                   lh={1.6}
-                  c="gray.6"
+                  c={commonColors.textSecondary}
                   mb="md"
                   style={{
                     fontStyle: 'italic',

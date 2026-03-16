@@ -1,5 +1,6 @@
 'use client';
 
+import { useCommonColors } from '@/lib/theme-aware-colors';
 import { Badge, Group, Text } from '@mantine/core';
 import { memo } from 'react';
 import { TouchActionIcon } from '../../TouchActionIcon';
@@ -14,6 +15,8 @@ const FooterSection = memo(
     secondaryAction,
     infoBoxDescription,
   }: FooterSectionProps) => {
+    const commonColors = useCommonColors();
+
     return (
       <Group justify="space-between" mt="md">
         <Group gap="xs">
@@ -59,7 +62,7 @@ const FooterSection = memo(
             return (
               <Group key={index} gap="xs">
                 {meta.icon}
-                <Text size="sm" c="gray.6">
+                <Text size="sm" c={commonColors.textSecondary}>
                   {meta.text}
                 </Text>
               </Group>

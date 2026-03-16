@@ -375,7 +375,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: '#f8f9fa',
+                background: commonColors.backgroundSecondary,
               }}
             >
               {/* Navigation Buttons */}
@@ -392,9 +392,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       top: '50%',
                       transform: 'translateY(-50%)',
                       zIndex: 10,
-                      background: 'rgba(255, 255, 255, 0.8)',
+                      background: commonColors.backgroundCard,
                       color: commonColors.textPrimary,
-                      border: 'none',
+                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 4px ${commonColors.shadowLight}`,
                       minWidth: '32px',
                       height: '32px',
@@ -402,13 +402,13 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       opacity: '0.7',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
+                      e.currentTarget.style.background = commonColors.backgroundSecondary;
                       e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
                       e.currentTarget.style.boxShadow = `0 4px 8px ${commonColors.shadowMedium}`;
                       e.currentTarget.style.opacity = '1';
                     }}
                     onMouseLeave={e => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                      e.currentTarget.style.background = commonColors.backgroundCard;
                       e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
                       e.currentTarget.style.boxShadow = `0 2px 4px ${commonColors.shadowLight}`;
                       e.currentTarget.style.opacity = '0.7';
@@ -427,9 +427,9 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       top: '50%',
                       transform: 'translateY(-50%)',
                       zIndex: 10,
-                      background: 'rgba(255, 255, 255, 0.8)',
+                      background: commonColors.backgroundCard,
                       color: commonColors.textPrimary,
-                      border: 'none',
+                      border: `1px solid ${commonColors.borderPrimary}`,
                       boxShadow: `0 2px 4px ${commonColors.shadowLight}`,
                       minWidth: '32px',
                       height: '32px',
@@ -437,13 +437,13 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       opacity: '0.7',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
+                      e.currentTarget.style.background = commonColors.backgroundSecondary;
                       e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
                       e.currentTarget.style.boxShadow = `0 4px 8px ${commonColors.shadowMedium}`;
                       e.currentTarget.style.opacity = '1';
                     }}
                     onMouseLeave={e => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                      e.currentTarget.style.background = commonColors.backgroundCard;
                       e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
                       e.currentTarget.style.boxShadow = `0 2px 4px ${commonColors.shadowLight}`;
                       e.currentTarget.style.opacity = '0.7';
