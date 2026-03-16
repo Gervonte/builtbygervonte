@@ -197,6 +197,31 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
     },
   };
 
+  const imageModalStyles = {
+    content: {
+      background: commonColors.backgroundModal,
+      border: 'none',
+      boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
+      padding: 0,
+      display: 'flex',
+      flexDirection: 'column' as const,
+      height: '100dvh',
+    },
+    body: {
+      background: commonColors.backgroundSecondary,
+      padding: 0,
+      display: 'flex',
+      flex: '1 1 auto',
+      minHeight: 0,
+    },
+    header: {
+      background: commonColors.backgroundModal,
+      borderBottom: `1px solid ${commonColors.borderPrimary}`,
+      padding: '1rem 1.5rem',
+      flex: '0 0 auto',
+    },
+  };
+
   if (!project.technicalDetails) {
     return (
       <Modal
@@ -344,30 +369,15 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
             </Text>
           </Group>
         }
-        styles={{
-          content: {
-            background: commonColors.backgroundModal,
-            border: 'none',
-            boxShadow: `0 20px 25px ${commonColors.shadowHeavy}`,
-            padding: 0,
-          },
-          body: {
-            background: commonColors.backgroundSecondary,
-            padding: 0,
-          },
-          header: {
-            background: commonColors.backgroundModal,
-            borderBottom: `1px solid ${commonColors.borderPrimary}`,
-            padding: '1rem 1.5rem',
-          },
-        }}
+        styles={imageModalStyles}
       >
         {selectedImage && (
-          <Box>
+          <Box style={{ display: 'flex', flex: 1, minHeight: 0 }}>
             <Box
               style={{
                 position: 'relative',
-                height: 'calc(100dvh - 73px)',
+                flex: 1,
+                minHeight: 0,
                 overflow: 'hidden',
                 background: commonColors.backgroundSecondary,
               }}

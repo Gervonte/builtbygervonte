@@ -23,7 +23,7 @@
       "location": "Lakeland, Florida",
       "companyUrl": "https://builtbygervonte.com",
       "description": "Building consumer fintech software focused on practical financial clarity for underserved Caribbean users.",
-      "longDescription": "BuiltByGervonte LLC is the parent company behind Ignition Labs, the software product suite focused on building thoughtful SaaS products with real user value.\n\nIgnition Labs was created to separate smaller vibe-coded experiments from more traditionally engineered products designed to grow into larger SAAS products.\n\nRainy Day is the first product in the suite, a consumer fintech app focused on practical financial clarity through local bank data aggregation.",
+      "longDescription": "BuiltByGervonte LLC is the parent company behind Ignition Labs, the software product suite focused on building thoughtful SaaS products with real user value.\n\nIgnition Labs was created to separate smaller vibe-coded experiments from more traditionally engineered products designed to grow into larger SaaS products.\n\nRainy Day is the first product in the suite, a consumer fintech app focused on practical financial clarity through local bank data aggregation.",
       "technologies": [
         "TypeScript",
         "React",

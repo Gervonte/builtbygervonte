@@ -62,7 +62,7 @@ const ToolsCard = memo(({ section, commonColors }: SectionCardProps) => {
             withArrow
           >
             <ThemeIcon
-              color="sakura"
+              color={commonColors.accentPrimary}
               variant="light"
               size="sm"
               radius="xl"
@@ -80,7 +80,7 @@ const ToolsCard = memo(({ section, commonColors }: SectionCardProps) => {
             contextType="technology"
             contextValue={tool}
             size="sm"
-            color="sakura"
+            color={commonColors.accentPrimary}
             variant="light"
           >
             {tool}

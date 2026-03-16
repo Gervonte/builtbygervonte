@@ -220,13 +220,13 @@
         "Released overview, auth, settings, and stability polish while deferring richer forecasting, additional banks and review logic to [v0.2.0]"
       ],
       "timeline": "Ongoing",
-      "category": "Early Stage Fintech SAAS",
+      "category": "Early Stage Fintech SaaS",
       "enableTechnicalDetails": true,
       "technicalDetails": {
         "product": {
           "enabled": true,
           "showScreenshots": true,
-          "description": "Rainy Day [v0.1.0] shipped FirstCaribbean (FCIB) CSV ingestion into a normalized Supabase model, upload and transaction review flows, management pages for statements, categories, and accounts, a calm overview dashboard with minimal insights, and baseline auth and settings.\n\nManagement is done through spreadsheet-like interfaces with searchable transaction review, filters, and server-side pagination and sorting.\n\nMore complex features, including automated categorization and additional local banks have been deferred in order to ship the Minimum Viable Prototype (MVP)\n\nIt has been built with structure using Linear and Mintlify and architected to scale. Product and business decisions have been sharpened through consistent strategic reading.\n\nAI is passively used in the form of Github Copilot for PR reviews, Codex/ChatGPT along with the newly introduced Linear MCP to help further define product decisions  as well as break tasks down into steps for me to code or accomplish manually when needed, similar to an in-house staff/senior engineer. (Manual tasks such as setting up auth, databases, hosted product documentation, etc.)",
+          "description": "Rainy Day [v0.1.0] shipped FirstCaribbean (FCIB) CSV ingestion into a normalized Supabase model, upload and transaction review flows, management pages for statements, categories, and accounts, a calm overview dashboard with minimal insights, and baseline auth and settings.\n\nManagement is done through spreadsheet-like interfaces with searchable transaction review, filters, and server-side pagination and sorting.\n\nMore complex features, including automated categorization and additional local banks have been deferred in order to ship the Minimum Viable Prototype (MVP)\n\nIt has been built with structure using Linear and Mintlify and architected to scale. Product and business decisions have been sharpened through consistent strategic reading.\n\nAI is passively used in the form of GitHub Copilot for PR reviews, Codex/ChatGPT along with the newly introduced Linear MCP to help further define product decisions as well as break tasks down into steps for me to code or accomplish manually when needed, similar to an in-house staff/senior engineer. (Manual tasks such as setting up auth, databases, hosted product documentation, etc.)",
           "tools": [
             "TypeScript",
             "React",

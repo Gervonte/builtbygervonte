@@ -74,7 +74,7 @@ const MonitoringCard = memo(({ section, commonColors }: SectionCardProps) => {
       </Group>
       <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="sm">
         {section.uptime ? (
-          <Card padding="sm" radius="md" style={{}}>
+          <Card padding="sm" radius="md">
             <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
               Uptime
             </Text>
@@ -84,7 +84,7 @@ const MonitoringCard = memo(({ section, commonColors }: SectionCardProps) => {
           </Card>
         ) : null}
         {section.errorRate ? (
-          <Card padding="sm" radius="md" style={{}}>
+          <Card padding="sm" radius="md">
             <Text size="sm" c={commonColors.textSecondary} fw={600} mb="xs">
               Error Rate
             </Text>
