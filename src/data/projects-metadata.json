@@ -20,7 +20,7 @@
         "Tabler Icons"
       ],
       "status": "live",
-      "featured": true,
+      "featured": false,
       "liveUrl": "https://builtbygervonte.com/",
       "githubUrl": "https://github.com/gervonte/builtbygervonte",
       "imagePath": "portfolio-ai2.png",
@@ -38,7 +38,7 @@
       ],
       "aiTools": ["Claude AI", "GitHub Copilot", "ChatGPT", "Cursor"],
       "timeline": "Ongoing",
-      "category": "Full Stack Web Development",
+      "category": "Full Stack Web Development Project",
       "enableTechnicalDetails": true,
       "technicalDetails": {
         "analytics": {
@@ -116,12 +116,12 @@
     {
       "id": "audio-key-bpm-analyzer-ai",
       "title": "Audio Key BPM Analyzer AI",
-      "description": "KIRO/AI generated music tool that helps new (or not so new!) music producers by analyzing the key and BPM of an instrumental file. Useful for autotune applications.",
-      "longDescription": "This tool is comparable in output to Tunebat.com's key and bpm analyzer. The waveform display was inspired by Soundcloud and the algorithm behind the analysis uses essentia.js. It's main use case is for analyzing instrumental music files as a music producer with a lack of music theory knowledge.",
+      "description": "KIRO/AI generated music tool that helps music producers, engineers and artists by analyzing the key and BPM of an instrumental file. Commonly used for fine tuning autotune and pitch correction applications.",
+      "longDescription": "This tool is comparable in output to Tunebat.com's key and bpm analyzer. The waveform display was inspired by Soundcloud and the algorithm behind the analysis uses essentia.js. It's main use case is for analyzing instrumental music files.",
       "type": "vibe-coded",
       "technologies": ["Vite", "TypeScript", "Essentia.js", "Chakra UI", "Sentry", "Web Audio API"],
       "status": "live",
-      "featured": true,
+      "featured": false,
       "liveUrl": "https://audio-key-bpm-analyzer-kiro.vercel.app/",
       "githubUrl": "https://github.com/Gervonte/audio-key-bpm-analyzer-kiro",
       "imagePath": "audio-analyzer3.png",
@@ -133,7 +133,7 @@
       ],
       "aiTools": ["Claude AI", "Kiro (AWS)", "ChatGPT"],
       "timeline": "1 week",
-      "category": "Full Stack Web Development",
+      "category": "Full Stack Web Development Project",
       "enableTechnicalDetails": true,
       "technicalDetails": {
         "analytics": {
@@ -180,12 +180,111 @@
           "deployment": "Vercel with Edge Functions"
         }
       }
+    },
+    {
+      "id": "rainy-day",
+      "title": "Rainy Day",
+      "description": "Rainy Day is a financial clarity app built with the banking realities of The Bahamas (and broader Caribbean region) in mind.\n\nAt this stage, it is built to securely support FirstCaribbean (FCIB) through statement ingestion as well as managing cash manually, with plans to expand to PDF support, other local banks (starting with ScotiaBank in the next upcoming release), and hybrid (Plaid-accessible) users combining and utilizing pre-existing data sources as the product grows.",
+      "longDescription": "Rainy Day is meant to help its users save and manage their money through industry standard software UI/UX and is currently at [v0.1.0/MVP]. By supporting data aggregation for local banks such as FirstCaribbean (FCIB) and manually tracking cash, financial clarity is provided through an overview dashboard with insights and the ability to securely manage transactions, statements, categories, and accounts. Additional technical details are included below.",
+      "type": "standard-work",
+      "technologies": [
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Supabase",
+        "PostgreSQL",
+        "CSV Ingestion",
+        "Linear",
+        "Vercel",
+        "Mintlify",
+        "Resend",
+        "Supabase Auth",
+        "Google Cloud Platform"
+      ],
+      "status": "in-progress",
+      "featured": true,
+      "liveUrl": "https://rainyday.ignitionlabs.app/auth",
+      "imagePath": "rainy-day/overview.png",
+      "thumbnailPosition": {
+        "featured": "center 22%",
+        "grid": "center 24%"
+      },
+      "thumbnailScale": {
+        "featured": 1.18,
+        "grid": 1.34
+      },
+      "achievements": [
+        "Shipped normalized FirstCaribbean (FCIB) CSV statement ingestion and manual cash transactions, along with categorization, charts and summaries.",
+        "Built a spreadsheet-like workflow with upload, searchable transaction review, filters, and server-side pagination and sorting",
+        "Delivered management pages for statements, categories, accounts, and manual cash account support",
+        "Released overview, auth, settings, and stability polish while deferring richer forecasting, additional banks and review logic to [v0.2.0]"
+      ],
+      "timeline": "Ongoing",
+      "category": "Fintech SAAS",
+      "enableTechnicalDetails": true,
+      "technicalDetails": {
+        "product": {
+          "enabled": true,
+          "showScreenshots": true,
+          "description": "Rainy Day [v0.1.0] shipped FirstCaribbean (FCIB) CSV ingestion into a normalized Supabase model, spreadsheet-first upload and transaction review flows, management pages for statements, categories, and accounts, a calm overview dashboard with minimal insights, and baseline auth and settings. Management is done through spreadsheet-like interfaces with searchable transaction review, filters, and server-side pagination and sorting.\n\nMore complex features including automated categorization and additional local banks have been deferred in order to ship the Minimum Viable Prototype (MVP)\n\nIt has been built with structure using Linear and Mintlify and architected to scale. Product and business decisions have been sharpened through consistent strategic reading.\n\nAI is passively used in the form of Github Copilot for PR reviews, Codex/ChatGPT along with the newly introduced Linear MCP to help further define product decisions  as well as break tasks down into steps for me to code or accomplish by manually when needed, similar to an in-house staff/senior engineer. (Manual tasks such as setting up auth, databases, hosted product documentation, etc.)",
+          "tools": [
+            "TypeScript",
+            "React",
+            "Next.js",
+            "Supabase",
+            "PostgreSQL",
+            "CSV Ingestion",
+            "Linear",
+            "Vercel",
+            "Mintlify",
+            "Resend",
+            "Supabase Auth",
+            "Google Cloud Platform",
+            "Codex",
+            "Linear MCP"
+          ],
+          "screenshots": [
+            {
+              "src": "rainy-day/auth.png",
+              "caption": "Authentication flow for signing into Rainy Day",
+              "alt": "Rainy Day sign in experience",
+              "modalFit": "contain",
+              "modalPosition": "center center",
+              "modalScale": 1
+            },
+            {
+              "src": "rainy-day/overview.png",
+              "caption": "Overview dashboard with spending, income, and recent transactions",
+              "alt": "Rainy Day overview dashboard",
+              "modalFit": "contain",
+              "modalPosition": "center center",
+              "modalScale": 1
+            },
+            {
+              "src": "rainy-day/transactions.png",
+              "caption": "Transactions page for reviewing imported financial activity",
+              "alt": "Rainy Day transactions page",
+              "modalFit": "contain",
+              "modalPosition": "center center",
+              "modalScale": 1
+            },
+            {
+              "src": "rainy-day/statements.png",
+              "caption": "Statements page for uploaded documents and statement history",
+              "alt": "Rainy Day statements page",
+              "modalFit": "contain",
+              "modalPosition": "center center",
+              "modalScale": 1
+            }
+          ]
+        }
+      }
     }
   ],
   "categories": {
     "vibe-coded": {
       "title": "Vibe Coded Projects",
-      "subtitle": "AI-Assisted Development",
+      "subtitle": "AI-Led Development",
       "description": "Projects where I collaborated with AI tools to enhance development speed, creativity, and problem-solving capabilities",
       "icon": "brain",
       "color": "sakura"
@@ -193,14 +292,14 @@
     "standard-work": {
       "title": "Standard Work Projects",
       "subtitle": "Traditional Development",
-      "description": "Projects built using traditional development approaches, showcasing core programming skills and problem-solving",
+      "description": "Projects built using traditional development approaches, showcasing core programming, problem-solving and systems thinking",
       "icon": "code",
       "color": "blue"
     }
   },
   "philosophy": {
     "title": "My Development Philosophy",
-    "description": "I believe in the power of both traditional programming skills and AI-assisted development. Each approach has its place:",
+    "description": "I believe in the power of both traditional programming skills and 'vibe coded' development. Each approach has its place:",
     "vibeCoded": {
       "title": "Vibe Coded",
       "description": "AI tools enhance creativity, accelerate development, and help explore new possibilities. Perfect for rapid prototyping, research, and innovative solutions.",

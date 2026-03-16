@@ -55,7 +55,7 @@ export const skillLevelContexts: Record<string, BadgeContext> = {
 // Project type contexts
 export const projectTypeContexts: Record<string, BadgeContext> = {
   'vibe-coded': {
-    title: 'AI-Assisted Development',
+    title: 'AI-Led Development',
     description: 'Leveraging AI tools to enhance productivity and code quality',
     capabilities: [
       'Collaborating with AI for code generation and optimization',
@@ -101,7 +101,7 @@ export const projectStatusContexts: Record<string, BadgeContext> = {
     capabilitiesLabel: 'What Was Done:',
   },
   'in-progress': {
-    title: 'In Active Development',
+    title: 'Active Development',
     description: 'Currently being developed with regular progress updates',
     capabilities: [
       'Implementing core features and functionality',
@@ -243,6 +243,26 @@ export const technologyContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'What It Does:',
   },
+  Supabase: {
+    title: 'Supabase',
+    description: 'Backend platform for Postgres, storage, APIs, and authentication',
+    capabilities: [
+      'Persisting relational application data',
+      'Exposing typed APIs and storage workflows',
+      'Powering auth and database-backed product features',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Supabase Auth': {
+    title: 'Supabase Auth',
+    description: 'Authentication layer for sign-in, sessions, and protected routes',
+    capabilities: [
+      'Supporting magic-link and OAuth login flows',
+      'Managing user sessions and route protection',
+      'Bootstrapping account state for authenticated users',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
   PostgreSQL: {
     title: 'PostgreSQL',
     description: 'Advanced open-source relational database',
@@ -273,6 +293,16 @@ export const technologyContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'What It Does:',
   },
+  'CSV Ingestion': {
+    title: 'CSV Ingestion',
+    description: 'Structured import workflow for turning statement files into normalized data',
+    capabilities: [
+      'Parsing uploaded CSV files into application records',
+      'Normalizing raw bank-export data for review and storage',
+      'Powering spreadsheet-first transaction import loops',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
 
   // DevOps & Cloud
   Docker: {
@@ -293,6 +323,12 @@ export const technologyContexts: Record<string, BadgeContext> = {
       'Using AWS services for scalability',
       'Implementing security and monitoring',
     ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Google Cloud Platform': {
+    title: 'Google Cloud Platform',
+    description: 'Cloud platform for hosting, managed services, and scalable infrastructure',
+    capabilities: ['Google OAuth, providing an easier and familiar login experience for users'],
     capabilitiesLabel: 'What It Does:',
   },
   Vercel: {
@@ -344,6 +380,48 @@ export const technologyContexts: Record<string, BadgeContext> = {
       'Creating and iterating on designs',
       'Collaborating with design teams',
       'Prototyping user interactions',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  Linear: {
+    title: 'Linear',
+    description: 'Issue tracking and product planning tool for software teams',
+    capabilities: [
+      'Managing scoped tasks, milestones, and priorities',
+      'Tracking shipped work across projects and releases',
+      'Keeping engineering execution aligned with product planning',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  Mintlify: {
+    title: 'Mintlify',
+    description: 'Documentation platform for publishing product and developer docs',
+    capabilities: [
+      'Writing and organizing product documentation',
+      'Publishing structured docs for users and developers',
+      'Keeping release notes and setup guidance accessible',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  Codex: {
+    title: 'Codex',
+    description:
+      'AI coding agent for implementation assistance, debugging, and repo-aware execution when needed',
+    capabilities: [
+      'Working with Linear through MCP',
+      'Reading the codebase and suggesting implementation steps',
+      'Helping debug complex issues',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Linear MCP': {
+    title: 'Linear MCP',
+    description:
+      'Model Context Protocol integration for working with Linear from development tools',
+    capabilities: [
+      'Pulling issue context directly into the coding workflow',
+      'Keeping implementation aligned with tickets and acceptance criteria',
+      'Reducing manual context switching between code and project tracking',
     ],
     capabilitiesLabel: 'What It Does:',
   },
@@ -471,7 +549,7 @@ export const technologyContexts: Record<string, BadgeContext> = {
     title: 'Resend',
     description: 'Email API for developers',
     capabilities: [
-      'Sending transactional emails from applications',
+      'Sending transactional emails from applications such as magic sign-in links',
       'Managing email templates and delivery',
       'Integrating email functionality with web apps',
     ],

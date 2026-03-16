@@ -12,8 +12,9 @@ This directory contains the metadata files for the portfolio's work section.
 To add, edit, or remove projects from the work section:
 
 1. **Edit `projects-metadata.json`** - This is the main data file
-2. **No code changes needed** - The WorkSection component automatically reads from this file
-3. **Restart the dev server** - Run `npm run dev` to see changes
+2. **Add local images if needed** - Card thumbnails live in `public/images/projects/`
+3. **Add modal screenshots if needed** - Technical-details screenshots live in `public/images/technical/`
+4. **Restart the dev server** - Run `pnpm dev` to see changes
 
 ## Project Structure
 
@@ -31,10 +32,33 @@ Each project in the `projects` array should have:
   "featured": true | false,
   "liveUrl": "https://example.com",
   "githubUrl": "https://github.com/user/repo",
+  "imagePath": "project-folder/thumbnail.png",
+  "thumbnailPosition": {
+    "featured": "center 55%",
+    "grid": "center top"
+  },
+  "thumbnailScale": {
+    "featured": 1.1,
+    "grid": 1.25
+  },
   "achievements": ["Achievement 1", "Achievement 2"],
   "aiTools": ["AI Tool 1", "AI Tool 2"], // Only for vibe-coded projects
   "timeline": "Time period",
-  "category": "Category Name"
+  "category": "Category Name",
+  "enableTechnicalDetails": true,
+  "technicalDetails": {
+    "product": {
+      "description": "Short summary for the modal overview",
+      "tools": ["Tool 1", "Tool 2"],
+      "screenshots": [
+        {
+          "src": "project-folder/screen-1.png",
+          "caption": "Screenshot caption",
+          "alt": "Accessible alt text"
+        }
+      ]
+    }
+  }
 }
 ```
 
@@ -63,6 +87,13 @@ You can create any category names you want. Common examples:
 
 The philosophy section is also configurable in the metadata file under the `philosophy` object.
 
+## Image Storage
+
+- `public/images/projects/` - Card and featured thumbnails referenced by `imagePath`
+- `public/images/technical/` - Technical-details modal screenshots referenced by `technicalDetails.*.screenshots`
+
+Nested folders are supported for both.
+
 ## Utility Functions
 
 The `src/lib/projects.ts` file provides utility functions to work with the projects data:
@@ -75,15 +106,17 @@ The `src/lib/projects.ts` file provides utility functions to work with the proje
 ## Example: Adding a New Project
 
 1. Open `projects-metadata.json`
-2. Add a new project object to the `projects` array
-3. Save the file
-4. Restart the dev server
-5. The new project will appear in the work section
+2. Add any thumbnail image to `public/images/projects/`
+3. Add any modal screenshots to `public/images/technical/` if the project uses technical details
+4. Add a new project object to the `projects` array
+5. Save the file
+6. Restart the dev server with `pnpm dev`
+7. The new project will appear in the work section
 
 ## Example: Updating Project Information
 
 1. Find the project by `id` in `projects-metadata.json`
 2. Update any fields you want to change
 3. Save the file
-4. Restart the dev server
+4. Restart the dev server with `pnpm dev`
 5. Changes will be reflected in the work section

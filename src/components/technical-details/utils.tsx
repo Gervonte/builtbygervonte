@@ -1,4 +1,11 @@
-import { IconBuilding, IconChartBar, IconGauge, IconRocket, IconShield } from '@tabler/icons-react';
+import {
+  IconBuilding,
+  IconChartBar,
+  IconDeviceDesktop,
+  IconGauge,
+  IconRocket,
+  IconShield,
+} from '@tabler/icons-react';
 
 export const getTechnicalIcon = (section: string) => {
   switch (section) {
@@ -12,6 +19,8 @@ export const getTechnicalIcon = (section: string) => {
       return <IconGauge size={16} />;
     case 'architecture':
       return <IconBuilding size={16} />;
+    case 'product':
+      return <IconDeviceDesktop size={16} />;
     default:
       return <IconChartBar size={16} />;
   }
@@ -55,5 +64,7 @@ export const shouldShowSection = (section: Record<string, unknown>, sectionType:
 };
 
 export const formatSectionTitle = (key: string) => {
-  return key === 'cicd' ? 'CI/CD' : key.charAt(0).toUpperCase() + key.slice(1);
+  if (key === 'cicd') return 'CI/CD';
+  if (key === 'product') return 'Product';
+  return key.charAt(0).toUpperCase() + key.slice(1);
 };

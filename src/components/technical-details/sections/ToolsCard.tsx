@@ -17,7 +17,6 @@ const ToolsCard = memo(({ section, commonColors }: SectionCardProps) => {
       padding="xl"
       radius="md"
       style={{
-        background: commonColors.backgroundCard,
         boxShadow: `0 2px 8px ${commonColors.shadowLight}`,
         transition: 'all 0.2s ease-in-out',
         transform: 'scale(1)',
@@ -81,8 +80,8 @@ const ToolsCard = memo(({ section, commonColors }: SectionCardProps) => {
             contextType="technology"
             contextValue={tool}
             size="sm"
-            variant="filled"
-            color={commonColors.accentPrimary}
+            color="sakura"
+            variant="light"
           >
             {tool}
           </BadgeWithTooltip>

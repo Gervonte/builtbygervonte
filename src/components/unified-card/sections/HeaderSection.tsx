@@ -97,7 +97,7 @@ const HeaderSection = memo(
                                 label={
                                   <Stack gap="xs">
                                     <Text c="sakura" fw={600} size="sm">
-                                      About NovaCredit
+                                      About {title}
                                     </Text>
                                     {longDescription.split('\n\n').map((paragraph, index) => (
                                       <Text
@@ -201,6 +201,7 @@ const HeaderSection = memo(
                     fontStyle: 'italic',
                     lineHeight: '1.6',
                     letterSpacing: '0.01em',
+                    whiteSpace: 'pre-wrap',
                   }}
                 >
                   {longDescription || description}
