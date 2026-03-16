@@ -114,3 +114,4 @@ lighthouse*.html
 # Performance monitoring
 *.perf
 *.profile
+/.local-prompts
