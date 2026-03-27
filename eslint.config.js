@@ -1,21 +1,43 @@
-import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
+import nextPlugin from '@next/eslint-plugin-next';
+import tsParser from '@typescript-eslint/parser';
 import prettierConfig from 'eslint-config-prettier';
 import prettier from 'eslint-plugin-prettier';
+import globals from 'globals';
+
+const nextRules = {
+  ...nextPlugin.configs.recommended.rules,
+  ...nextPlugin.configs['core-web-vitals'].rules,
+};
 
 export default [
-  ...nextCoreWebVitals,
   {
+    name: 'app/base',
+    files: ['**/*.{js,jsx,mjs,ts,tsx,mts,cts}'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: {
+          jsx: true,
+        },
+        sourceType: 'module',
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
     plugins: {
+      '@next/next': nextPlugin,
       prettier,
     },
     rules: {
+      ...nextRules,
       'prettier/prettier': 'error',
-      // Suppress false positive warnings
-      'react-hooks/exhaustive-deps': 'off',
-      'react-hooks/immutability': 'off',
-      'react-hooks/set-state-in-effect': 'off',
-      'import/no-anonymous-default-export': 'off',
     },
   },
   prettierConfig,
+  {
+    ignores: ['.next/**', 'out/**', 'build/**', 'next-env.d.ts'],
+  },
 ];

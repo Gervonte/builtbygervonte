@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { promises as fs } from 'fs';
+import { tmpdir } from 'os';
 import path from 'path';
 
 interface CacheEntry {
@@ -20,7 +21,7 @@ interface CacheConfig {
 const CACHE_CONFIG: CacheConfig = {
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   maxSize: 100 * 1024 * 1024, // 100MB
-  cacheDir: path.join(process.cwd(), '.next/cache/screenshots'),
+  cacheDir: path.join(tmpdir(), 'portfolio-ai', 'screenshots'),
 };
 
 /**

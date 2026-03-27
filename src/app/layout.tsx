@@ -13,17 +13,27 @@ import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import React from 'react';
 import '../styles/critical.css';
 import '../styles/mobile-tooltips.css';
 import '../styles/sakura-optimized.css';
 
-const inter = Inter({
-  subsets: ['latin'],
+const inter = localFont({
+  src: [
+    {
+      path: './fonts/Inter-VariableFont_opsz,wght.ttf',
+      style: 'normal',
+      weight: '100 900',
+    },
+    {
+      path: './fonts/Inter-Italic-VariableFont_opsz,wght.ttf',
+      style: 'italic',
+      weight: '100 900',
+    },
+  ],
   display: 'swap',
-  preload: true,
-  fallback: ['system-ui', 'arial'],
+  fallback: ['system-ui', 'Arial', 'sans-serif'],
   variable: '--font-inter',
 });
 
@@ -65,9 +75,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
-        {/* Fonts are handled by Next.js Google Fonts */}
+        {/* Typography is handled by local font assets and theme fallbacks */}
       </head>
-      <body className={inter.className} style={{ scrollBehavior: 'auto' }}>
+      <body className={`${inter.className} ${inter.variable}`} style={{ scrollBehavior: 'auto' }}>
         <ThemeProvider>
           <ThemeWrapper>
             <SkipLink />
