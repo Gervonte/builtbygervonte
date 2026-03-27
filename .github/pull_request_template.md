@@ -2,7 +2,7 @@
 
 ## 📝 Title
 
-`[type-issue#]: brief description` (types: feat | fix | refactor)
+`[type-issue#]: brief description` (types: feat | fix | refactor | chore)
 
 ## 🎯 Summary
 
@@ -16,8 +16,9 @@
 
 ## 🧪 Testing
 
-- [ ] `npm run build`
-- [ ] `npm run dev`
+- [ ] `pnpm lint`
+- [ ] `pnpm run build`
+- [ ] `pnpm run dev`
 - [ ] Manual checks: add 2-3 steps specific to this PR
 
 ## 🔗 Related
