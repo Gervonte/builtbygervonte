@@ -1,8 +1,4 @@
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { join } from 'path';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -60,10 +56,12 @@ const nextConfig = {
     if (!dev && !isServer) {
       config.cache = {
         type: 'filesystem',
-        buildDependencies: {
-          config: [__filename],
-        },
-        cacheDirectory: join(__dirname, '.next/cache/webpack'),
+        cacheDirectory: join(
+          /* turbopackIgnore: true */ process.cwd(),
+          '.next',
+          'cache',
+          'webpack'
+        ),
         compression: 'gzip',
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
       };
