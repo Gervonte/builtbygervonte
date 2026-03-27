@@ -108,10 +108,11 @@ const darkScale = [
 ] as const satisfies MantineColorsTuple;
 
 const sharedThemeConfig = {
-  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+  fontFamily:
+    'var(--font-inter), Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
   fontFamilyMonospace: 'JetBrains Mono, Fira Code, Consolas, monospace',
   headings: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'var(--font-inter), Inter, sans-serif',
     fontWeight: '600',
   },
   spacing: {
