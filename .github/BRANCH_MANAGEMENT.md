@@ -16,7 +16,7 @@ This guide explains how to properly manage branches to prevent commit accumulati
 - **`bugfix/short-description`**: Manual bug fix branches when there is no Linear issue
 - **`hotfix/short-description`**: Critical fixes when there is no Linear issue
 
-For Linear issues, use the Linear issue key at the start of the branch name:
+For Linear issues, use the Linear issue key at the start of the branch name. Branch names must be lowercase, so convert `BBG-42` to `bbg-42`:
 
 - **`bbg-42-add-agentsmd-codex-workflow-instructions`**
 - **`bbg-41-align-ci-toolchain`**
@@ -134,7 +134,7 @@ git remote prune origin
 ## 📋 Checklist for Each Feature
 
 - [ ] Create feature branch from clean preview
-- [ ] Use the Linear issue key in the branch name when work maps to Linear
+- [ ] Use the lowercase Linear issue key in the branch name when work maps to Linear (`BBG-42` → `bbg-42`)
 - [ ] Make focused, atomic commits
 - [ ] Use clear commit messages
 - [ ] Create PR to preview (not main)

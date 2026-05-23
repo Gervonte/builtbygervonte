@@ -8,7 +8,8 @@ For all Codex tasks from Linear:
 - Use `preview` as the base branch unless the Linear issue explicitly says otherwise.
 - Never commit directly to `preview` or `main`.
 - Create a feature branch from `preview`.
-- Branch name format: `<linear-key>-<short-kebab-title>`.
+- Branch name format: `bbg-<number>-<short-kebab-title>`.
+  - Convert the Linear key to lowercase for branch names: `BBG-42` becomes `bbg-42`.
   - Example: `bbg-41-align-ci-toolchain`
 - Commit all task changes to the feature branch.
 - Open a pull request targeting `preview`.
@@ -16,7 +17,8 @@ For all Codex tasks from Linear:
 - Keep the PR scoped to the Linear issue only.
 - Use the PR title format `type(LINEAR-KEY): brief description`.
   - Example: `docs(BBG-42): add Codex workflow instructions`
-- Use `Closes LINEAR-KEY` in the PR Related section.
+- Use the uppercase Linear key in PR text.
+- Use `Closes LINEAR-KEY` in the PR Linear section.
 - Summarize changed files and validation steps in the PR description.
 
 ## Commit messages

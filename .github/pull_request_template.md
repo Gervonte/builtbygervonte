@@ -18,6 +18,7 @@ Example: `docs(BBG-42): add Codex workflow instructions`
 
 ## 🌿 Branch
 
+- Note: use uppercase Linear keys in PR text (`BBG-42`) and lowercase Linear keys in branch names (`bbg-42-short-title`).
 - [ ] Source branch follows Linear naming, e.g. `bbg-42-short-title`
 - [ ] Target branch is `preview`
 
