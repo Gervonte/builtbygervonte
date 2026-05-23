@@ -68,14 +68,14 @@ This repository includes comprehensive GitHub Actions workflows for automated te
 
 ### 6. Performance Monitoring (`performance-monitor.yml`)
 
-**Triggers:** Push, PR, Daily schedule
+**Triggers:** Pull request to `preview`, Deployment status (successful `Preview`/`preview` environment)
 
 **Features:**
 
-- Lighthouse CI performance testing
+- Local production-build Lighthouse checks on preview-targeting PRs
+- Vercel Preview deployment Lighthouse checks after successful preview deployments
 - Core Web Vitals monitoring
-- PR comments with performance scores
-- Daily performance regression detection
+- PR comments with performance scores and workflow artifact/report context
 
 ### 7. Dependency Updates (`dependabot.yml`)
 
