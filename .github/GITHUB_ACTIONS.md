@@ -12,9 +12,9 @@ This repository includes comprehensive GitHub Actions workflows for automated te
 
 - **Lint & Type Check**: ESLint, TypeScript, Prettier validation
 - **Build & Test**: Production build verification
-- **Performance Check**: Lighthouse CI on PRs
 - Uses the shared Node.js/pnpm setup action and repo-pinned versions from `.nvmrc` and `package.json`
 - Uses workflow concurrency to cancel stale runs
+- Lighthouse performance checks live in `performance-monitor.yml` to avoid duplicate PR runs
 
 ### 2. Pull Request Automation (`auto-deploy.yml`)
 
@@ -63,7 +63,7 @@ This repository includes comprehensive GitHub Actions workflows for automated te
 
 - CodeQL analysis for security vulnerabilities
 - Dependency review on PRs
-- Scheduled/manual `pnpm audit` reporting without blocking normal CI
+- Scheduled/manual `pnpm audit` reporting without installing dependencies on normal push/PR scans
 - Daily security monitoring
 
 ### 6. Performance Monitoring (`performance-monitor.yml`)

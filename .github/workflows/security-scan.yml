@@ -31,6 +31,12 @@ jobs:
 
       - name: Setup Node.js and pnpm
         uses: ./.github/actions/setup-node-pnpm
+        with:
+          install-command: ''
+
+      - name: Install dependencies for audit
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: pnpm install --frozen-lockfile
 
       - name: Run security audit
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
