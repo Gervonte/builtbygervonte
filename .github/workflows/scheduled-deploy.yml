@@ -33,7 +33,7 @@ jobs:
 
       - name: Check for pending PRs
         id: check-prs
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             try {
@@ -199,7 +199,7 @@ jobs:
 
       - name: Comment on merged PRs
         if: steps.check-prs.outputs.result != 'no-prs'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const { data: prs } = await github.rest.pulls.list({
