@@ -5,6 +5,7 @@ This directory contains the metadata files for the portfolio's work section.
 ## Files
 
 - `projects-metadata.json` - Main projects data file
+- `watch-videos.ts` - Structured Watch video data, types, and helper functions
 - `README.md` - This documentation file
 
 ## How to Update Projects
@@ -102,6 +103,13 @@ The `src/lib/projects.ts` file provides utility functions to work with the proje
 - `getFeaturedProjects()` - Get featured projects
 - `getProjectById(id)` - Get specific project
 - `getProjectStats()` - Get project statistics
+
+## Watch Video Data
+
+Watch videos live in `watch-videos.ts` as TypeScript data because the Watch section needs
+literal collection/status types and small helper functions. Coming-soon videos should omit
+`youtubeUrl` and `youtubeId` until real YouTube links are available; do not use placeholder or
+empty-string URLs.
 
 ## Example: Adding a New Project
 
