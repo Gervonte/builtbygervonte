@@ -102,38 +102,6 @@ export const watchVideos: WatchVideo[] = [
     duration: '12:18',
     status: 'coming-soon',
   },
-  {
-    id: 'rainy-day-v0-3-0',
-    slug: 'rainy-day-v0-3-0',
-    title: 'Rainy Day v0.3.0',
-    description:
-      'A product demo for a later Rainy Day release focused on continued product polish and clarity.',
-    category: 'product-demo',
-    collection: 'Rainy Day Demos',
-    duration: '11:45',
-    status: 'coming-soon',
-  },
-  {
-    id: 'the-locs-culture-shift',
-    slug: 'the-locs-culture-shift',
-    title: 'The Locs Culture Shift',
-    description:
-      'A creative breakdown exploring culture, identity, and the broader meaning behind the locs shift.',
-    category: 'creative-breakdown',
-    collection: 'Creative / Culture',
-    duration: '15:32',
-    status: 'coming-soon',
-  },
-  {
-    id: 'beywhat-breakdowns',
-    slug: 'beywhat-breakdowns',
-    title: 'BEYWHAT Breakdowns',
-    description:
-      'Creative and cultural breakdowns shaped by Bahamian perspective, commentary, and storytelling.',
-    category: 'creative-breakdown',
-    collection: 'Creative / Culture',
-    status: 'coming-soon',
-  },
 ];
 
 export interface WatchCollectionGroup {
