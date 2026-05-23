@@ -2,7 +2,7 @@ name: Scheduled Daily Deploy
 
 on:
   schedule:
-    - cron: '0 13 * * 0-6' # 1:00 PM UTC (9:00 AM EST), Daily
+    - cron: '0 13 * * 1-5' # 1:00 PM UTC (weekdays only)
   workflow_dispatch: # Manual trigger
 
 permissions:
@@ -28,7 +28,7 @@ jobs:
           node-version: '22.14.0'
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: '11.2.2'
 
