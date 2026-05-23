@@ -11,6 +11,8 @@ For all Codex tasks from Linear:
 - Branch name format: `bbg-<number>-<short-kebab-title>`.
   - Convert the Linear key to lowercase for branch names: `BBG-42` becomes `bbg-42`.
   - Example: `bbg-41-align-ci-toolchain`
+  - Codex Cloud may add a managed prefix such as `codex/linear-mention-`.
+  - If Codex adds a managed prefix, the branch must still include the lowercase Linear key and open a PR targeting `preview`.
 - Commit all task changes to the feature branch.
 - Open a pull request targeting `preview`.
 - Use the pull request template in `.github/pull_request_template.md`.
