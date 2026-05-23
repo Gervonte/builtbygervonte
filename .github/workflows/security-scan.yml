@@ -23,11 +23,14 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: read
       security-events: write
       actions: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+        with:
+          token: ${{ github.token }}
 
       - name: Setup Node.js and pnpm
         uses: ./.github/actions/setup-node-pnpm
@@ -66,6 +69,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+        with:
+          token: ${{ github.token }}
 
       - name: Dependency Review
         uses: actions/dependency-review-action@v5
