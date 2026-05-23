@@ -62,8 +62,6 @@ export function MobileTooltip({
     },
     // Prevent tooltip from being cut off on mobile
     withinPortal: true,
-    // Better positioning for mobile
-    positionDependencies: [opened],
   };
 
   return (
