@@ -78,7 +78,7 @@ jobs:
           echo "Preview branch has been safely reset to match main"
 
       - name: Comment on merged PR
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             await github.rest.issues.createComment({
