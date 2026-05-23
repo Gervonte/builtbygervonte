@@ -2,7 +2,7 @@
 
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { useCurrentTheme, useTheme } from '@/lib/theme-context';
-import { Box, MantineProvider } from '@mantine/core';
+import { Box, MantineProvider, v8CssVariablesResolver } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import type { CSSProperties, ReactNode } from 'react';
 
@@ -17,7 +17,11 @@ export default function ThemeWrapper({ children }: ThemeWrapperProps) {
   const commonColors = useCommonColors();
 
   return (
-    <MantineProvider theme={theme} forceColorScheme={resolvedColorScheme}>
+    <MantineProvider
+      theme={theme}
+      forceColorScheme={resolvedColorScheme}
+      cssVariablesResolver={v8CssVariablesResolver}
+    >
       <Box
         data-theme-mode={resolvedColorScheme}
         data-palette-theme={currentTheme}
@@ -31,7 +35,7 @@ export default function ThemeWrapper({ children }: ThemeWrapperProps) {
           } as CSSProperties
         }
       >
-        <Notifications />
+        <Notifications pauseResetOnHover="notification" />
         {children}
       </Box>
     </MantineProvider>

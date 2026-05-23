@@ -3,21 +3,6 @@ name: Setup Node.js and pnpm
 on:
   workflow_call:
     inputs:
-      node-version:
-        description: 'Node.js version'
-        required: false
-        type: string
-        default: '20'
-      pnpm-version:
-        description: 'pnpm version'
-        required: false
-        type: string
-        default: '10'
-      cache-key:
-        description: 'Cache key for dependencies'
-        required: false
-        type: string
-        default: 'pnpm-lock.yaml'
       install-command:
         description: 'Install command to run'
         required: false
@@ -30,34 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
         with:
-          node-version: ${{ inputs.node-version }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ inputs.pnpm-version }}
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.pnpm-store
-            node_modules
-            .next/cache
-            .next/static
-            .next/standalone
-            .eslintcache
-            .tsbuildinfo
-          key: ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles(format('**/{0}', inputs.cache-key)) }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.json') }}-v3
-          restore-keys: |
-            ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles(format('**/{0}', inputs.cache-key)) }}-v3
-            ${{ runner.os }}-${{ inputs.node-version }}-v3
-            ${{ runner.os }}-${{ inputs.node-version }}-
-
-      - name: Install dependencies
-        run: ${{ inputs.install-command }}
+          install-command: ${{ inputs.install-command }}

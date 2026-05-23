@@ -1,0 +1,41 @@
+name: GitHub Actions Lint
+
+on:
+  pull_request:
+    branches: [main, preview]
+    paths:
+      - .github/actions/**
+      - .github/workflows/**
+  push:
+    branches: [main, preview]
+    paths:
+      - .github/actions/**
+      - .github/workflows/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  actionlint:
+    name: actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.25"
+          cache: false
+
+      - name: Install actionlint
+        run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
+
+      - name: Lint workflows
+        run: actionlint

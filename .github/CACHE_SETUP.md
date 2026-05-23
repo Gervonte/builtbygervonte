@@ -1,84 +1,43 @@
 # Build Cache Setup for CI/CD
 
-This repository uses advanced build caching to speed up CI/CD pipelines and reduce build times.
+This repository keeps CI caching intentionally small and tied to repo-pinned
+tooling.
 
-## 🚀 What's Cached
+## What's Cached
 
-- **Dependencies**: `node_modules` and `~/.npm`
-- **Next.js Build Cache**: `.next/cache`, `.next/static`, `.next/standalone`
-- **ESLint Cache**: `.eslintcache` for faster linting
-- **TypeScript Cache**: `.tsbuildinfo` for incremental compilation
+- pnpm store via `actions/setup-node` with `cache: pnpm`
+- Cache key dependency path: `pnpm-lock.yaml`
 
-## 📊 Performance Benefits
+The workflows do not cache `node_modules`, `.next/static`, `.next/standalone`,
+or generated TypeScript and lint outputs. Those paths are either reproducible
+from the lockfile or can become stale across jobs.
 
-- **Faster Builds**: 50-80% reduction in build time
-- **Faster Linting**: ESLint cache reduces lint time by 60-90%
-- **Faster Type Checking**: TypeScript incremental compilation
-- **Reduced CI Costs**: Less compute time = lower costs
+## Shared Setup
 
-## 🔧 Cache Management
+Use the local composite action for Node.js and pnpm setup:
 
-### Update Cache Version
-
-```bash
-# Update to new version (e.g., v3)
-npm run cache:update v3
-
-# Or manually
-node scripts/update-cache-version.js v3
+```yaml
+- name: Setup Node.js and pnpm
+  uses: ./.github/actions/setup-node-pnpm
 ```
 
-### Cache Invalidation
+The action reads:
 
-- Cache automatically invalidates when `package-lock.json` changes
-- Cache automatically invalidates when source code changes
-- Increment `CACHE_VERSION` in workflow files to force refresh
+- Node.js from `.nvmrc`
+- pnpm from `package.json` `packageManager`
+- dependencies from `pnpm-lock.yaml`
 
-### Monitor Cache Performance
+To skip installation:
 
-Check GitHub Actions logs for cache hit rates:
+```yaml
+- name: Setup Node.js and pnpm
+  uses: ./.github/actions/setup-node-pnpm
+  with:
+    install-command: ''
+```
 
-- Look for "Cache restored from key" messages
-- Look for "Cache not found for input keys" messages
+## Troubleshooting
 
-## 📁 Files
-
-- `.github/workflows/ci-cd.yml` - Main workflow with advanced caching
-- `.github/cache-config.yml` - Cache configuration documentation
-- `scripts/update-cache-version.js` - Cache version management script
-
-## 🎯 Cache Strategy
-
-1. **Primary Key**: OS + Node version + package-lock.json hash + source code hash
-2. **Restore Keys**: Fallback to less specific keys for better hit rates
-3. **Retention**: 30 days (configurable)
-4. **Cleanup**: Automatic cleanup of old caches
-
-## 🔍 Troubleshooting
-
-### Cache Misses
-
-- Check if `package-lock.json` changed
-- Check if source code changed significantly
-- Verify cache version is consistent across jobs
-
-### Build Failures
-
-- Clear cache by incrementing `CACHE_VERSION`
-- Check for corrupted cache entries
-- Verify all cached paths are correct
-
-### Performance Issues
-
-- Monitor cache hit rates in logs
-- Adjust cache keys if needed
-- Consider cache size limits (GitHub has 10GB limit per repo)
-
-## 📈 Expected Results
-
-With proper caching, you should see:
-
-- **First run**: Normal build time
-- **Subsequent runs**: 50-80% faster builds
-- **Dependency changes**: Only affected parts rebuild
-- **Source changes**: Only changed files recompile
+- If dependency install behavior changes, update `pnpm-lock.yaml`.
+- If the Node.js version changes, update `.nvmrc`.
+- If the pnpm version changes, update `package.json` `packageManager`.

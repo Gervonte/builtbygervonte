@@ -1,101 +1,311 @@
 name: Performance Monitoring
 
 on:
-  push:
-    branches: [main, preview]
-  schedule:
-    # Run daily at 6 AM UTC
-    - cron: '0 6 * * *'
+  pull_request:
+    branches: [preview]
+  deployment_status:
 
-env:
-  NODE_VERSION: '22.14.0'
-  PNPM_VERSION: '11.2.2'
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  deployments: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.deployment.id || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  performance-test:
-    name: Performance Test
+  local-production-lighthouse:
+    name: Local Production Lighthouse
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Build application
-        run: pnpm build
+        run: pnpm run build:ci
         env:
           RESEND_API_KEY: 'dummy_key_for_build'
 
-      - name: Start application
+      - name: Start production server
+        run: pnpm start:prod > /tmp/local-production-server.log 2>&1 &
+
+      - name: Wait for localhost server
         run: |
-          pnpm start &
-          sleep 15
+          for attempt in {1..60}; do
+            if curl -fsS http://localhost:3000/ > /dev/null; then
+              echo "Local production server is ready"
+              exit 0
+            fi
+            echo "Waiting for local production server... (${attempt}/60)"
+            sleep 2
+          done
+          echo "Local production server did not become ready in time"
+          echo "--- Server Log ---"
+          cat /tmp/local-production-server.log
+          exit 1
 
       - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v10
+        uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: './lighthouserc.json'
+          urls: |
+            http://localhost:3000/
           uploadArtifacts: false
           temporaryPublicStorage: true
 
       - name: Upload Lighthouse Results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: lighthouse_results
-          path: .lighthouseci/
+          name: lighthouse-reports-local-production-${{ github.run_id }}
+          path: |
+            .lighthouseci/**/*.html
+            .lighthouseci/**/*.json
           retention-days: 30
 
-      - name: Comment PR with Lighthouse results
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v6
+      - name: Comment PR with local production Lighthouse results
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
             const path = require('path');
 
-            // Read Lighthouse results
             const resultsPath = path.join(process.cwd(), '.lighthouseci');
-            if (fs.existsSync(resultsPath)) {
-              const files = fs.readdirSync(resultsPath);
-              const jsonFiles = files.filter(file => file.endsWith('.json'));
-              
-              if (jsonFiles.length > 0) {
-                const results = JSON.parse(fs.readFileSync(path.join(resultsPath, jsonFiles[0]), 'utf8'));
-                const scores = results.lhr.categories;
-                
-                const comment = `## 🚀 Performance Report
-                
-                | Metric | Score | Status |
-                |--------|-------|--------|
-                | Performance | ${Math.round(scores.performance.score * 100)} | ${scores.performance.score >= 0.9 ? '✅' : scores.performance.score >= 0.8 ? '⚠️' : '❌'} |
-                | Accessibility | ${Math.round(scores.accessibility.score * 100)} | ${scores.accessibility.score >= 0.9 ? '✅' : '❌'} |
-                | Best Practices | ${Math.round(scores['best-practices'].score * 100)} | ${scores['best-practices'].score >= 0.9 ? '✅' : '❌'} |
-                | SEO | ${Math.round(scores.seo.score * 100)} | ${scores.seo.score >= 0.9 ? '✅' : '❌'} |
-                
-                ### Core Web Vitals
-                - **LCP**: ${Math.round(results.lhr.audits['largest-contentful-paint'].numericValue)}ms
-                - **FID**: ${Math.round(results.lhr.audits['max-potential-fid'].numericValue)}ms
-                - **CLS**: ${results.lhr.audits['cumulative-layout-shift'].numericValue.toFixed(3)}
-                
-                [View full report](${results.lhr.finalUrl})`;
-                
-                github.rest.issues.createComment({
+            if (!fs.existsSync(resultsPath)) {
+              core.info('No .lighthouseci directory found; skipping performance comment.');
+              return;
+            }
+
+            const jsonFiles = fs
+              .readdirSync(resultsPath)
+              .filter(file => file.endsWith('.json'));
+
+            for (const file of jsonFiles) {
+              const result = JSON.parse(fs.readFileSync(path.join(resultsPath, file), 'utf8'));
+              const lhr = result.lhr || result;
+
+              if (!lhr.categories || !lhr.audits) {
+                core.info(`Skipping ${file}; it is not a Lighthouse result file.`);
+                continue;
+              }
+
+              const scores = lhr.categories;
+              const scorePercent = category => Math.round(category.score * 100);
+              const auditNumber = auditName => lhr.audits[auditName]?.numericValue;
+              const lcp = auditNumber('largest-contentful-paint');
+              const fid = auditNumber('max-potential-fid');
+              const cls = auditNumber('cumulative-layout-shift');
+              const testedUrl = 'http://localhost:3000/';
+              const runUrl =
+                context.serverUrl && context.repo?.owner && context.repo?.repo && context.runId
+                  ? `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+                  : null;
+              const reportTitle = 'Performance Report: Local Production Build';
+
+              const commentLines = [
+                `## ${reportTitle}`,
+                '',
+                '| Metric | Score | Status |',
+                '|--------|-------|--------|',
+                `| Performance | ${scorePercent(scores.performance)} | ${scores.performance.score >= 0.9 ? 'Pass' : scores.performance.score >= 0.8 ? 'Warn' : 'Fail'} |`,
+                `| Accessibility | ${scorePercent(scores.accessibility)} | ${scores.accessibility.score >= 0.9 ? 'Pass' : 'Fail'} |`,
+                `| Best Practices | ${scorePercent(scores['best-practices'])} | ${scores['best-practices'].score >= 0.9 ? 'Pass' : 'Fail'} |`,
+                `| SEO | ${scorePercent(scores.seo)} | ${scores.seo.score >= 0.9 ? 'Pass' : 'Fail'} |`,
+                '',
+                '### Core Web Vitals',
+                `- **LCP**: ${Number.isFinite(lcp) ? `${Math.round(lcp)}ms` : 'Not reported'}`,
+                `- **FID**: ${Number.isFinite(fid) ? `${Math.round(fid)}ms` : 'Not reported'}`,
+                `- **CLS**: ${Number.isFinite(cls) ? cls.toFixed(3) : 'Not reported'}`,
+                '',
+                '### Run Context',
+                `- **Tested URL**: ${testedUrl}`,
+                '- **Note**: This localhost address is only reachable inside this GitHub Actions runner.'
+              ];
+
+              if (runUrl) {
+                commentLines.push(`- **Workflow run**: [View run details](${runUrl})`);
+              }
+
+              commentLines.push('- **Full Lighthouse reports**: Attached to this workflow run as artifacts (HTML + JSON).');
+
+              const comment = commentLines.join('\n');
+
+              const comments = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                per_page: 100
+              });
+
+              const existingComment = comments.data.find(c =>
+                c.user?.login === 'github-actions[bot]' && c.body?.includes(reportTitle)
+              );
+
+              if (existingComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                  body: comment
+                });
+              } else {
+                await github.rest.issues.createComment({
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   body: comment
                 });
               }
+
+              return;
             }
+
+            core.info('No Lighthouse result JSON with categories and audits found; skipping performance comment.');
+
+  vercel-preview-lighthouse:
+    name: Vercel Preview Lighthouse
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'deployment_status' &&
+      github.event.deployment_status.state == 'success' &&
+      (github.event.deployment.environment == 'Preview' || github.event.deployment.environment == 'preview') &&
+      github.event.deployment_status.environment_url
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: './lighthouserc.json'
+          urls: |
+            ${{ github.event.deployment_status.environment_url }}
+          uploadArtifacts: false
+          temporaryPublicStorage: true
+
+      - name: Upload Lighthouse Results
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: lighthouse-reports-vercel-preview-${{ github.run_id }}
+          path: |
+            .lighthouseci/**/*.html
+            .lighthouseci/**/*.json
+          retention-days: 30
+
+      - name: Comment PR with Vercel preview Lighthouse results
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const deploymentSha = context.payload.deployment?.sha || context.sha;
+            const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: deploymentSha
+            });
+
+            const targetPr = prs.data.find(pr => pr.state === 'open') || prs.data[0];
+            if (!targetPr) {
+              core.info('No pull request associated with this deployment commit; skipping performance comment.');
+              return;
+            }
+
+            const resultsPath = path.join(process.cwd(), '.lighthouseci');
+            if (!fs.existsSync(resultsPath)) {
+              core.info('No .lighthouseci directory found; skipping performance comment.');
+              return;
+            }
+
+            const jsonFiles = fs
+              .readdirSync(resultsPath)
+              .filter(file => file.endsWith('.json'));
+
+            for (const file of jsonFiles) {
+              const result = JSON.parse(fs.readFileSync(path.join(resultsPath, file), 'utf8'));
+              const lhr = result.lhr || result;
+
+              if (!lhr.categories || !lhr.audits) {
+                core.info(`Skipping ${file}; it is not a Lighthouse result file.`);
+                continue;
+              }
+
+              const scores = lhr.categories;
+              const scorePercent = category => Math.round(category.score * 100);
+              const auditNumber = auditName => lhr.audits[auditName]?.numericValue;
+              const lcp = auditNumber('largest-contentful-paint');
+              const fid = auditNumber('max-potential-fid');
+              const cls = auditNumber('cumulative-layout-shift');
+              const testedDeployment = context.payload.deployment_status?.environment_url || lhr.finalDisplayedUrl || lhr.finalUrl || 'Not reported';
+              const runUrl =
+                context.serverUrl && context.repo?.owner && context.repo?.repo && context.runId
+                  ? `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+                  : null;
+              const reportTitle = 'Performance Report: Vercel Preview Deployment';
+
+              const commentLines = [
+                `## ${reportTitle}`,
+                '',
+                '| Metric | Score | Status |',
+                '|--------|-------|--------|',
+                `| Performance | ${scorePercent(scores.performance)} | ${scores.performance.score >= 0.9 ? 'Pass' : scores.performance.score >= 0.8 ? 'Warn' : 'Fail'} |`,
+                `| Accessibility | ${scorePercent(scores.accessibility)} | ${scores.accessibility.score >= 0.9 ? 'Pass' : 'Fail'} |`,
+                `| Best Practices | ${scorePercent(scores['best-practices'])} | ${scores['best-practices'].score >= 0.9 ? 'Pass' : 'Fail'} |`,
+                `| SEO | ${scorePercent(scores.seo)} | ${scores.seo.score >= 0.9 ? 'Pass' : 'Fail'} |`,
+                '',
+                '### Core Web Vitals',
+                `- **LCP**: ${Number.isFinite(lcp) ? `${Math.round(lcp)}ms` : 'Not reported'}`,
+                `- **FID**: ${Number.isFinite(fid) ? `${Math.round(fid)}ms` : 'Not reported'}`,
+                `- **CLS**: ${Number.isFinite(cls) ? cls.toFixed(3) : 'Not reported'}`,
+                '',
+                '### Run Context',
+                `- **Tested deployment**: ${testedDeployment}`
+              ];
+
+              if (runUrl) {
+                commentLines.push(`- **Workflow run**: [View run details](${runUrl})`);
+              }
+
+              commentLines.push('- **Full Lighthouse reports**: Attached to this workflow run as artifacts (HTML + JSON).');
+
+              const comment = commentLines.join('\n');
+
+              const comments = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: targetPr.number,
+                per_page: 100
+              });
+
+              const existingComment = comments.data.find(c =>
+                c.user?.login === 'github-actions[bot]' && c.body?.includes(reportTitle)
+              );
+
+              if (existingComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                  body: comment
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  issue_number: targetPr.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: comment
+                });
+              }
+
+              return;
+            }
+
+            core.info('No Lighthouse result JSON with categories and audits found; skipping performance comment.');
