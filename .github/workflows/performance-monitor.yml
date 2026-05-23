@@ -9,11 +9,6 @@ on:
     # Run daily at 6 AM UTC
     - cron: '0 6 * * *'
 
-permissions:
-  contents: read
-  issues: write
-  pull-requests: read
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -22,6 +17,10 @@ jobs:
   performance-test:
     name: Performance Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
