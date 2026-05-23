@@ -12,6 +12,7 @@ For all Codex tasks from Linear:
   - Example: `bbg-41-align-ci-toolchain`
 - Commit all task changes to the feature branch.
 - Open a pull request targeting `preview`.
+- Use the pull request template in `.github/pull_request_template.md`.
 - Keep the PR scoped to the Linear issue only.
 - Include the Linear issue key in the PR title or description.
 - Summarize changed files and validation steps in the PR description.
