@@ -61,37 +61,56 @@ jobs:
             const fs = require('fs');
             const path = require('path');
 
-            // Read Lighthouse results
             const resultsPath = path.join(process.cwd(), '.lighthouseci');
-            if (fs.existsSync(resultsPath)) {
-              const files = fs.readdirSync(resultsPath);
-              const jsonFiles = files.filter(file => file.endsWith('.json'));
-              
-              if (jsonFiles.length > 0) {
-                const results = JSON.parse(fs.readFileSync(path.join(resultsPath, jsonFiles[0]), 'utf8'));
-                const scores = results.lhr.categories;
-                
-                const comment = `## 🚀 Performance Report
-                
-                | Metric | Score | Status |
-                |--------|-------|--------|
-                | Performance | ${Math.round(scores.performance.score * 100)} | ${scores.performance.score >= 0.9 ? '✅' : scores.performance.score >= 0.8 ? '⚠️' : '❌'} |
-                | Accessibility | ${Math.round(scores.accessibility.score * 100)} | ${scores.accessibility.score >= 0.9 ? '✅' : '❌'} |
-                | Best Practices | ${Math.round(scores['best-practices'].score * 100)} | ${scores['best-practices'].score >= 0.9 ? '✅' : '❌'} |
-                | SEO | ${Math.round(scores.seo.score * 100)} | ${scores.seo.score >= 0.9 ? '✅' : '❌'} |
-                
-                ### Core Web Vitals
-                - **LCP**: ${Math.round(results.lhr.audits['largest-contentful-paint'].numericValue)}ms
-                - **FID**: ${Math.round(results.lhr.audits['max-potential-fid'].numericValue)}ms
-                - **CLS**: ${results.lhr.audits['cumulative-layout-shift'].numericValue.toFixed(3)}
-                
-                [View full report](${results.lhr.finalUrl})`;
-                
-                github.rest.issues.createComment({
-                  issue_number: context.issue.number,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  body: comment
-                });
-              }
+            if (!fs.existsSync(resultsPath)) {
+              core.info('No .lighthouseci directory found; skipping performance comment.');
+              return;
             }
+
+            const jsonFiles = fs
+              .readdirSync(resultsPath)
+              .filter(file => file.endsWith('.json'));
+
+            for (const file of jsonFiles) {
+              const result = JSON.parse(fs.readFileSync(path.join(resultsPath, file), 'utf8'));
+              const lhr = result.lhr || result;
+
+              if (!lhr.categories || !lhr.audits) {
+                core.info(`Skipping ${file}; it is not a Lighthouse result file.`);
+                continue;
+              }
+
+              const scores = lhr.categories;
+              const scorePercent = category => Math.round(category.score * 100);
+              const auditNumber = auditName => lhr.audits[auditName]?.numericValue;
+              const lcp = auditNumber('largest-contentful-paint');
+              const fid = auditNumber('max-potential-fid');
+              const cls = auditNumber('cumulative-layout-shift');
+
+              const comment = `## Performance Report
+
+              | Metric | Score | Status |
+              |--------|-------|--------|
+              | Performance | ${scorePercent(scores.performance)} | ${scores.performance.score >= 0.9 ? 'Pass' : scores.performance.score >= 0.8 ? 'Warn' : 'Fail'} |
+              | Accessibility | ${scorePercent(scores.accessibility)} | ${scores.accessibility.score >= 0.9 ? 'Pass' : 'Fail'} |
+              | Best Practices | ${scorePercent(scores['best-practices'])} | ${scores['best-practices'].score >= 0.9 ? 'Pass' : 'Fail'} |
+              | SEO | ${scorePercent(scores.seo)} | ${scores.seo.score >= 0.9 ? 'Pass' : 'Fail'} |
+
+              ### Core Web Vitals
+              - **LCP**: ${Number.isFinite(lcp) ? `${Math.round(lcp)}ms` : 'Not reported'}
+              - **FID**: ${Number.isFinite(fid) ? `${Math.round(fid)}ms` : 'Not reported'}
+              - **CLS**: ${Number.isFinite(cls) ? cls.toFixed(3) : 'Not reported'}
+
+              [View full report](${lhr.finalUrl})`;
+
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+
+              return;
+            }
+
+            core.info('No Lighthouse result JSON with categories and audits found; skipping performance comment.');
