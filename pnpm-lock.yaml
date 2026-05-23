@@ -21,6 +21,7 @@ overrides:
   picomatch@>=4.0.0 <4.0.4: 4.0.4
   postcss@<8.5.10: '>=8.5.10'
   yaml@>=2.0.0 <2.8.3: 2.8.3
+  uuid@<11.1.1: 11.1.1
 
 importers:
 
@@ -1339,8 +1340,8 @@ packages:
       '@types/react':
         optional: true
 
-  uuid@10.0.0:
-    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+  uuid@11.1.1:
+    resolution: {integrity: sha512-vIYxrBCC/N/K+Js3qSN88go7kIfNPssr/hHCesKCQNAjmgvYS2oqr69kIufEG+O4+PfezOH4EbIeHCfFov8ZgQ==}
     hasBin: true
 
   which@2.0.2:
@@ -2360,7 +2361,7 @@ snapshots:
   svix@1.84.1:
     dependencies:
       standardwebhooks: 1.0.0
-      uuid: 10.0.0
+      uuid: 11.1.1
 
   synckit@0.11.12:
     dependencies:
@@ -2440,7 +2441,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.14
 
-  uuid@10.0.0: {}
+  uuid@11.1.1: {}
 
   which@2.0.2:
     dependencies:
