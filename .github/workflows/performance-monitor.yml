@@ -60,7 +60,7 @@ jobs:
           temporaryPublicStorage: true
 
       - name: Upload Lighthouse Results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: lighthouse-reports-local-production-${{ github.run_id }}
@@ -190,7 +190,7 @@ jobs:
           temporaryPublicStorage: true
 
       - name: Upload Lighthouse Results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: lighthouse-reports-vercel-preview-${{ github.run_id }}
