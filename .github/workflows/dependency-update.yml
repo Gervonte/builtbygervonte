@@ -24,20 +24,19 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: ${{ env.PNPM_VERSION }}
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Check for outdated packages
         run: pnpm outdated || true
 
       - name: Update dependencies
         run: |
-          pnpm update --interactive --latest
-          pnpm audit --fix
+          pnpm update --latest
 
       - name: Run tests after update
         run: |
@@ -46,7 +45,7 @@ jobs:
           pnpm build
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore: update dependencies'
