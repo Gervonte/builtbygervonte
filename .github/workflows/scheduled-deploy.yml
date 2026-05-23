@@ -9,7 +9,10 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
-  checks: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 
 jobs:
   scheduled-deploy:
@@ -22,21 +25,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: '22.14.0'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: '11.2.2'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Run build check
-        run: pnpm run build
+        run: pnpm run build:ci
 
       - name: Check for pending PRs
         id: check-prs

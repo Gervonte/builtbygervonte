@@ -12,10 +12,9 @@ This repository includes comprehensive GitHub Actions workflows for automated te
 
 - **Lint & Type Check**: ESLint, TypeScript, Prettier validation
 - **Build & Test**: Production build verification
-- **Security Audit**: Dependency vulnerability scanning
 - **Performance Check**: Lighthouse CI on PRs
-- **Deploy Preview**: Auto-deploy to Vercel preview
-- **Deploy Production**: Auto-deploy to Vercel production
+- Uses the shared Node.js/pnpm setup action and repo-pinned versions from `.nvmrc` and `package.json`
+- Uses workflow concurrency to cancel stale runs
 
 ### 2. Pull Request Automation (`auto-deploy.yml`)
 
@@ -35,38 +34,41 @@ This repository includes comprehensive GitHub Actions workflows for automated te
 3. Creates/updates PR with detailed description
 4. Ready for review and approval
 
-### 3. Auto-Merge Approved PRs (`auto-merge.yml`)
+### 3. Scheduled Deploy (`scheduled-deploy.yml`)
 
-**Triggers:** Pull Request events (opened, synchronize, reopened)
+**Triggers:** Weekday schedule, Manual dispatch
 
 **Features:**
 
-- **Auto-Merge**: Automatically merges approved PRs from preview branch
-- **Build Verification**: Final build check before merge
-- **Clean Commits**: Uses squash merge for clean history
-- **Deployment Trigger**: Automatically triggers Vercel deployment
+- Finds approved auto-deploy PRs from `preview` to `main`
+- Runs a build check before merge
+- Merges ready deploy PRs and syncs `main` back into `preview`
+- Preserves the repository's preview-first deployment flow
 
-**Process:**
+### 4. Cleanup Preview (`cleanup-preview.yml`)
 
-1. PR is created from preview branch
-2. Review and approve the PR
-3. Workflow automatically merges to main
-4. Vercel deploys the changes
+**Triggers:** Closed auto-deploy PRs targeting `main`
 
-### 4. Security Scan (`security-scan.yml`)
+**Features:**
 
-**Triggers:** Push, PR, Daily schedule
+- Resets `preview` to match `main` after successful production deploys
+- Uses `--force-with-lease` for safer preview cleanup
+- Comments on the merged deployment PR
+
+### 5. Security Scan (`security-scan.yml`)
+
+**Triggers:** Push, PR, Daily schedule, Manual dispatch
 
 **Features:**
 
 - CodeQL analysis for security vulnerabilities
-- Trivy filesystem scanning
 - Dependency review on PRs
+- Scheduled/manual `pnpm audit` reporting without blocking normal CI
 - Daily security monitoring
 
-### 5. Performance Monitoring (`performance-monitor.yml`)
+### 6. Performance Monitoring (`performance-monitor.yml`)
 
-**Triggers:** Push, Daily schedule
+**Triggers:** Push, PR, Daily schedule
 
 **Features:**
 
@@ -75,16 +77,25 @@ This repository includes comprehensive GitHub Actions workflows for automated te
 - PR comments with performance scores
 - Daily performance regression detection
 
-### 6. Dependency Updates (`dependency-update.yml`)
+### 7. Dependency Updates (`dependabot.yml`)
 
-**Triggers:** Weekly schedule, Manual
+**Triggers:** Weekly Dependabot schedule
 
 **Features:**
 
-- Automatic dependency updates
-- Security vulnerability fixes
-- Automated PR creation
-- Test verification after updates
+- Grouped production and development dependency update PRs
+- GitHub Actions update PRs
+- PRs target `preview`
+- Removes the need for a custom broad `pnpm update --latest` workflow
+
+### 8. GitHub Actions Lint (`actionlint.yml`)
+
+**Triggers:** Workflow/action changes on push or PR, Manual dispatch
+
+**Features:**
+
+- Runs `actionlint` against workflow files and local actions
+- Catches invalid expressions, unknown action inputs, and shell issues before merge
 
 ## 🔄 Complete Workflow Guide
 
@@ -267,13 +278,13 @@ pnpm type-check
 pnpm format:check
 
 # Build
-pnpm build
+pnpm build:ci
 
-# Security audit
+# Security audit (reporting workflow also runs this on schedule)
 pnpm audit
 
-# Start for testing
-pnpm start
+# Start production build for Lighthouse-style checks
+pnpm start:prod
 ```
 
 ## 📈 Monitoring

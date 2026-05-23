@@ -3,21 +3,11 @@ name: Build and Test
 on:
   workflow_call:
     inputs:
-      node-version:
-        description: 'Node.js version'
-        required: false
-        type: string
-        default: '20'
-      pnpm-version:
-        description: 'pnpm version'
-        required: false
-        type: string
-        default: '10'
       build-command:
         description: 'Build command to run'
         required: false
         type: string
-        default: 'pnpm run build'
+        default: 'pnpm run build:ci'
       test-commands:
         description: 'Test commands to run (space-separated)'
         required: false
@@ -37,35 +27,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: ${{ inputs.node-version }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: ${{ inputs.pnpm-version }}
-
-      - name: Cache dependencies
-        uses: actions/cache@v5
-        with:
-          path: |
-            ~/.pnpm-store
-            node_modules
-            .next/cache
-            .next/static
-            .next/standalone
-            .eslintcache
-            .tsbuildinfo
-          key: ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.json') }}-v3
-          restore-keys: |
-            ${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}-v3
-            ${{ runner.os }}-${{ inputs.node-version }}-v3
-            ${{ runner.os }}-${{ inputs.node-version }}-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Run tests
         run: |

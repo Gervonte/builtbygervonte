@@ -1,15 +1,21 @@
 name: Performance Monitoring
 
 on:
+  pull_request:
+    branches: [main, preview]
   push:
     branches: [main, preview]
   schedule:
     # Run daily at 6 AM UTC
     - cron: '0 6 * * *'
 
-env:
-  NODE_VERSION: '22.14.0'
-  PNPM_VERSION: '11.2.2'
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   performance-test:
@@ -19,27 +25,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Build application
-        run: pnpm build
+        run: pnpm run build:ci
         env:
           RESEND_API_KEY: 'dummy_key_for_build'
 
       - name: Start application
         run: |
-          pnpm start &
+          pnpm start:prod &
           sleep 15
 
       - name: Run Lighthouse CI
