@@ -37,11 +37,12 @@ jobs:
 
       - name: Wait for localhost server
         run: |
-          for i in {1..60}; do
+          for attempt in {1..60}; do
             if curl -fsS http://localhost:3000/ > /dev/null; then
               echo "Local production server is ready"
               exit 0
             fi
+            echo "Waiting for local production server... (${attempt}/60)"
             sleep 2
           done
           echo "Local production server did not become ready in time"
@@ -108,8 +109,9 @@ jobs:
               const runLink = runUrl
                 ? `- **Workflow run**: [View run details](${runUrl})\n`
                 : '';
+              const reportTitle = 'Performance Report: Local Production Build';
 
-              const comment = `## Performance Report: Local Production Build
+              const comment = `## ${reportTitle}
 
               | Metric | Score | Status |
               |--------|-------|--------|
@@ -128,12 +130,32 @@ jobs:
               - **Note**: This localhost address is only reachable inside this GitHub Actions runner.
               ${runLink}- **Full Lighthouse reports**: Attached to this workflow run as artifacts (HTML + JSON).`;
 
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
+              const comments = await github.rest.issues.listComments({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: comment
+                issue_number: context.issue.number,
+                per_page: 100
               });
+
+              const existingComment = comments.data.find(c =>
+                c.user?.login === 'github-actions[bot]' && c.body?.includes(reportTitle)
+              );
+
+              if (existingComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                  body: comment
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: comment
+                });
+              }
 
               return;
             }
@@ -224,8 +246,9 @@ jobs:
               const runLink = runUrl
                 ? `- **Workflow run**: [View run details](${runUrl})\n`
                 : '';
+              const reportTitle = 'Performance Report: Vercel Preview Deployment';
 
-              const comment = `## Performance Report: Vercel Preview Deployment
+              const comment = `## ${reportTitle}
 
               | Metric | Score | Status |
               |--------|-------|--------|
@@ -243,12 +266,32 @@ jobs:
               - **Tested deployment**: ${testedDeployment}
               ${runLink}- **Full Lighthouse reports**: Attached to this workflow run as artifacts (HTML + JSON).`;
 
-              await github.rest.issues.createComment({
-                issue_number: targetPr.number,
+              const comments = await github.rest.issues.listComments({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: comment
+                issue_number: targetPr.number,
+                per_page: 100
               });
+
+              const existingComment = comments.data.find(c =>
+                c.user?.login === 'github-actions[bot]' && c.body?.includes(reportTitle)
+              );
+
+              if (existingComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                  body: comment
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  issue_number: targetPr.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: comment
+                });
+              }
 
               return;
             }
