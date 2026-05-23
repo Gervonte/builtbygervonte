@@ -1,24 +1,153 @@
 name: Performance Monitoring
 
 on:
+  pull_request:
+    branches: [preview]
   deployment_status:
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  deployments: read
+
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.deployment.id || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.deployment.id || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  performance-test:
-    name: Performance Test
+  local-production-lighthouse:
+    name: Local Production Lighthouse
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Build application
+        run: pnpm run build:ci
+        env:
+          RESEND_API_KEY: 'dummy_key_for_build'
+
+      - name: Start production server
+        run: pnpm start:prod > /tmp/local-production-server.log 2>&1 &
+
+      - name: Wait for localhost server
+        run: |
+          for i in {1..60}; do
+            if curl -fsS http://localhost:3000/ > /dev/null; then
+              echo "Local production server is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Local production server did not become ready in time"
+          echo "--- Server Log ---"
+          cat /tmp/local-production-server.log
+          exit 1
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: './lighthouserc.json'
+          urls: |
+            http://localhost:3000/
+          uploadArtifacts: false
+          temporaryPublicStorage: true
+
+      - name: Upload Lighthouse Results
+        uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: lighthouse-reports-local-production-${{ github.run_id }}
+          path: |
+            .lighthouseci/**/*.html
+            .lighthouseci/**/*.json
+          retention-days: 30
+
+      - name: Comment PR with local production Lighthouse results
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const resultsPath = path.join(process.cwd(), '.lighthouseci');
+            if (!fs.existsSync(resultsPath)) {
+              core.info('No .lighthouseci directory found; skipping performance comment.');
+              return;
+            }
+
+            const jsonFiles = fs
+              .readdirSync(resultsPath)
+              .filter(file => file.endsWith('.json'));
+
+            for (const file of jsonFiles) {
+              const result = JSON.parse(fs.readFileSync(path.join(resultsPath, file), 'utf8'));
+              const lhr = result.lhr || result;
+
+              if (!lhr.categories || !lhr.audits) {
+                core.info(`Skipping ${file}; it is not a Lighthouse result file.`);
+                continue;
+              }
+
+              const scores = lhr.categories;
+              const scorePercent = category => Math.round(category.score * 100);
+              const auditNumber = auditName => lhr.audits[auditName]?.numericValue;
+              const lcp = auditNumber('largest-contentful-paint');
+              const fid = auditNumber('max-potential-fid');
+              const cls = auditNumber('cumulative-layout-shift');
+              const testedUrl = 'http://localhost:3000/';
+              const runUrl =
+                context.serverUrl && context.repo?.owner && context.repo?.repo && context.runId
+                  ? `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+                  : null;
+              const runLink = runUrl
+                ? `- **Workflow run**: [View run details](${runUrl})\n`
+                : '';
+
+              const comment = `## Performance Report: Local Production Build
+
+              | Metric | Score | Status |
+              |--------|-------|--------|
+              | Performance | ${scorePercent(scores.performance)} | ${scores.performance.score >= 0.9 ? 'Pass' : scores.performance.score >= 0.8 ? 'Warn' : 'Fail'} |
+              | Accessibility | ${scorePercent(scores.accessibility)} | ${scores.accessibility.score >= 0.9 ? 'Pass' : 'Fail'} |
+              | Best Practices | ${scorePercent(scores['best-practices'])} | ${scores['best-practices'].score >= 0.9 ? 'Pass' : 'Fail'} |
+              | SEO | ${scorePercent(scores.seo)} | ${scores.seo.score >= 0.9 ? 'Pass' : 'Fail'} |
+
+              ### Core Web Vitals
+              - **LCP**: ${Number.isFinite(lcp) ? `${Math.round(lcp)}ms` : 'Not reported'}
+              - **FID**: ${Number.isFinite(fid) ? `${Math.round(fid)}ms` : 'Not reported'}
+              - **CLS**: ${Number.isFinite(cls) ? cls.toFixed(3) : 'Not reported'}
+
+              ### Run Context
+              - **Tested URL**: ${testedUrl}
+              - **Note**: This localhost address is only reachable inside this GitHub Actions runner.
+              ${runLink}- **Full Lighthouse reports**: Attached to this workflow run as artifacts (HTML + JSON).`;
+
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+
+              return;
+            }
+
+            core.info('No Lighthouse result JSON with categories and audits found; skipping performance comment.');
+
+  vercel-preview-lighthouse:
+    name: Vercel Preview Lighthouse
     runs-on: ubuntu-latest
     if: >-
+      github.event_name == 'deployment_status' &&
       github.event.deployment_status.state == 'success' &&
       (github.event.deployment.environment == 'Preview' || github.event.deployment.environment == 'preview') &&
       github.event.deployment_status.environment_url
-    permissions:
-      contents: read
-      issues: write
-      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -36,13 +165,13 @@ jobs:
         uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: lighthouse-reports-${{ github.run_id }}
+          name: lighthouse-reports-vercel-preview-${{ github.run_id }}
           path: |
             .lighthouseci/**/*.html
             .lighthouseci/**/*.json
           retention-days: 30
 
-      - name: Comment PR with Lighthouse results
+      - name: Comment PR with Vercel preview Lighthouse results
         uses: actions/github-script@v8
         with:
           script: |
@@ -87,7 +216,7 @@ jobs:
               const lcp = auditNumber('largest-contentful-paint');
               const fid = auditNumber('max-potential-fid');
               const cls = auditNumber('cumulative-layout-shift');
-              const testedUrl = context.payload.deployment_status?.environment_url || lhr.finalDisplayedUrl || lhr.finalUrl || 'Not reported';
+              const testedDeployment = context.payload.deployment_status?.environment_url || lhr.finalDisplayedUrl || lhr.finalUrl || 'Not reported';
               const runUrl =
                 context.serverUrl && context.repo?.owner && context.repo?.repo && context.runId
                   ? `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
@@ -96,7 +225,7 @@ jobs:
                 ? `- **Workflow run**: [View run details](${runUrl})\n`
                 : '';
 
-              const comment = `## Performance Report
+              const comment = `## Performance Report: Vercel Preview Deployment
 
               | Metric | Score | Status |
               |--------|-------|--------|
@@ -111,7 +240,7 @@ jobs:
               - **CLS**: ${Number.isFinite(cls) ? cls.toFixed(3) : 'Not reported'}
 
               ### Run Context
-              - **Tested URL**: ${testedUrl}
+              - **Tested deployment**: ${testedDeployment}
               ${runLink}- **Full Lighthouse reports**: Attached to this workflow run as artifacts (HTML + JSON).`;
 
               await github.rest.issues.createComment({
