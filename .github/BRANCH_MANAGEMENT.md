@@ -12,6 +12,7 @@ This guide explains how to properly manage branches to prevent commit accumulati
 ### **Feature Branches**
 
 - **`bbg-123-short-description`**: Standard Linear issue branches
+- **`codex/linear-mention-bbg-123-short-description`**: Codex Cloud-managed Linear issue branches
 - **`feature/short-description`**: Manual development branches when there is no Linear issue
 - **`bugfix/short-description`**: Manual bug fix branches when there is no Linear issue
 - **`hotfix/short-description`**: Critical fixes when there is no Linear issue
@@ -20,6 +21,8 @@ For Linear issues, use the Linear issue key at the start of the branch name. Bra
 
 - **`bbg-42-add-agentsmd-codex-workflow-instructions`**
 - **`bbg-41-align-ci-toolchain`**
+
+Codex Cloud may create branches with a managed prefix, such as `codex/linear-mention-bbg-41-align-ci-toolchain`. These are acceptable when they still include the lowercase Linear key and open a PR targeting `preview`.
 
 ## 🚀 Workflow Process
 

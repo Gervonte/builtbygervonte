@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.event.pull_request.merged == true && 
-      github.event.pull_request.title == 'Auto-deploy: Preview → Main'
+      startsWith(github.event.pull_request.title, 'Auto-deploy: Preview → Main')
 
     steps:
       - name: Checkout code
