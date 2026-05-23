@@ -11,9 +11,15 @@ This guide explains how to properly manage branches to prevent commit accumulati
 
 ### **Feature Branches**
 
-- **`feature/issue-123-description`**: Development branches
-- **`bugfix/issue-456-description`**: Bug fix branches
-- **`hotfix/issue-789-description`**: Critical fixes
+- **`bbg-123-short-description`**: Standard Linear issue branches
+- **`feature/short-description`**: Manual development branches when there is no Linear issue
+- **`bugfix/short-description`**: Manual bug fix branches when there is no Linear issue
+- **`hotfix/short-description`**: Critical fixes when there is no Linear issue
+
+For Linear issues, use the Linear issue key at the start of the branch name:
+
+- **`bbg-42-add-agentsmd-codex-workflow-instructions`**
+- **`bbg-41-align-ci-toolchain`**
 
 ## 🚀 Workflow Process
 
@@ -23,7 +29,7 @@ This guide explains how to properly manage branches to prevent commit accumulati
 # Always start from clean preview branch
 git checkout preview
 git pull origin preview
-git checkout -b feature/issue-123-add-hover-effects
+git checkout -b bbg-123-add-hover-effects
 ```
 
 ### **2. Development Process**
@@ -40,9 +46,9 @@ git commit -m "style: improve mobile responsiveness"
 
 ```bash
 # Push feature branch
-git push origin feature/issue-123-add-hover-effects
+git push origin bbg-123-add-hover-effects
 
-# Create PR: feature/issue-123 → preview
+# Create PR: bbg-123-add-hover-effects → preview
 # Use the PR template with proper description
 ```
 
@@ -52,10 +58,10 @@ git push origin feature/issue-123-add-hover-effects
 # Delete local feature branch
 git checkout preview
 git pull origin preview
-git branch -d feature/issue-123-add-hover-effects
+git branch -d bbg-123-add-hover-effects
 
 # Delete remote feature branch
-git push origin --delete feature/issue-123-add-hover-effects
+git push origin --delete bbg-123-add-hover-effects
 ```
 
 ## 🧹 Preventing Commit Accumulation
@@ -89,17 +95,17 @@ The automated cleanup workflow will:
 
 ```bash
 # Good: Clean feature branch
-feature/issue-123-add-hover-effects
+bbg-123-add-hover-effects
 ├── feat: add hover effects to buttons
 ├── fix: resolve tooltip positioning
 └── style: improve mobile responsiveness
 
 # Bad: Messy feature branch
-feature/issue-123-add-hover-effects
+bbg-123-add-hover-effects
 ├── WIP: working on hover effects
 ├── fix: typo
 ├── fix: another typo
-├── Merge branch 'main' into feature/issue-123
+├── Merge branch 'main' into bbg-123-add-hover-effects
 ├── fix: resolve conflicts
 └── feat: add hover effects to buttons
 ```
@@ -128,6 +134,7 @@ git remote prune origin
 ## 📋 Checklist for Each Feature
 
 - [ ] Create feature branch from clean preview
+- [ ] Use the Linear issue key in the branch name when work maps to Linear
 - [ ] Make focused, atomic commits
 - [ ] Use clear commit messages
 - [ ] Create PR to preview (not main)
