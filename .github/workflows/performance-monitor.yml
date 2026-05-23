@@ -22,7 +22,7 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js and pnpm
         uses: ./.github/actions/setup-node-pnpm
@@ -60,7 +60,7 @@ jobs:
           temporaryPublicStorage: true
 
       - name: Upload Lighthouse Results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: lighthouse-reports-local-production-${{ github.run_id }}
@@ -70,7 +70,7 @@ jobs:
           retention-days: 30
 
       - name: Comment PR with local production Lighthouse results
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
@@ -178,7 +178,7 @@ jobs:
       github.event.deployment_status.environment_url
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
@@ -190,7 +190,7 @@ jobs:
           temporaryPublicStorage: true
 
       - name: Upload Lighthouse Results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: lighthouse-reports-vercel-preview-${{ github.run_id }}
@@ -200,7 +200,7 @@ jobs:
           retention-days: 30
 
       - name: Comment PR with Vercel preview Lighthouse results
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
