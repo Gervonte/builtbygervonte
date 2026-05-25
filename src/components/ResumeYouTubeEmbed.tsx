@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, type BoxProps } from '@mantine/core';
+import { Box, Stack, Text, type BoxProps } from '@mantine/core';
+import { IconPlayerPlay } from '@tabler/icons-react';
 import { memo, useEffect, useRef, useState } from 'react';
 
 const YOUTUBE_IFRAME_API_SRC = 'https://www.youtube.com/iframe_api';
@@ -11,7 +12,6 @@ const RESUME_AFTER_SECONDS = 10;
 const NEAR_END_SECONDS = 15;
 const SAVE_INTERVAL_MS = 4000;
 const YOUTUBE_API_TIMEOUT_MS = 8000;
-const PLAYER_LOAD_ROOT_MARGIN = '400px 0px';
 const YOUTUBE_REFERRER_POLICY = 'strict-origin-when-cross-origin';
 
 interface ResumeYouTubeEmbedProps extends Omit<BoxProps, 'children'> {
@@ -70,6 +70,9 @@ const getProgressKey = (youtubeId: string) => `${PROGRESS_KEY_PREFIX}:${youtubeI
 
 const getFallbackEmbedUrl = (youtubeId: string) =>
   `${YOUTUBE_EMBED_BASE_URL}/${youtubeId}?autoplay=0&rel=0&playsinline=1`;
+
+const getThumbnailUrl = (youtubeId: string) =>
+  `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
 
 const getStoredProgress = (youtubeId: string) => {
   try {
@@ -296,37 +299,6 @@ const ResumeYouTubeEmbed = memo(
       };
     }, [shouldLoadPlayer, title, youtubeId]);
 
-    useEffect(() => {
-      if (shouldLoadPlayer) {
-        return undefined;
-      }
-
-      const container = containerRef.current;
-
-      if (!container || !('IntersectionObserver' in window)) {
-        setShouldLoadPlayer(true);
-        return undefined;
-      }
-
-      const observer = new IntersectionObserver(
-        entries => {
-          const entry = entries[0];
-
-          if (entry?.isIntersecting) {
-            setShouldLoadPlayer(true);
-            observer.disconnect();
-          }
-        },
-        { rootMargin: PLAYER_LOAD_ROOT_MARGIN }
-      );
-
-      observer.observe(container);
-
-      return () => {
-        observer.disconnect();
-      };
-    }, [shouldLoadPlayer, youtubeId]);
-
     if (useFallbackEmbed) {
       return (
         <Box
@@ -350,6 +322,50 @@ const ResumeYouTubeEmbed = memo(
               border: 0,
             }}
           />
+        </Box>
+      );
+    }
+
+    if (!shouldLoadPlayer) {
+      return (
+        <Box
+          {...boxProps}
+          component="button"
+          type="button"
+          onClick={() => setShouldLoadPlayer(true)}
+          aria-label={`Play ${title}`}
+          style={{
+            width: '100%',
+            height: '100%',
+            border: 0,
+            cursor: 'pointer',
+            padding: 0,
+            color: '#FFFFFF',
+            background: `linear-gradient(rgba(14, 20, 27, 0.18), rgba(14, 20, 27, 0.42)), url(${getThumbnailUrl(
+              youtubeId
+            )}) center / cover`,
+            ...style,
+          }}
+        >
+          <Stack align="center" justify="center" gap="xs" h="100%">
+            <Box
+              aria-hidden="true"
+              style={{
+                alignItems: 'center',
+                background: 'rgba(14, 20, 27, 0.78)',
+                borderRadius: '999px',
+                display: 'inline-flex',
+                height: '64px',
+                justifyContent: 'center',
+                width: '64px',
+              }}
+            >
+              <IconPlayerPlay size={30} fill="currentColor" />
+            </Box>
+            <Text fw={700} size="sm" style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.55)' }}>
+              Play video
+            </Text>
+          </Stack>
         </Box>
       );
     }

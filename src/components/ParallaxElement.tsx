@@ -1,6 +1,6 @@
 'use client';
 
-import { useParallax } from '@/lib/parallax-context';
+import { useParallax, type RellaxInstance } from '@/lib/parallax-context';
 import { Box } from '@mantine/core';
 import { useEffect, useRef } from 'react';
 
@@ -22,12 +22,7 @@ export default function ParallaxElement({
   style = {},
 }: ParallaxElementProps) {
   const elementRef = useRef<HTMLDivElement>(null);
-  const instanceRef =
-    useRef<
-      ReturnType<typeof useParallax>['createRellaxInstance'] extends (...args: any[]) => infer R
-        ? R
-        : never | null
-    >(null);
+  const instanceRef = useRef<RellaxInstance | null>(null);
   const { createRellaxInstance, destroyRellaxInstance, isReducedMotion, globalSpeedMultiplier } =
     useParallax();
 
@@ -43,18 +38,25 @@ export default function ParallaxElement({
     }
 
     // Wait a bit for the element to be fully rendered
-    const timer = setTimeout(() => {
-      const instance = createRellaxInstance(elementRef.current!, speed, {
+    let isCancelled = false;
+    const timer = setTimeout(async () => {
+      const instance = await createRellaxInstance(elementRef.current!, speed, {
         center,
         horizontal,
       });
 
-      if (instance) {
+      if (isCancelled && instance) {
+        destroyRellaxInstance(instance);
+        return;
+      }
+
+      if (!isCancelled && instance) {
         instanceRef.current = instance;
       }
     }, 200);
 
     return () => {
+      isCancelled = true;
       clearTimeout(timer);
       if (instanceRef.current) {
         destroyRellaxInstance(instanceRef.current);

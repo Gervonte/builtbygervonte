@@ -1,10 +1,10 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
-import Rellax from 'rellax';
+import type Rellax from 'rellax';
 
 // Type definitions for Rellax
-type RellaxInstance =
+export type RellaxInstance =
   | {
       destroy: () => void;
       refresh: () => void;
@@ -21,7 +21,7 @@ interface ParallaxContextType {
     element: HTMLElement,
     speed?: number,
     options?: { center?: boolean; horizontal?: boolean }
-  ) => RellaxInstance | null;
+  ) => Promise<RellaxInstance | null>;
   destroyRellaxInstance: (instance: RellaxInstance) => void;
   setGlobalSpeedMultiplier: (multiplier: number) => void;
 }
@@ -61,16 +61,17 @@ export const ParallaxProvider: React.FC<ParallaxProviderProps> = ({ children }) 
     };
   }, []);
 
-  const createRellaxInstance = (
+  const createRellaxInstance = async (
     element: HTMLElement,
     speed: number = -2,
     options: { center?: boolean; horizontal?: boolean } = {}
-  ): RellaxInstance | null => {
+  ): Promise<RellaxInstance | null> => {
     if (isReducedMotion || typeof window === 'undefined') {
       return null;
     }
 
     try {
+      const { default: Rellax } = await import('rellax');
       const adjustedSpeed = speed * globalSpeedMultiplier;
       const { center = false, horizontal = false } = options;
       const instance = new Rellax(element, {
