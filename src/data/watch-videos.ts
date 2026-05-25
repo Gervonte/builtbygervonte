@@ -45,7 +45,7 @@ export const watchVideos: WatchVideo[] = [
     title: 'How I Turned Scholarships & a Student Visa Into $250K by 24',
     subtitle: '10+ Years of April',
     description:
-      'A long-form reflection on becoming a software engineer as a developer born and raised in The Bahamas, from scholarships and student visa life to fintech, layoffs, Rainy Day, and BuiltByGervonte.',
+      'A long-form reflection on becoming a software engineer from The Bahamas, from scholarships and student visa life to fintech, layoffs, immigration, global work, forming an LLC, and building Rainy Day. The story behind BuiltByGervonte.',
     category: 'founder-story',
     collection: 'Founder Stories',
     youtubeUrl: 'https://youtu.be/AbYNHzYtm_s',
@@ -68,15 +68,29 @@ export const watchVideos: WatchVideo[] = [
     status: 'published',
   },
   {
+    id: 'leetcode-beastmode',
+    slug: 'leetcode-beastmode',
+    title: 'LEETCODE BEASTMODE',
+    description:
+      'The original LeetCode BeastMode video featuring BEYWHAT’s track, connecting coding culture, music, and the creative side of Built By Gervonte.',
+    category: 'creative-breakdown',
+    collection: 'Creative / Culture',
+    youtubeUrl: 'https://www.youtube.com/watch?v=oOWc9QAoTKg',
+    youtubeId: 'oOWc9QAoTKg',
+    duration: '1:07',
+    status: 'published',
+  },
+  {
     id: 'leetcode-beastmode-breakdown',
     slug: 'leetcode-beastmode-breakdown',
     title: 'LeetCode BeastMode Breakdown',
     description:
-      'Behind the scenes of “LEETCODE BEASTMODE,” a track first engineered in November 2023 originally called “1337.” I break down the DAW setup, vocal chain, mixing choices, and the late-2023 Bahamas era of sharpening my software engineering weaknesses through system design and LeetCode.',
+      'Behind the scenes of “LEETCODE BEASTMODE,” a track first engineered in November 2023 originally called “1337.” I break down the DAW setup, vocal chain, mixing choices, and the 2023-2024 Bahamas era of sharpening my software engineering weaknesses including system design and LeetCode styled questions.',
     category: 'creative-breakdown',
     collection: 'Creative / Culture',
     youtubeUrl: 'https://www.youtube.com/watch?v=GlbWLTu42Ws',
     youtubeId: 'GlbWLTu42Ws',
+    duration: '9:41',
     status: 'published',
   },
 ];
