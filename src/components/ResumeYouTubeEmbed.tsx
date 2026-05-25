@@ -4,12 +4,15 @@ import { Box, type BoxProps } from '@mantine/core';
 import { memo, useEffect, useRef, useState } from 'react';
 
 const YOUTUBE_IFRAME_API_SRC = 'https://www.youtube.com/iframe_api';
-const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube.com/embed';
+const YOUTUBE_PRIVACY_HOST = 'https://www.youtube-nocookie.com';
+const YOUTUBE_EMBED_BASE_URL = `${YOUTUBE_PRIVACY_HOST}/embed`;
 const PROGRESS_KEY_PREFIX = 'bbg-video-progress';
 const RESUME_AFTER_SECONDS = 10;
 const NEAR_END_SECONDS = 15;
 const SAVE_INTERVAL_MS = 4000;
 const YOUTUBE_API_TIMEOUT_MS = 8000;
+const PLAYER_LOAD_ROOT_MARGIN = '400px 0px';
+const YOUTUBE_REFERRER_POLICY = 'strict-origin-when-cross-origin';
 
 interface ResumeYouTubeEmbedProps extends Omit<BoxProps, 'children'> {
   youtubeId: string;
@@ -31,6 +34,7 @@ interface YouTubePlayerEvent {
 
 interface YouTubePlayerOptions {
   height?: string;
+  host?: string;
   videoId: string;
   width?: string;
   playerVars?: {
@@ -191,13 +195,20 @@ const ResumeYouTubeEmbed = memo(
     const playerRef = useRef<YouTubePlayer | null>(null);
     const saveIntervalRef = useRef<number | null>(null);
     const [useFallbackEmbed, setUseFallbackEmbed] = useState(false);
+    const [shouldLoadPlayer, setShouldLoadPlayer] = useState(false);
 
     useEffect(() => {
       let isMounted = true;
       setUseFallbackEmbed(false);
 
+      if (!shouldLoadPlayer) {
+        return () => {
+          isMounted = false;
+        };
+      }
+
       const clearSaveInterval = () => {
-        if (saveIntervalRef.current) {
+        if (saveIntervalRef.current !== null) {
           window.clearInterval(saveIntervalRef.current);
           saveIntervalRef.current = null;
         }
@@ -219,6 +230,7 @@ const ResumeYouTubeEmbed = memo(
 
           playerRef.current = new YT.Player(containerRef.current, {
             height: '100%',
+            host: YOUTUBE_PRIVACY_HOST,
             videoId: youtubeId,
             width: '100%',
             playerVars: {
@@ -233,6 +245,8 @@ const ResumeYouTubeEmbed = memo(
                 iframe.allow =
                   'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
                 iframe.allowFullscreen = true;
+                iframe.loading = 'lazy';
+                iframe.referrerPolicy = YOUTUBE_REFERRER_POLICY;
                 iframe.style.border = '0';
 
                 const savedTime = getStoredProgress(youtubeId);
@@ -278,7 +292,38 @@ const ResumeYouTubeEmbed = memo(
         playerRef.current?.destroy();
         playerRef.current = null;
       };
-    }, [title, youtubeId]);
+    }, [shouldLoadPlayer, title, youtubeId]);
+
+    useEffect(() => {
+      if (shouldLoadPlayer) {
+        return undefined;
+      }
+
+      const container = containerRef.current;
+
+      if (!container || !('IntersectionObserver' in window)) {
+        setShouldLoadPlayer(true);
+        return undefined;
+      }
+
+      const observer = new IntersectionObserver(
+        entries => {
+          const entry = entries[0];
+
+          if (entry?.isIntersecting) {
+            setShouldLoadPlayer(true);
+            observer.disconnect();
+          }
+        },
+        { rootMargin: PLAYER_LOAD_ROOT_MARGIN }
+      );
+
+      observer.observe(container);
+
+      return () => {
+        observer.disconnect();
+      };
+    }, [shouldLoadPlayer, youtubeId]);
 
     if (useFallbackEmbed) {
       return (
@@ -294,6 +339,7 @@ const ResumeYouTubeEmbed = memo(
             title={title}
             src={getFallbackEmbedUrl(youtubeId)}
             loading="lazy"
+            referrerPolicy={YOUTUBE_REFERRER_POLICY}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
             style={{
