@@ -207,6 +207,19 @@ const WatchSection = memo(() => {
           border-color: ${commonColors.borderSecondary};
           box-shadow: 0 18px 36px ${commonColors.shadowPrimaryLight};
         }
+
+        .bbg-watch-featured-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 0.9fr) minmax(520px, 1.25fr);
+          gap: 2rem;
+          align-items: center;
+        }
+
+        @media (max-width: 64em) {
+          .bbg-watch-featured-grid {
+            grid-template-columns: 1fr;
+          }
+        }
       `}</style>
       <Stack gap="xl">
         <Box ta="center" mb="md">
@@ -231,7 +244,7 @@ const WatchSection = memo(() => {
 
         {featuredVideo?.youtubeId && (
           <Paper p={{ base: 'md', md: 'xl' }} radius="md" withBorder style={featuredCardStyles}>
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl" verticalSpacing="xl">
+            <Box className="bbg-watch-featured-grid">
               <Stack gap="md" justify="center">
                 <Group gap="xs">
                   <Badge color="sakura" variant="filled" radius="sm">
@@ -310,7 +323,7 @@ const WatchSection = memo(() => {
                   }}
                 />
               </Box>
-            </SimpleGrid>
+            </Box>
           </Paper>
         )}
 

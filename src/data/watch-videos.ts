@@ -45,7 +45,7 @@ export const watchVideos: WatchVideo[] = [
     title: 'How I Turned Scholarships & a Student Visa Into $250K by 24',
     subtitle: '10+ Years of April',
     description:
-      'A long-form reflection on becoming a software engineer from The Bahamas, from scholarships and student visa life to fintech, layoffs, immigration, global work, forming an LLC, and building Rainy Day. The story behind BuiltByGervonte.',
+      'A long-form reflection on becoming a software engineer from The Bahamas, covering scholarships and student visa life to fintech, career disruption, immigration, global work, forming an LLC, and building Rainy Day. The story behind BuiltByGervonte.',
     category: 'founder-story',
     collection: 'Founder Stories',
     youtubeUrl: 'https://youtu.be/AbYNHzYtm_s',

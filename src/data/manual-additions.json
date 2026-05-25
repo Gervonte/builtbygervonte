@@ -23,8 +23,8 @@
       "period": "November 2025 - Present",
       "location": "Lakeland, Florida",
       "companyUrl": "https://builtbygervonte.com",
-      "description": "Building consumer fintech software focused on practical financial clarity for underserved Caribbean users.",
-      "longDescription": "BuiltByGervonte LLC is the parent company behind Ignition Labs, the software product suite focused on building thoughtful SaaS products with real user value.\n\nIgnition Labs was created to separate smaller vibe-coded experiments from more traditionally engineered products designed to grow into larger SaaS products.\n\nRainy Day is the first product in the suite, a consumer fintech app focused on practical financial clarity through local bank data aggregation.",
+      "description": "Software studio building practical fintech products and creator-led content for emerging Caribbean markets.",
+      "longDescription": "BuiltByGervonte LLC is the creative software studio behind Ignition Labs, focused on innovative fintech products and creator-led software content.\n\nRainy Day is the first product in the suite, starting with consumer-permissioned bank statement data for Caribbean markets where open banking standards or APIs are limited.",
       "technologies": [
         "TypeScript",
         "React",
@@ -49,8 +49,8 @@
       "title": "Full Stack Software Engineer",
       "company": "Nova Credit",
       "period": "August 2020 - June 2022",
-      "description": "Fintech startup building credit access for newcomers to America",
-      "longDescription": "NovaCredit bridges the gap between international credit history and US financial systems, helping immigrants and international students establish creditworthiness when traditional lenders can't see their financial track record.\n\nI worked on Credit Passport®, their flagship product that translates foreign credit histories into US-equivalent scores.\n\nThe company also offers Cash Atlas™, Income Navigator, and a unified platform for comprehensive credit solutions.",
+      "description": "Credit infrastructure and analytics platform that helps businesses use alternative financial data for underwriting, income verification, and credit access.",
+      "longDescription": "Nova Credit helps financial institutions, lenders, property managers, and other businesses make credit decisions using consumer-permissioned alternative financial data.\n\nIts current platform includes Credit Passport® for international credit data, Cash Atlas™ for cash flow underwriting, Income Navigator for income verification, and Eligibility Compass.\n\nI worked on Credit Passport®, the product that translates foreign credit histories into US-equivalent scores for newcomers whose financial records are not visible to traditional domestic credit systems.",
       "technologies": [
         "TypeScript",
         "JavaScript",
@@ -77,7 +77,7 @@
       "period": "July 2019 - August 2019",
       "location": "Salt Lake City Metropolitan Area, Utah",
       "companyUrl": "https://www.quickbase.com",
-      "description": "Contributed to production features at Quickbase, an Intuit spin-off and enterprise low-code platform for secure workflow automation.",
+      "description": "Business software platform that helps teams build custom internal apps and automate workflows with low-code tools.",
       "longDescription": "Completed a full-stack software engineering internship at Quickbase, a software company founded in 1999 as OneBase and spun off from Intuit in March 2016. Quickbase provides an enterprise low-code platform for building secure cloud applications, workflow automation, and operational efficiency. During the internship, I contributed to production features as part of a platform migration effort involving legacy C++ systems and React-based product surfaces.",
       "technologies": ["C++", "React.js", "Agile", "Pair Programming"],
       "achievements": [
