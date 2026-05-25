@@ -2,18 +2,23 @@ import { Metadata } from 'next';
 
 // SEO Configuration
 export const seoConfig = {
-  title: 'BuiltByGervonte — Software Engineering, Music, Ignition Labs',
+  title: 'BuiltByGervonte — Software, Content, and Ignition Labs',
   description:
-    'BuiltByGervonte LLC is a digital studio by Gervonté Fowler, building modern software, AI-enhanced tools, and the Ignition Labs product suite.',
+    'BuiltByGervonte LLC is a creative software studio by Gervonté Fowler, sharing software and demos, founder stories, and the Ignition Labs product suite.',
   keywords: [
     'BuiltByGervonte',
     'Built By Gervonte',
+    'BuiltByGervonte Videos',
     'Gervonté Fowler',
     'Gervonte Fowler',
     'Ignition Labs',
+    'Rainy Day Product Demos',
+    'LEETCODE BEASTMODE',
+    'Founder Stories',
+    'Software Engineering Journey',
+    'Caribbean Tech Builder',
     'Personal Finance App',
     'Fintech Tools',
-    'DBTH Records',
     'BEYWHAT',
     'Software Engineer',
     'AI-Enhanced Developer',
@@ -77,6 +82,12 @@ export function generatePageMetadata(
           alt: fullTitle,
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: fullTitle,
+      description: fullDescription,
+      images: [fullImage],
     },
     alternates: {
       canonical: fullUrl,
