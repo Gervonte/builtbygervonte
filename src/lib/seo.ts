@@ -32,7 +32,7 @@ export const seoConfig = {
   ],
   author: 'BuiltByGervonte LLC',
   url: 'https://builtbygervonte.com',
-  image: 'https://builtbygervonte.com/og-image.png',
+  image: 'https://builtbygervonte.com/og-image',
   linkedinHandle: 'gervonte-fowler-5a7781158',
   githubHandle: 'gervonte',
 };

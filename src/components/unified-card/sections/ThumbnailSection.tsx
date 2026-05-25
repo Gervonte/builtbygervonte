@@ -73,6 +73,7 @@ const ThumbnailSection = memo(
           <Image
             src={thumbnail.src}
             alt={thumbnail.alt}
+            loading="lazy"
             style={{
               width: '100%',
               height: '100%',

@@ -4,10 +4,10 @@ import {
   LazyAboutSection,
   LazyContactSection,
   LazyExperienceSection,
-  LazyHeroSection,
   LazyWatchSection,
   LazyWorkSection,
 } from '@/components/LazyComponents';
+import HeroSection from '@/components/HeroSection';
 import ParallaxElement from '@/components/ParallaxElement';
 import { ModalProvider } from '@/lib/modal-context';
 import { getSectionSpeed } from '@/lib/parallax-config';
@@ -24,7 +24,7 @@ const HomePage = memo(() => {
     <ModalProvider>
       <ParallaxProvider>
         {/* Hero Section */}
-        <LazyHeroSection />
+        <HeroSection />
 
         <ParallaxElement speed={getSectionSpeed('watch')}>
           <Box

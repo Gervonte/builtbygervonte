@@ -34,6 +34,7 @@ const inter = localFont({
   ],
   display: 'swap',
   fallback: ['system-ui', 'Arial', 'sans-serif'],
+  preload: false,
   variable: '--font-inter',
 });
 

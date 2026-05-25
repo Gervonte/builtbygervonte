@@ -91,6 +91,17 @@ jobs:
               .readdirSync(resultsPath)
               .filter(file => file.endsWith('.json'));
 
+            const manifestPath = path.join(resultsPath, 'manifest.json');
+            const representativeJsonFile = fs.existsSync(manifestPath)
+              ? JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
+                  .find(entry => entry.isRepresentativeRun)
+                  ?.jsonPath?.split(/[\\/]/)
+                  .pop()
+              : null;
+            if (representativeJsonFile && jsonFiles.includes(representativeJsonFile)) {
+              jsonFiles.sort(file => (file === representativeJsonFile ? -1 : 1));
+            }
+
             for (const file of jsonFiles) {
               const result = JSON.parse(fs.readFileSync(path.join(resultsPath, file), 'utf8'));
               const lhr = result.lhr || result;
@@ -196,10 +207,13 @@ jobs:
           if [ -n "${VERCEL_AUTOMATION_BYPASS_SECRET:-}" ]; then
             header_args+=(--header "x-vercel-protection-bypass: ${VERCEL_AUTOMATION_BYPASS_SECRET}")
           else
-            echo "::warning::VERCEL_AUTOMATION_BYPASS_SECRET is not configured; preflight will run without bypass headers."
+            echo "::error::VERCEL_AUTOMATION_BYPASS_SECRET is not configured; Lighthouse would audit the Vercel authentication shell instead of the deployed app."
+            exit 1
           fi
 
-          final_url="$(curl -LsS -o /dev/null -w '%{url_effective}' "${header_args[@]}" "${DEPLOYMENT_URL}")"
+          preflight_response="$(mktemp)"
+          preflight_headers="$(mktemp)"
+          final_url="$(curl -LsS -D "${preflight_headers}" -o "${preflight_response}" -w '%{url_effective}' "${header_args[@]}" "${DEPLOYMENT_URL}")"
 
           echo "Requested deployment URL: ${DEPLOYMENT_URL}"
           echo "Final deployment URL: ${final_url}"
@@ -208,6 +222,21 @@ jobs:
             echo "::error::Vercel preview URL resolved to a login redirect. Configure VERCEL_AUTOMATION_BYPASS_SECRET for Lighthouse automation."
             exit 1
           fi
+
+          if grep -iq '^x-robots-tag:.*noindex' "${preflight_headers}"; then
+            echo "::notice::Vercel preview response includes x-robots-tag: noindex. Continuing because preview deployments may include this header even when the app is reachable."
+          fi
+
+          if grep -qi 'Vercel Authentication' "${preflight_response}"; then
+            echo "::error::Vercel preview response still contains the Vercel Authentication shell instead of the app. Confirm the GitHub Actions VERCEL_AUTOMATION_BYPASS_SECRET exactly matches the current Vercel Protection Bypass for Automation secret and redeploy after any secret rotation."
+            exit 1
+          fi
+
+      - name: Verify Lighthouse bypass header configuration
+        env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          node -e "const config = require('./lighthouserc.cjs'); const rawHeaders = config?.ci?.collect?.settings?.extraHeaders; const headers = typeof rawHeaders === 'string' ? JSON.parse(rawHeaders) : rawHeaders || {}; if (headers['x-vercel-protection-bypass'] !== process.env.VERCEL_AUTOMATION_BYPASS_SECRET) { throw new Error('Lighthouse config is missing the Vercel protection bypass header.'); } console.log('Lighthouse config includes the Vercel protection bypass header.');"
 
       - name: Run Lighthouse CI
         id: lighthouse
@@ -265,6 +294,17 @@ jobs:
               .readdirSync(resultsPath)
               .filter(file => file.endsWith('.json'));
 
+            const manifestPath = path.join(resultsPath, 'manifest.json');
+            const representativeJsonFile = fs.existsSync(manifestPath)
+              ? JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
+                  .find(entry => entry.isRepresentativeRun)
+                  ?.jsonPath?.split(/[\\/]/)
+                  .pop()
+              : null;
+            if (representativeJsonFile && jsonFiles.includes(representativeJsonFile)) {
+              jsonFiles.sort(file => (file === representativeJsonFile ? -1 : 1));
+            }
+
             for (const file of jsonFiles) {
               const result = JSON.parse(fs.readFileSync(path.join(resultsPath, file), 'utf8'));
               const lhr = result.lhr || result;
@@ -280,6 +320,7 @@ jobs:
               const lcp = auditNumber('largest-contentful-paint');
               const fid = auditNumber('max-potential-fid');
               const cls = auditNumber('cumulative-layout-shift');
+              const isCrawlableAudit = lhr.audits['is-crawlable'];
               const requestedDeployment = context.payload.deployment_status?.environment_url || 'Not reported';
               const finalAuditedUrl = lhr.finalDisplayedUrl || lhr.finalUrl || 'Not reported';
               const runUrl =
@@ -310,6 +351,18 @@ jobs:
 
               if (runUrl) {
                 commentLines.push(`- **Workflow run**: [View run details](${runUrl})`);
+              }
+
+              if (
+                isCrawlableAudit?.score === 0 &&
+                typeof finalAuditedUrl === 'string' &&
+                finalAuditedUrl.includes('.vercel.app')
+              ) {
+                commentLines.push(
+                  '',
+                  '### SEO Note',
+                  '- **Vercel Preview noindex**: Lighthouse reports this preview URL as blocked from indexing. Local production Lighthouse reports app-level SEO separately.'
+                );
               }
 
               commentLines.push('- **Full Lighthouse reports**: Attached to this workflow run as artifacts (HTML + JSON).');

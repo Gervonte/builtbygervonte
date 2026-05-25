@@ -186,7 +186,7 @@ const AboutSection = memo(() => {
         {/* Hero Section */}
         <Box ta="center" mb="xl">
           <Title
-            order={1}
+            order={2}
             size="h1"
             mb="md"
             style={{
