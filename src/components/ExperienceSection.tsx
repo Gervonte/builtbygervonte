@@ -3,6 +3,7 @@
 import { aboutData } from '@/lib/about';
 import { useColorCombinations } from '@/lib/theme-aware-colors';
 import { Box, Container, Stack, Text, Timeline, Title } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconBriefcase, IconExternalLink, IconMapPin } from '@tabler/icons-react';
 import { memo } from 'react';
 import UnifiedCard from './UnifiedCard';
@@ -10,6 +11,8 @@ import UnifiedCard from './UnifiedCard';
 const ExperienceSection = memo(() => {
   const { experience } = aboutData;
   const colorCombinations = useColorCombinations();
+  const isMobile = useMediaQuery('(max-width: 48em)');
+  const shouldUseTimeline = experience.length > 1 && !isMobile;
 
   const getExperienceLocation = (company: string, location?: string) => {
     if (location) return location;
@@ -48,7 +51,7 @@ const ExperienceSection = memo(() => {
         </Box>
 
         {/* Experience Timeline or Single Card */}
-        {experience.length > 1 ? (
+        {shouldUseTimeline ? (
           <Timeline bulletSize={24} lineWidth={2}>
             {experience.map((exp, index) => {
               const experienceLocation = getExperienceLocation(exp.company, exp.location);
