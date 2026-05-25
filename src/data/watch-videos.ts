@@ -45,7 +45,7 @@ export const watchVideos: WatchVideo[] = [
     title: 'How I Turned Scholarships & a Student Visa Into $250K by 24',
     subtitle: '10+ Years of April',
     description:
-      'A long-form reflection on becoming a software engineer from The Bahamas, covering scholarships and student visa life to fintech, career disruption, immigration, global work, forming an LLC, and building Rainy Day. The story behind BuiltByGervonte.',
+      'A long-form reflection on becoming a software engineer from The Bahamas, covering scholarships, student visa life, access to work, fintech, career disruption, immigration, forming an LLC, and building Rainy Day. The story behind BuiltByGervonte.',
     category: 'founder-story',
     collection: 'Founder Stories',
     youtubeUrl: 'https://youtu.be/AbYNHzYtm_s',
@@ -58,6 +58,7 @@ export const watchVideos: WatchVideo[] = [
     id: 'rainy-day-v0-1-0',
     slug: 'rainy-day-v0-1-0',
     title: 'Rainy Day v0.1.0',
+    subtitle: 'Personal Finance for The Bahamas',
     description:
       'A proof of concept demo for Rainy Day, showing how consumer-permissioned bank statement data can power personal finance management in markets without open banking standards or APIs.',
     category: 'software-demo',
@@ -71,6 +72,7 @@ export const watchVideos: WatchVideo[] = [
     id: 'leetcode-beastmode',
     slug: 'leetcode-beastmode',
     title: 'LEETCODE BEASTMODE',
+    subtitle: 'From Internet Outage to Coding Anthem',
     description:
       'The original LEETCODE BEASTMODE video posted by JamesPeraltaSWE, featuring a track I first recorded, mixed, and mastered at home in November 2023, originally released as “1337” after my internet went out while I was practicing LeetCode.',
     category: 'creative-breakdown',
@@ -84,6 +86,7 @@ export const watchVideos: WatchVideo[] = [
     id: 'leetcode-beastmode-bts',
     slug: 'leetcode-beastmode-bts',
     title: 'LEETCODE BEASTMODE - BEHIND THE SONG',
+    subtitle: 'The DAW, the Mix, and the LeetCode Era',
     description:
       'Behind the scenes of “LEETCODE BEASTMODE.” I break down the DAW setup, vocal chain, mixing choices, and the early 2023 to summer 2024 era in The Bahamas, when I was sharpening system design and LeetCode-styled questions before returning to the U.S. for my master’s degree.',
     category: 'creative-breakdown',
