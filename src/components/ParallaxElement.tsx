@@ -27,7 +27,9 @@ export default function ParallaxElement({
     useParallax();
 
   useEffect(() => {
-    if (!elementRef.current || isReducedMotion) {
+    const element = elementRef.current;
+
+    if (!element || isReducedMotion) {
       return;
     }
 
@@ -40,7 +42,11 @@ export default function ParallaxElement({
     // Wait a bit for the element to be fully rendered
     let isCancelled = false;
     const timer = setTimeout(async () => {
-      const instance = await createRellaxInstance(elementRef.current!, speed, {
+      if (isCancelled || !element.isConnected) {
+        return;
+      }
+
+      const instance = await createRellaxInstance(element, speed, {
         center,
         horizontal,
       });

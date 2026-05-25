@@ -71,8 +71,8 @@ const getProgressKey = (youtubeId: string) => `${PROGRESS_KEY_PREFIX}:${youtubeI
 const getFallbackEmbedUrl = (youtubeId: string) =>
   `${YOUTUBE_EMBED_BASE_URL}/${youtubeId}?autoplay=0&rel=0&playsinline=1`;
 
-const getThumbnailUrl = (youtubeId: string) =>
-  `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+const getThumbnailUrl = (youtubeId: string, quality: 'hqdefault' | 'mqdefault' = 'hqdefault') =>
+  `https://img.youtube.com/vi/${youtubeId}/${quality}.jpg`;
 
 const getStoredProgress = (youtubeId: string) => {
   try {
@@ -200,6 +200,11 @@ const ResumeYouTubeEmbed = memo(
     const saveIntervalRef = useRef<number | null>(null);
     const [useFallbackEmbed, setUseFallbackEmbed] = useState(false);
     const [shouldLoadPlayer, setShouldLoadPlayer] = useState(false);
+    const [thumbnailSrc, setThumbnailSrc] = useState(() => getThumbnailUrl(youtubeId));
+
+    useEffect(() => {
+      setThumbnailSrc(getThumbnailUrl(youtubeId));
+    }, [youtubeId]);
 
     useEffect(() => {
       let isMounted = true;
@@ -335,22 +340,56 @@ const ResumeYouTubeEmbed = memo(
           onClick={() => setShouldLoadPlayer(true)}
           aria-label={`Play ${title}`}
           style={{
+            position: 'relative',
+            overflow: 'hidden',
             width: '100%',
             height: '100%',
             border: 0,
             cursor: 'pointer',
             padding: 0,
             color: '#FFFFFF',
-            background: `linear-gradient(rgba(14, 20, 27, 0.18), rgba(14, 20, 27, 0.42)), url(${getThumbnailUrl(
-              youtubeId
-            )}) center / cover`,
             ...style,
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt=""
+            aria-hidden="true"
+            src={thumbnailSrc}
+            loading="lazy"
+            decoding="async"
+            onError={event => {
+              const nextSrc = getThumbnailUrl(youtubeId, 'mqdefault');
+
+              if (event.currentTarget.src.endsWith('/mqdefault.jpg')) {
+                return;
+              }
+
+              setThumbnailSrc(nextSrc);
+            }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              pointerEvents: 'none',
+            }}
+          />
+          <Box
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(rgba(14, 20, 27, 0.18), rgba(14, 20, 27, 0.42))',
+            }}
+          />
           <Stack align="center" justify="center" gap="xs" h="100%">
             <Box
               aria-hidden="true"
               style={{
+                position: 'relative',
+                zIndex: 1,
                 alignItems: 'center',
                 background: 'rgba(14, 20, 27, 0.78)',
                 borderRadius: '999px',
@@ -362,7 +401,15 @@ const ResumeYouTubeEmbed = memo(
             >
               <IconPlayerPlay size={30} fill="currentColor" />
             </Box>
-            <Text fw={700} size="sm" style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.55)' }}>
+            <Text
+              fw={700}
+              size="sm"
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                textShadow: '0 1px 8px rgba(0, 0, 0, 0.55)',
+              }}
+            >
               Play video
             </Text>
           </Stack>
