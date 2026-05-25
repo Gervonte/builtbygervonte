@@ -5,11 +5,7 @@ export type WatchVideoCategory =
   | 'creative-breakdown'
   | 'life-discipline';
 
-export type WatchVideoCollection =
-  | 'Founder Stories'
-  | 'Rainy Day Demos'
-  | 'Build Logs'
-  | 'Creative / Culture';
+export type WatchVideoCollection = 'Founder Stories' | 'Software Demos' | 'Creative / Culture';
 
 export type WatchVideoStatus = 'published' | 'unlisted' | 'coming-soon';
 
@@ -38,8 +34,7 @@ export interface WatchVideo {
 
 export const watchCollections: WatchVideoCollection[] = [
   'Founder Stories',
-  'Rainy Day Demos',
-  'Build Logs',
+  'Software Demos',
   'Creative / Culture',
 ];
 
@@ -50,35 +45,14 @@ export const watchVideos: WatchVideo[] = [
     title: 'How I Turned Scholarships & a Student Visa Into $250K by 24',
     subtitle: '10+ Years of April',
     description:
-      'A long-form reflection on becoming a software engineer as a Bahamian developer, from scholarships and student visa life to fintech, layoffs, Rainy Day, and BuiltByGervonte.',
+      'A long-form reflection on becoming a software engineer as a developer born and raised in The Bahamas, from scholarships and student visa life to fintech, layoffs, Rainy Day, and BuiltByGervonte.',
     category: 'founder-story',
     collection: 'Founder Stories',
-    youtubeUrl: 'https://youtu.be/71Hcg4LCVqE',
-    youtubeId: '71Hcg4LCVqE',
-    duration: '1:13:04',
+    youtubeUrl: 'https://youtu.be/AbYNHzYtm_s',
+    youtubeId: 'AbYNHzYtm_s',
+    duration: '1:13:01',
     status: 'published',
     featured: true,
-  },
-  {
-    id: 'book-club',
-    slug: 'book-club',
-    title: 'Book Club',
-    description: 'A reflective life-discipline conversation for the BuiltByGervonte Watch library.',
-    category: 'life-discipline',
-    collection: 'Founder Stories',
-    duration: '36:47',
-    status: 'coming-soon',
-  },
-  {
-    id: 'training-for-a-5k',
-    slug: 'training-for-a-5k',
-    title: 'Training for a 5K',
-    description:
-      'A life-discipline entry about training, consistency, and showing up for the long run.',
-    category: 'life-discipline',
-    collection: 'Founder Stories',
-    duration: '11:32',
-    status: 'coming-soon',
   },
   {
     id: 'rainy-day-v0-1-0',
@@ -87,20 +61,23 @@ export const watchVideos: WatchVideo[] = [
     description:
       'A product demo covering the first Rainy Day release and the financial clarity workflow behind it.',
     category: 'product-demo',
-    collection: 'Rainy Day Demos',
-    duration: '10:17',
-    status: 'coming-soon',
+    collection: 'Software Demos',
+    youtubeUrl: 'https://www.youtube.com/watch?v=DleHQK9KH-8',
+    youtubeId: 'DleHQK9KH-8',
+    duration: '10:16',
+    status: 'published',
   },
   {
-    id: 'rainy-day-v0-2-0',
-    slug: 'rainy-day-v0-2-0',
-    title: 'Rainy Day v0.2.0',
+    id: 'leetcode-beastmode-breakdown',
+    slug: 'leetcode-beastmode-breakdown',
+    title: 'LeetCode BeastMode Breakdown',
     description:
-      'A product demo for the next Rainy Day iteration and its expanded personal finance workflow.',
-    category: 'product-demo',
-    collection: 'Rainy Day Demos',
-    duration: '12:18',
-    status: 'coming-soon',
+      'Behind the scenes of “LEETCODE BEASTMODE,” a track first engineered in November 2023 originally called “1337.” I break down the DAW setup, vocal chain, mixing choices, and the late-2023 Bahamas era of sharpening my software engineering weaknesses through system design and LeetCode.',
+    category: 'creative-breakdown',
+    collection: 'Creative / Culture',
+    youtubeUrl: 'https://www.youtube.com/watch?v=GlbWLTu42Ws',
+    youtubeId: 'GlbWLTu42Ws',
+    status: 'published',
   },
 ];
 
