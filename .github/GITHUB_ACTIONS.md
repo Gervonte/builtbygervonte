@@ -76,7 +76,7 @@ This repository includes comprehensive GitHub Actions workflows for automated te
 - Vercel Preview deployment Lighthouse checks after successful preview deployments
 - Core Web Vitals monitoring
 - PR comments with performance scores and workflow artifact/report context
-- Vercel Preview checks use the `VERCEL_AUTOMATION_BYPASS_SECRET` Actions secret with Vercel Protection Bypass for Automation and the bypass-cookie header so Lighthouse audits the deployed app instead of the Vercel authentication shell
+- Vercel Preview checks use the `VERCEL_AUTOMATION_BYPASS_SECRET` Actions secret with Vercel Protection Bypass for Automation and fail fast if the response is still the Vercel authentication shell
 - Lighthouse report uploads use the Lighthouse action `resultsPath` output so HTML/JSON artifacts are collected from the actual generated results directory
 
 ### 7. Dependency Updates (`dependabot.yml`)

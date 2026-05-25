@@ -7,7 +7,6 @@ const collectSettings = {
 if (automationBypassSecret) {
   collectSettings.extraHeaders = JSON.stringify({
     'x-vercel-protection-bypass': automationBypassSecret,
-    'x-vercel-set-bypass-cookie': 'true',
   });
 }
 

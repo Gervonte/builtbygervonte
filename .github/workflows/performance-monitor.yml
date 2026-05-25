@@ -195,7 +195,6 @@ jobs:
           header_args=()
           if [ -n "${VERCEL_AUTOMATION_BYPASS_SECRET:-}" ]; then
             header_args+=(--header "x-vercel-protection-bypass: ${VERCEL_AUTOMATION_BYPASS_SECRET}")
-            header_args+=(--header "x-vercel-set-bypass-cookie: true")
           else
             echo "::error::VERCEL_AUTOMATION_BYPASS_SECRET is not configured; Lighthouse would audit the Vercel authentication shell instead of the deployed app."
             exit 1
