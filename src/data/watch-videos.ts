@@ -1,6 +1,6 @@
 export type WatchVideoCategory =
   | 'founder-story'
-  | 'product-demo'
+  | 'software-demo'
   | 'build-log'
   | 'creative-breakdown'
   | 'life-discipline';
@@ -59,8 +59,8 @@ export const watchVideos: WatchVideo[] = [
     slug: 'rainy-day-v0-1-0',
     title: 'Rainy Day v0.1.0',
     description:
-      'A product demo covering the first Rainy Day release and the financial clarity workflow behind it.',
-    category: 'product-demo',
+      'A proof of concept demo for Rainy Day, showing how consumer-permissioned bank statement data can power personal finance management in markets without open banking standards or APIs.',
+    category: 'software-demo',
     collection: 'Software Demos',
     youtubeUrl: 'https://www.youtube.com/watch?v=DleHQK9KH-8',
     youtubeId: 'DleHQK9KH-8',
@@ -72,7 +72,7 @@ export const watchVideos: WatchVideo[] = [
     slug: 'leetcode-beastmode',
     title: 'LEETCODE BEASTMODE',
     description:
-      'The original LeetCode BeastMode video featuring BEYWHAT’s track, connecting coding culture, music, and the creative side of Built By Gervonte.',
+      'The original LEETCODE BEASTMODE video posted by JamesPeraltaSWE, featuring a track I first recorded, mixed, and mastered at home in November 2023, originally released as “1337” after my internet went out while I was practicing LeetCode.',
     category: 'creative-breakdown',
     collection: 'Creative / Culture',
     youtubeUrl: 'https://www.youtube.com/watch?v=oOWc9QAoTKg',
@@ -81,11 +81,11 @@ export const watchVideos: WatchVideo[] = [
     status: 'published',
   },
   {
-    id: 'leetcode-beastmode-breakdown',
-    slug: 'leetcode-beastmode-breakdown',
-    title: 'LeetCode BeastMode Breakdown',
+    id: 'leetcode-beastmode-bts',
+    slug: 'leetcode-beastmode-bts',
+    title: 'LEETCODE BEASTMODE - BEHIND THE SONG',
     description:
-      'Behind the scenes of “LEETCODE BEASTMODE,” a track first engineered in November 2023 originally called “1337.” I break down the DAW setup, vocal chain, mixing choices, and the 2023-2024 Bahamas era of sharpening my software engineering weaknesses including system design and LeetCode styled questions.',
+      'Behind the scenes of “LEETCODE BEASTMODE.” I break down the DAW setup, vocal chain, mixing choices, and the early 2023 to summer 2024 era in The Bahamas, when I was sharpening system design and LeetCode-styled questions before returning to the U.S. for my master’s degree.',
     category: 'creative-breakdown',
     collection: 'Creative / Culture',
     youtubeUrl: 'https://www.youtube.com/watch?v=GlbWLTu42Ws',
