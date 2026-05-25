@@ -62,7 +62,7 @@ jobs:
 
       - name: Upload Lighthouse Results
         uses: actions/upload-artifact@v7
-        if: always()
+        if: always() && steps.lighthouse.outcome != 'skipped'
         with:
           name: lighthouse-reports-local-production-${{ github.run_id }}
           path: |
@@ -194,7 +194,6 @@ jobs:
           header_args=()
           if [ -n "${VERCEL_AUTOMATION_BYPASS_SECRET:-}" ]; then
             header_args+=(--header "x-vercel-protection-bypass: ${VERCEL_AUTOMATION_BYPASS_SECRET}")
-            header_args+=(--header "x-vercel-set-bypass-cookie: true")
           else
             echo "::warning::VERCEL_AUTOMATION_BYPASS_SECRET is not configured; preflight will run without bypass headers."
           fi
@@ -223,7 +222,7 @@ jobs:
 
       - name: Upload Lighthouse Results
         uses: actions/upload-artifact@v7
-        if: always()
+        if: always() && steps.lighthouse.outcome != 'skipped'
         with:
           name: lighthouse-reports-vercel-preview-${{ github.run_id }}
           path: |
