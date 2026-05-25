@@ -1,7 +1,10 @@
 import { readFileSync } from 'node:fs';
-import { relative, resolve } from 'node:path';
+import { dirname, join, relative, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = process.cwd();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const root = join(__dirname, '..');
 
 const files = {
   layout: 'src/app/layout.tsx',
@@ -11,13 +14,9 @@ const files = {
   watchVideos: 'src/data/watch-videos.ts',
 };
 
-const readSource = filePath => readFileSync(resolve(root, filePath), 'utf8');
-
-const sources = Object.fromEntries(
-  Object.entries(files).map(([key, filePath]) => [key, readSource(filePath)])
-);
-
 const failures = [];
+
+const pathLabel = filePath => relative(root, resolve(root, filePath));
 
 const check = (condition, message) => {
   if (!condition) {
@@ -25,8 +24,103 @@ const check = (condition, message) => {
   }
 };
 
+const readSource = filePath => {
+  try {
+    return readFileSync(resolve(root, filePath), 'utf8');
+  } catch (error) {
+    failures.push(`${pathLabel(filePath)} could not be read: ${error.message}`);
+    return '';
+  }
+};
+
+const sources = Object.fromEntries(
+  Object.entries(files).map(([key, filePath]) => [key, readSource(filePath)])
+);
+
 const includes = (source, text) => source.includes(text);
-const pathLabel = filePath => relative(root, resolve(root, filePath));
+
+const getWatchVideoBlocks = source => {
+  const declarationIndex = source.indexOf('export const watchVideos');
+  if (declarationIndex === -1) {
+    return [];
+  }
+
+  const assignmentIndex = source.indexOf('=', declarationIndex);
+  if (assignmentIndex === -1) {
+    return [];
+  }
+
+  const arrayStart = source.indexOf('[', assignmentIndex);
+  if (arrayStart === -1) {
+    return [];
+  }
+
+  const blocks = [];
+  let arrayDepth = 0;
+  let objectDepth = 0;
+  let blockStart = -1;
+  let quote = '';
+  let escaped = false;
+
+  for (let index = arrayStart; index < source.length; index += 1) {
+    const char = source[index];
+
+    if (quote) {
+      if (escaped) {
+        escaped = false;
+      } else if (char === '\\') {
+        escaped = true;
+      } else if (char === quote) {
+        quote = '';
+      }
+      continue;
+    }
+
+    if (char === "'" || char === '"' || char === '`') {
+      quote = char;
+      continue;
+    }
+
+    if (char === '[') {
+      arrayDepth += 1;
+      continue;
+    }
+
+    if (char === ']') {
+      arrayDepth -= 1;
+      if (arrayDepth === 0) {
+        break;
+      }
+      continue;
+    }
+
+    if (arrayDepth !== 1) {
+      continue;
+    }
+
+    if (char === '{') {
+      if (objectDepth === 0) {
+        blockStart = index;
+      }
+      objectDepth += 1;
+      continue;
+    }
+
+    if (char === '}') {
+      objectDepth -= 1;
+      if (objectDepth === 0 && blockStart !== -1) {
+        blocks.push(source.slice(blockStart, index + 1));
+        blockStart = -1;
+      }
+    }
+  }
+
+  return blocks;
+};
+
+const featuredVideoBlock = getWatchVideoBlocks(sources.watchVideos).find(block =>
+  includes(block, 'featured: true')
+);
 
 check(
   includes(sources.page, 'id="watch"'),
@@ -45,11 +139,11 @@ check(
   `${pathLabel(files.footer)} must expose the #watch target in footer navigation.`
 );
 check(
-  includes(sources.watchVideos, 'youtubeUrl:') && includes(sources.watchVideos, 'featured: true'),
+  Boolean(featuredVideoBlock) && includes(featuredVideoBlock, 'youtubeUrl:'),
   `${pathLabel(files.watchVideos)} featured video must include a YouTube URL.`
 );
 check(
-  includes(sources.watchVideos, 'youtubeId:') && includes(sources.watchVideos, 'featured: true'),
+  Boolean(featuredVideoBlock) && includes(featuredVideoBlock, 'youtubeId:'),
   `${pathLabel(files.watchVideos)} featured video must include a YouTube ID.`
 );
 check(
