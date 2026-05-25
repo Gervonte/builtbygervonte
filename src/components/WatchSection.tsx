@@ -86,7 +86,7 @@ const VideoCard = ({ video }: { video: WatchVideo }) => {
             background: thumbnailUrl
               ? `linear-gradient(rgba(14, 20, 27, 0.04), rgba(14, 20, 27, 0.08)), url(${thumbnailUrl}) center / cover`
               : colorCombinations.primaryGradientLight,
-            border: `1px solid ${commonColors.borderSecondary}`,
+            border: `1px solid ${commonColors.borderPrimary}`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -204,7 +204,7 @@ const WatchSection = memo(() => {
         .bbg-watch-video-card:hover .bbg-watch-video-card-surface,
         .bbg-watch-video-card:focus-visible .bbg-watch-video-card-surface {
           transform: translateY(-4px);
-          border-color: ${commonColors.accentPrimary};
+          border-color: ${commonColors.borderSecondary};
           box-shadow: 0 18px 36px ${commonColors.shadowPrimaryLight};
         }
       `}</style>
