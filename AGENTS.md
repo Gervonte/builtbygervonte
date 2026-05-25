@@ -17,8 +17,8 @@ For all Codex tasks from Linear:
 - Open a pull request targeting `preview`.
 - Use the pull request template in `.github/pull_request_template.md`.
 - Keep the PR scoped to the Linear issue only.
-- Use the PR title format `type(LINEAR-KEY): brief description`.
-  - Example: `docs(BBG-42): add Codex workflow instructions`
+- Use the PR title format `[LINEAR-KEY] Brief description`.
+  - Example: `[BBG-42] Add Codex workflow instructions`
 - Use the uppercase Linear key in PR text.
 - Use `Closes LINEAR-KEY` in the PR Linear section.
 - Summarize changed files and validation steps in the PR description.
