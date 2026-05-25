@@ -281,6 +281,9 @@ pnpm type-check
 # Check formatting
 pnpm format:check
 
+# Run Watch page checks
+pnpm run check:watch
+
 # Build
 pnpm build:ci
 

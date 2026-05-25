@@ -34,6 +34,9 @@ jobs:
       - name: Check Prettier formatting
         run: pnpm run format:check
 
+      - name: Run Watch page checks
+        run: pnpm run check:watch
+
   # Build and Test
   build-and-test:
     name: Build & Test

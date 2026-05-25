@@ -25,10 +25,11 @@
     "cache:status": "node scripts/cache-management.js status",
     "build:perf": "node scripts/build-performance.js monitor",
     "build:report": "node scripts/build-performance.js compare",
+    "check:watch": "node scripts/check-watch-page.js",
     "prepare": "husky",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "fresh": "pnpm run clean && pnpm install && pnpm run dev",
-    "check": "pnpm run type-check && pnpm run lint && pnpm run format:check",
+    "check": "pnpm run type-check && pnpm run lint && pnpm run format:check && pnpm run check:watch",
     "fix": "pnpm run lint:fix && pnpm run format"
   },
   "dependencies": {
