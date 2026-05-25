@@ -210,7 +210,6 @@ const WatchSection = memo(() => {
       `}</style>
       <Stack gap="xl">
         <Box ta="center" mb="md">
-          <Group justify="center" mb="md"></Group>
           <Title
             order={1}
             size="h1"
