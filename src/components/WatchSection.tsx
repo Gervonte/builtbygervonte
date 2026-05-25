@@ -72,7 +72,6 @@ const VideoCard = ({ video }: { video: WatchVideo }) => {
       style={{
         height: '100%',
         borderColor: commonColors.borderPrimary,
-        background: commonColors.backgroundCard,
         boxShadow: commonColors.shadowCard,
         transition: 'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease',
       }}
@@ -182,7 +181,6 @@ const WatchSection = memo(() => {
   const isDark = resolvedColorScheme === 'dark';
   const featuredCardStyles = {
     borderColor: commonColors.borderPrimary,
-    background: isDark ? colorCombinations.warmGradientModal : commonColors.backgroundCard,
     boxShadow: commonColors.shadowCard,
   };
   const featuredTitleColor = commonColors.textPrimary;

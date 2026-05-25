@@ -38,6 +38,7 @@ interface YouTubePlayerOptions {
   videoId: string;
   width?: string;
   playerVars?: {
+    autoplay?: 0;
     enablejsapi?: 1;
     playsinline?: 1;
     rel?: 0;
@@ -68,7 +69,7 @@ let youtubeApiPromise: Promise<YouTubeApi> | undefined;
 const getProgressKey = (youtubeId: string) => `${PROGRESS_KEY_PREFIX}:${youtubeId}`;
 
 const getFallbackEmbedUrl = (youtubeId: string) =>
-  `${YOUTUBE_EMBED_BASE_URL}/${youtubeId}?rel=0&playsinline=1`;
+  `${YOUTUBE_EMBED_BASE_URL}/${youtubeId}?autoplay=0&rel=0&playsinline=1`;
 
 const getStoredProgress = (youtubeId: string) => {
   try {
@@ -234,6 +235,7 @@ const ResumeYouTubeEmbed = memo(
             videoId: youtubeId,
             width: '100%',
             playerVars: {
+              autoplay: 0,
               enablejsapi: 1,
               playsinline: 1,
               rel: 0,
@@ -243,7 +245,7 @@ const ResumeYouTubeEmbed = memo(
                 const iframe = event.target.getIframe();
                 iframe.title = title;
                 iframe.allow =
-                  'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                  'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
                 iframe.allowFullscreen = true;
                 iframe.loading = 'lazy';
                 iframe.referrerPolicy = YOUTUBE_REFERRER_POLICY;
@@ -340,7 +342,7 @@ const ResumeYouTubeEmbed = memo(
             src={getFallbackEmbedUrl(youtubeId)}
             loading="lazy"
             referrerPolicy={YOUTUBE_REFERRER_POLICY}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
             style={{
               width: '100%',
