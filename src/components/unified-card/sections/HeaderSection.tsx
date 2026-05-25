@@ -22,14 +22,14 @@ const HeaderSection = memo(
     const commonColors = useCommonColors();
 
     return (
-      <Group justify="space-between" align="flex-start" mb="sm">
-        <Group>
-          <Box>
+      <Group justify="space-between" align="flex-start" wrap="nowrap" mb="sm">
+        <Group style={{ flex: 1, minWidth: 0 }}>
+          <Box style={{ minWidth: 0, width: '100%' }}>
             <Stack gap="xs">
               <Box>
                 {infoBoxDescription ? (
                   // Work experience layout with icon, title/subtitle, and description
-                  <Group align="flex-start" gap="md">
+                  <Group align="flex-start" gap="md" wrap="nowrap" style={{ minWidth: 0 }}>
                     {headerIcon && (
                       <ThemeIcon
                         color={headerIconColor}
@@ -38,6 +38,7 @@ const HeaderSection = memo(
                         style={{
                           cursor: 'default',
                           transition: 'all 0.2s ease',
+                          flexShrink: 0,
                         }}
                         onMouseEnter={e => {
                           e.currentTarget.style.transform = 'scale(1.1)';
@@ -52,7 +53,7 @@ const HeaderSection = memo(
                       </ThemeIcon>
                     )}
                     <Box style={{ flex: 1, minWidth: 0 }}>
-                      <Group align="center" gap="md" mb="xs">
+                      <Group align="baseline" gap="md" wrap="wrap" mb="xs">
                         <Title
                           order={titleHeadingOrder}
                           size="h3"
@@ -149,6 +150,7 @@ const HeaderSection = memo(
                         style={{
                           cursor: 'default',
                           transition: 'all 0.2s ease',
+                          flexShrink: 0,
                         }}
                         onMouseEnter={e => {
                           e.currentTarget.style.transform = 'scale(1.1)';
