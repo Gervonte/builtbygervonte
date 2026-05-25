@@ -73,7 +73,8 @@ const HomePage = memo(() => {
         <ParallaxElement speed={getSectionSpeed('about')}>
           <Box
             id="about"
-            role="main"
+            role="region"
+            aria-label="Qualifications"
             style={{
               minHeight: '100vh',
               padding: '4rem 0',

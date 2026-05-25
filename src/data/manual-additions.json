@@ -2,7 +2,8 @@
   "_comment": "✅ MANUAL ADDITIONS - EDIT THIS FILE FOR CUSTOM DATA ✅",
   "_note": "This file contains manually added data that supplements the auto-generated about-metadata.json. Add new skills, projects, or other data here.",
   "personalInfo": {
-    "email": "hello@builtbygervonte.com"
+    "email": "hello@builtbygervonte.com",
+    "summary": "Full-stack software engineer with fintech experience, an M.S. in Computer Science, and hands-on work across React, Node.js, AI/ML research, and production-ready systems."
   },
   "leadership": [
     {
@@ -42,6 +43,46 @@
         "Established a software product suite within the company (Ignition Labs) focused on building consumer fintech tools for underserved Caribbean (Bahamian) users.",
         "Built Rainy Day as the first product in the suite, focused on practical financial clarity through data aggregation for regions with limited banking integrations and CSV/PDF-only data access.",
         "Lead product strategy, UX, documentation, and full-stack engineering efforts across the software side as well as managing business operations including company budgeting, vendor setup, virtual address and mail handling, business account administration, and early business credit-building workflows."
+      ]
+    },
+    {
+      "title": "Full Stack Software Engineer",
+      "company": "Nova Credit",
+      "period": "August 2020 - June 2022",
+      "description": "Fintech startup building credit access for newcomers to America",
+      "longDescription": "NovaCredit bridges the gap between international credit history and US financial systems, helping immigrants and international students establish creditworthiness when traditional lenders can't see their financial track record.\n\nI worked on Credit Passport®, their flagship product that translates foreign credit histories into US-equivalent scores.\n\nThe company also offers Cash Atlas™, Income Navigator, and a unified platform for comprehensive credit solutions.",
+      "technologies": [
+        "TypeScript",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Express",
+        "HTML",
+        "CSS",
+        "REST APIs",
+        "PostgreSQL",
+        "GraphQL",
+        "Git",
+        "GitHub Actions"
+      ],
+      "achievements": [
+        "Contributed extensively to Credit Passport® and Nova Credit’s Public API, helping scale the company’s cross-border credit platform as partnerships expanded, including HSBC.",
+        "Helped deliver the Public API across 13 countries, working through bureau-specific requirements, verification flows, and edge cases to support a more consistent partner integration experience.",
+        "Contributed to bureau-specific retry logic by identifying supported markets, implementing the behavior, updating documentation, and validating flows through integration testing."
+      ]
+    },
+    {
+      "title": "Full Stack Software Engineer Intern",
+      "company": "Quickbase",
+      "period": "July 2019 - August 2019",
+      "location": "Salt Lake City Metropolitan Area, Utah",
+      "companyUrl": "https://www.quickbase.com",
+      "description": "Contributed to production features at Quickbase, an Intuit spin-off and enterprise low-code platform for secure workflow automation.",
+      "longDescription": "Completed a full-stack software engineering internship at Quickbase, a software company founded in 1999 as OneBase and spun off from Intuit in March 2016. Quickbase provides an enterprise low-code platform for building secure cloud applications, workflow automation, and operational efficiency. During the internship, I contributed to production features as part of a platform migration effort involving legacy C++ systems and React-based product surfaces.",
+      "technologies": ["C++", "React.js", "Agile", "Pair Programming"],
+      "achievements": [
+        "Built early engineering fundamentals through production tasks connected to the platform’s transition from legacy C++ systems toward React-based interfaces.",
+        "Supported other interns through pair programming, debugging, and helping move user stories forward more quickly."
       ]
     }
   ],

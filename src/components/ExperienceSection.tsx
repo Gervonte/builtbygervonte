@@ -13,13 +13,13 @@ const ExperienceSection = memo(() => {
 
   const getExperienceLocation = (company: string, location?: string) => {
     if (location) return location;
-    if (company === 'NovaCredit') return 'San Francisco, California';
+    if (company === 'NovaCredit' || company === 'Nova Credit') return 'San Francisco, California';
     return undefined;
   };
 
   const getExperienceCompanyUrl = (company: string, companyUrl?: string) => {
     if (companyUrl) return companyUrl;
-    if (company === 'NovaCredit') return 'https://novacredit.com';
+    if (company === 'NovaCredit' || company === 'Nova Credit') return 'https://novacredit.com';
     return undefined;
   };
 
