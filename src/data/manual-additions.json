@@ -78,7 +78,7 @@
       "location": "Salt Lake City Metropolitan Area, Utah",
       "companyUrl": "https://www.quickbase.com",
       "description": "Business software platform that helps teams build custom internal apps and automate workflows with low-code tools.",
-      "longDescription": "Completed a full-stack software engineering internship at Quickbase, a software company founded in 1999 as OneBase and spun off from Intuit in March 2016. Quickbase provides an enterprise low-code platform for building secure cloud applications, workflow automation, and operational efficiency. During the internship, I contributed to production features as part of a platform migration effort involving legacy C++ systems and React-based product surfaces.",
+      "longDescription": "Completed a full-stack software engineering internship at Quickbase, a software company founded in 1999 as OneBase and spun off from Intuit in March 2016.\n\nQuickbase provides an enterprise low-code platform for building secure cloud applications, workflow automation, and operational efficiency. \n\nDuring the internship, I contributed to production features as part of a platform migration effort involving legacy C++ systems and React-based product surfaces.",
       "technologies": ["C++", "React.js", "Agile", "Pair Programming"],
       "achievements": [
         "Built early engineering fundamentals through production tasks connected to the platform’s transition from legacy C++ systems toward React-based interfaces.",
