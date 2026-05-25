@@ -195,17 +195,31 @@ jobs:
           header_args=()
           if [ -n "${VERCEL_AUTOMATION_BYPASS_SECRET:-}" ]; then
             header_args+=(--header "x-vercel-protection-bypass: ${VERCEL_AUTOMATION_BYPASS_SECRET}")
+            header_args+=(--header "x-vercel-set-bypass-cookie: true")
           else
-            echo "::warning::VERCEL_AUTOMATION_BYPASS_SECRET is not configured; preflight will run without bypass headers."
+            echo "::error::VERCEL_AUTOMATION_BYPASS_SECRET is not configured; Lighthouse would audit the Vercel authentication shell instead of the deployed app."
+            exit 1
           fi
 
-          final_url="$(curl -LsS -o /dev/null -w '%{url_effective}' "${header_args[@]}" "${DEPLOYMENT_URL}")"
+          preflight_response="$(mktemp)"
+          preflight_headers="$(mktemp)"
+          final_url="$(curl -LsS -D "${preflight_headers}" -o "${preflight_response}" -w '%{url_effective}' "${header_args[@]}" "${DEPLOYMENT_URL}")"
 
           echo "Requested deployment URL: ${DEPLOYMENT_URL}"
           echo "Final deployment URL: ${final_url}"
 
           if [[ "${final_url}" == https://vercel.com/login* || "${final_url}" == *"//vercel.com/login"* ]]; then
             echo "::error::Vercel preview URL resolved to a login redirect. Configure VERCEL_AUTOMATION_BYPASS_SECRET for Lighthouse automation."
+            exit 1
+          fi
+
+          if grep -iq '^x-robots-tag:.*noindex' "${preflight_headers}"; then
+            echo "::error::Vercel preview response still includes x-robots-tag: noindex, which indicates deployment protection was not bypassed."
+            exit 1
+          fi
+
+          if grep -qi 'Vercel Authentication' "${preflight_response}"; then
+            echo "::error::Vercel preview response still contains the Vercel Authentication shell instead of the app."
             exit 1
           fi
 
