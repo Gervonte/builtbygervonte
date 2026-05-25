@@ -39,9 +39,10 @@ const inter = localFont({
 
 // Navigation links
 const navigationLinks = [
-  { link: '#work', label: 'Work' },
-  { link: '#experience', label: 'Experience' },
-  { link: '#about', label: 'About' },
+  { link: '#watch', label: 'Content' },
+  { link: '#work', label: 'Software' },
+  { link: '#experience', label: 'Professional Experience' },
+  { link: '#about', label: 'Qualifications' },
   { link: '#contact', label: 'Contact' },
 ];
 

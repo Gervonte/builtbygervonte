@@ -12,6 +12,7 @@
 export const parallaxConfig = {
   // Main section parallax speeds
   sections: {
+    watch: 0.8,
     work: 0.8,
     experience: 0.7,
     about: 0.8,

@@ -73,9 +73,10 @@ export default function Footer() {
               </Title>
               <Stack gap="xs">
                 {[
-                  { label: 'Work & Projects', href: '#work' },
-                  { label: 'Experience', href: '#experience' },
-                  { label: 'About Me', href: '#about' },
+                  { label: 'Content', href: '#watch' },
+                  { label: 'Software', href: '#work' },
+                  { label: 'Professional Experience', href: '#experience' },
+                  { label: 'Qualifications', href: '#about' },
                   { label: 'Contact', href: '#contact' },
                 ].map(link => (
                   <Anchor

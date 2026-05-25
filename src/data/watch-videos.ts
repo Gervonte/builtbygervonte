@@ -1,15 +1,11 @@
 export type WatchVideoCategory =
   | 'founder-story'
-  | 'product-demo'
+  | 'software-demo'
   | 'build-log'
   | 'creative-breakdown'
   | 'life-discipline';
 
-export type WatchVideoCollection =
-  | 'Founder Stories'
-  | 'Rainy Day Demos'
-  | 'Build Logs'
-  | 'Creative / Culture';
+export type WatchVideoCollection = 'Founder Stories' | 'Software Demos' | 'Creative / Culture';
 
 export type WatchVideoStatus = 'published' | 'unlisted' | 'coming-soon';
 
@@ -38,8 +34,7 @@ export interface WatchVideo {
 
 export const watchCollections: WatchVideoCollection[] = [
   'Founder Stories',
-  'Rainy Day Demos',
-  'Build Logs',
+  'Software Demos',
   'Creative / Culture',
 ];
 
@@ -50,57 +45,56 @@ export const watchVideos: WatchVideo[] = [
     title: 'How I Turned Scholarships & a Student Visa Into $250K by 24',
     subtitle: '10+ Years of April',
     description:
-      'A long-form reflection on becoming a software engineer as a Bahamian developer, from scholarships and student visa life to fintech, layoffs, Rainy Day, and BuiltByGervonte.',
+      'A long-form reflection on becoming a software engineer from The Bahamas, covering scholarships, student visa life, access to work, fintech, career disruption, immigration, forming an LLC, and building Rainy Day. The story behind BuiltByGervonte.',
     category: 'founder-story',
     collection: 'Founder Stories',
-    youtubeUrl: 'https://youtu.be/71Hcg4LCVqE',
-    youtubeId: '71Hcg4LCVqE',
-    duration: '1:13:04',
+    youtubeUrl: 'https://youtu.be/AbYNHzYtm_s',
+    youtubeId: 'AbYNHzYtm_s',
+    duration: '1:13:01',
     status: 'published',
     featured: true,
-  },
-  {
-    id: 'book-club',
-    slug: 'book-club',
-    title: 'Book Club',
-    description: 'A reflective life-discipline conversation for the BuiltByGervonte Watch library.',
-    category: 'life-discipline',
-    collection: 'Founder Stories',
-    duration: '36:47',
-    status: 'coming-soon',
-  },
-  {
-    id: 'training-for-a-5k',
-    slug: 'training-for-a-5k',
-    title: 'Training for a 5K',
-    description:
-      'A life-discipline entry about training, consistency, and showing up for the long run.',
-    category: 'life-discipline',
-    collection: 'Founder Stories',
-    duration: '11:32',
-    status: 'coming-soon',
   },
   {
     id: 'rainy-day-v0-1-0',
     slug: 'rainy-day-v0-1-0',
     title: 'Rainy Day v0.1.0',
+    subtitle: 'Personal Finance for The Bahamas',
     description:
-      'A product demo covering the first Rainy Day release and the financial clarity workflow behind it.',
-    category: 'product-demo',
-    collection: 'Rainy Day Demos',
-    duration: '10:17',
-    status: 'coming-soon',
+      'A proof of concept demo for Rainy Day, showing how consumer-permissioned bank statement data can power personal finance management in markets without open banking standards or APIs.',
+    category: 'software-demo',
+    collection: 'Software Demos',
+    youtubeUrl: 'https://www.youtube.com/watch?v=DleHQK9KH-8',
+    youtubeId: 'DleHQK9KH-8',
+    duration: '10:16',
+    status: 'published',
   },
   {
-    id: 'rainy-day-v0-2-0',
-    slug: 'rainy-day-v0-2-0',
-    title: 'Rainy Day v0.2.0',
+    id: 'leetcode-beastmode',
+    slug: 'leetcode-beastmode',
+    title: 'LEETCODE BEASTMODE',
+    subtitle: 'From Internet Outage to Coding Anthem',
     description:
-      'A product demo for the next Rainy Day iteration and its expanded personal finance workflow.',
-    category: 'product-demo',
-    collection: 'Rainy Day Demos',
-    duration: '12:18',
-    status: 'coming-soon',
+      'The original LEETCODE BEASTMODE video posted by JamesPeraltaSWE, featuring a track I first recorded, mixed, and mastered at home in November 2023, originally released as “1337” after my internet went out while I was practicing LeetCode.',
+    category: 'creative-breakdown',
+    collection: 'Creative / Culture',
+    youtubeUrl: 'https://www.youtube.com/watch?v=oOWc9QAoTKg',
+    youtubeId: 'oOWc9QAoTKg',
+    duration: '1:07',
+    status: 'published',
+  },
+  {
+    id: 'leetcode-beastmode-bts',
+    slug: 'leetcode-beastmode-bts',
+    title: 'LEETCODE BEASTMODE - BEHIND THE SONG',
+    subtitle: 'The DAW, the Mix, and the LeetCode Era',
+    description:
+      'Behind the scenes of “LEETCODE BEASTMODE.” I break down the DAW setup, vocal chain, mixing choices, and the early 2023 to summer 2024 era in The Bahamas, when I was sharpening system design and LeetCode-styled questions before returning to the U.S. for my master’s degree.',
+    category: 'creative-breakdown',
+    collection: 'Creative / Culture',
+    youtubeUrl: 'https://www.youtube.com/watch?v=GlbWLTu42Ws',
+    youtubeId: 'GlbWLTu42Ws',
+    duration: '9:41',
+    status: 'published',
   },
 ];
 

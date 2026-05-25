@@ -36,7 +36,6 @@ import {
   IconCloud,
   IconCode,
   IconDatabase,
-  IconFileText,
   IconRobot,
   IconSchool,
   IconShield,
@@ -186,19 +185,6 @@ const AboutSection = memo(() => {
       <Stack gap="xl">
         {/* Hero Section */}
         <Box ta="center" mb="xl">
-          <Group justify="center" mb="md">
-            <BadgeWithTooltip
-              contextType="projectType"
-              contextValue="resume-parsed"
-              leftSection={<IconFileText size={14} />}
-              color="sakura"
-              variant="light"
-              size="lg"
-              radius="xl"
-            >
-              Generated from Resume
-            </BadgeWithTooltip>
-          </Group>
           <Title
             order={1}
             size="h1"
@@ -211,7 +197,7 @@ const AboutSection = memo(() => {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            About Me
+            Qualifications
           </Title>
           <Text size="xl" c={commonColors.textSecondary} maw={800} mx="auto">
             {personalInfo.summary}

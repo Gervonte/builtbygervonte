@@ -2,7 +2,8 @@
   "_comment": "✅ MANUAL ADDITIONS - EDIT THIS FILE FOR CUSTOM DATA ✅",
   "_note": "This file contains manually added data that supplements the auto-generated about-metadata.json. Add new skills, projects, or other data here.",
   "personalInfo": {
-    "email": "hello@builtbygervonte.com"
+    "email": "hello@builtbygervonte.com",
+    "summary": "Full-stack software engineer with fintech experience, an M.S. in Computer Science, and hands-on work across React, Node.js, AI/ML research, and production-ready systems."
   },
   "leadership": [
     {
@@ -22,8 +23,8 @@
       "period": "November 2025 - Present",
       "location": "Lakeland, Florida",
       "companyUrl": "https://builtbygervonte.com",
-      "description": "Building consumer fintech software focused on practical financial clarity for underserved Caribbean users.",
-      "longDescription": "BuiltByGervonte LLC is the parent company behind Ignition Labs, the software product suite focused on building thoughtful SaaS products with real user value.\n\nIgnition Labs was created to separate smaller vibe-coded experiments from more traditionally engineered products designed to grow into larger SaaS products.\n\nRainy Day is the first product in the suite, a consumer fintech app focused on practical financial clarity through local bank data aggregation.",
+      "description": "Software studio building practical fintech products and creator-led content for emerging Caribbean markets.",
+      "longDescription": "BuiltByGervonte LLC is the creative software studio behind Ignition Labs, focused on innovative fintech products and creator-led software content.\n\nRainy Day is the first product in the suite, starting with consumer-permissioned bank statement data for Caribbean markets where open banking standards or APIs are limited.",
       "technologies": [
         "TypeScript",
         "React",
@@ -42,6 +43,46 @@
         "Established a software product suite within the company (Ignition Labs) focused on building consumer fintech tools for underserved Caribbean (Bahamian) users.",
         "Built Rainy Day as the first product in the suite, focused on practical financial clarity through data aggregation for regions with limited banking integrations and CSV/PDF-only data access.",
         "Lead product strategy, UX, documentation, and full-stack engineering efforts across the software side as well as managing business operations including company budgeting, vendor setup, virtual address and mail handling, business account administration, and early business credit-building workflows."
+      ]
+    },
+    {
+      "title": "Full Stack Software Engineer",
+      "company": "Nova Credit",
+      "period": "August 2020 - June 2022",
+      "description": "Credit infrastructure and analytics platform that helps businesses use alternative financial data for underwriting, income verification, and credit access.",
+      "longDescription": "Nova Credit helps financial institutions, lenders, property managers, and other businesses make credit decisions using consumer-permissioned alternative financial data.\n\nIts current platform includes Credit Passport® for international credit data, Cash Atlas™ for cash flow underwriting, Income Navigator for income verification, and Eligibility Compass.\n\nI worked on Credit Passport®, the product that translates foreign credit histories into US-equivalent scores for newcomers whose financial records are not visible to traditional domestic credit systems.",
+      "technologies": [
+        "TypeScript",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Express",
+        "HTML",
+        "CSS",
+        "REST APIs",
+        "PostgreSQL",
+        "GraphQL",
+        "Git",
+        "GitHub Actions"
+      ],
+      "achievements": [
+        "Contributed extensively to Credit Passport® and Nova Credit’s Public API, helping scale the company’s cross-border credit platform as partnerships expanded, including HSBC.",
+        "Helped deliver the Public API across 13 countries, working through bureau-specific requirements, verification flows, and edge cases to support a more consistent partner integration experience.",
+        "Contributed to bureau-specific retry logic by identifying supported markets, implementing the behavior, updating documentation, and validating flows through integration testing."
+      ]
+    },
+    {
+      "title": "Full Stack Software Engineer Intern",
+      "company": "Quickbase",
+      "period": "June 2019 - August 2019",
+      "location": "Salt Lake City Metropolitan Area, Utah",
+      "companyUrl": "https://www.quickbase.com",
+      "description": "B2B software platform helping teams build custom internal apps and automate workflows with low-code tools.",
+      "longDescription": "Completed a full-stack software engineering internship at Quickbase, a software company founded in 1999 as OneBase and spun off from Intuit in March 2016.\n\nQuickbase provides an enterprise low-code platform for building secure cloud applications, workflow automation, and operational efficiency. \n\nDuring the internship, I contributed to production features as part of a platform migration effort involving legacy C++ systems and React-based product surfaces.",
+      "technologies": ["C++", "React.js", "Agile", "Pair Programming"],
+      "achievements": [
+        "Built early engineering fundamentals through production tasks connected to the platform’s transition from legacy C++ systems toward React-based interfaces.",
+        "Supported other interns through pair programming, debugging, and helping move user stories forward more quickly."
       ]
     }
   ],

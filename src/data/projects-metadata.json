@@ -3,8 +3,8 @@
     {
       "id": "portfolio-ai",
       "title": "BuiltByGervonte",
-      "description": "Rebranded home for BuiltByGervonte LLC with refreshed SEO, structured data, brand assets, and performance-minded Next.js theming.",
-      "longDescription": "The former Portfolio AI site is now the official BuiltByGervonte studio home page. It blends AI-assisted build workflows with a refreshed brand system, expanded structured data (Organization + Person schemas), updated sitemap/robots, and regenerated favicon/touch icons. The experience keeps the sakura/ocean theming, deep technical write-ups, and CI/CD rigor while centering the studio's product work and services.",
+      "description": "Rebuilt the BuiltByGervonte site into a creative software studio homepage, reframing the public identity around software, content, professional experience, and qualifications with refreshed navigation, dark/light theming, and performance-minded Next.js architecture.",
+      "longDescription": "BuiltByGervonte is a creative software studio homepage that frames the public identity around software, content, professional experience, and qualifications. The current experience introduces updated homepage navigation, a refreshed hero with content and software entry points, dark/light theming, structured data, regenerated brand assets, and performance-minded Next.js architecture while preserving technical deep-dives and CI/CD rigor.",
       "type": "vibe-coded",
       "technologies": [
         "Next.js",
@@ -23,7 +23,7 @@
       "featured": false,
       "liveUrl": "https://builtbygervonte.com/",
       "githubUrl": "https://github.com/gervonte/builtbygervonte",
-      "imagePath": "portfolio-ai2.png",
+      "imagePath": "portfolio-ai3.png",
       "thumbnailPosition": {
         "featured": "center 55%",
         "grid": "center 55%"

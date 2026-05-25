@@ -5,6 +5,7 @@ import {
   LazyContactSection,
   LazyExperienceSection,
   LazyHeroSection,
+  LazyWatchSection,
   LazyWorkSection,
 } from '@/components/LazyComponents';
 import ParallaxElement from '@/components/ParallaxElement';
@@ -25,11 +26,25 @@ const HomePage = memo(() => {
         {/* Hero Section */}
         <LazyHeroSection />
 
+        <ParallaxElement speed={getSectionSpeed('watch')}>
+          <Box
+            id="watch"
+            role="region"
+            aria-label="Content archive"
+            style={{
+              minHeight: '100vh',
+              padding: '4rem 0',
+            }}
+          >
+            <LazyWatchSection />
+          </Box>
+        </ParallaxElement>
+
         <ParallaxElement speed={getSectionSpeed('work')}>
           <Box
             id="work"
             role="region"
-            aria-label="Work projects"
+            aria-label="Software projects"
             style={{
               minHeight: '100vh',
               padding: '4rem 0',
@@ -58,7 +73,8 @@ const HomePage = memo(() => {
         <ParallaxElement speed={getSectionSpeed('about')}>
           <Box
             id="about"
-            role="main"
+            role="region"
+            aria-label="Qualifications"
             style={{
               minHeight: '100vh',
               padding: '4rem 0',
@@ -84,7 +100,7 @@ const HomePage = memo(() => {
 
         {/* Scroll Indicator - Disabled!*/}
         {/* <LazyScrollIndicator
-          sections={['hero', 'work', 'experience', 'about', 'contact']}
+          sections={['hero', 'watch', 'work', 'experience', 'about', 'contact']}
           showProgress={true}
           showNavigation={true}
           position="bottom"

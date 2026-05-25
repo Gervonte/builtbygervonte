@@ -50,7 +50,7 @@ const WorkSection = memo(() => {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            My Work
+            Software
           </Title>
           <Text size="xl" c="dimmed" maw={800} mx="auto">
             A showcase of my most recent projects, highlighting both &apos;vibe coded&apos;

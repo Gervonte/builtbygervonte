@@ -13,9 +13,6 @@ const AboutSectionSkeleton = memo(() => {
       <Stack gap="xl">
         {/* Hero Section */}
         <Box ta="center" mb="xl">
-          <Box mb="md">
-            <BaseSkeleton height={32} width={180} radius="xl" />
-          </Box>
           <BaseSkeleton height={48} width={200} radius="md" className="skeleton-title" />
           <Box mt="md" mx="auto" maw={800}>
             <BaseSkeleton height={24} width="100%" radius="md" />
