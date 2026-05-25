@@ -7,12 +7,18 @@ import {
   ContactSectionSkeleton,
   ExperienceSectionSkeleton,
   HeroSectionSkeleton,
+  WatchSectionSkeleton,
   WorkSectionSkeleton,
 } from './skeletons';
 
 // Lazy load all heavy components with content-specific loading states
 export const LazyHeroSection = dynamic(() => import('./HeroSection'), {
   loading: () => <HeroSectionSkeleton />,
+  ssr: false,
+});
+
+export const LazyWatchSection = dynamic(() => import('./WatchSection'), {
+  loading: () => <WatchSectionSkeleton />,
   ssr: false,
 });
 
