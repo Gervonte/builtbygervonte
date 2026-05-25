@@ -213,14 +213,19 @@ jobs:
           fi
 
           if grep -iq '^x-robots-tag:.*noindex' "${preflight_headers}"; then
-            echo "::error::Vercel preview response still includes x-robots-tag: noindex, which indicates deployment protection was not bypassed."
-            exit 1
+            echo "::notice::Vercel preview response includes x-robots-tag: noindex. Continuing because preview deployments may include this header even when the app is reachable."
           fi
 
           if grep -qi 'Vercel Authentication' "${preflight_response}"; then
-            echo "::error::Vercel preview response still contains the Vercel Authentication shell instead of the app."
+            echo "::error::Vercel preview response still contains the Vercel Authentication shell instead of the app. Confirm the GitHub Actions VERCEL_AUTOMATION_BYPASS_SECRET exactly matches the current Vercel Protection Bypass for Automation secret and redeploy after any secret rotation."
             exit 1
           fi
+
+      - name: Verify Lighthouse bypass header configuration
+        env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          node -e "const config = require('./lighthouserc.cjs'); const rawHeaders = config?.ci?.collect?.settings?.extraHeaders; const headers = typeof rawHeaders === 'string' ? JSON.parse(rawHeaders) : rawHeaders || {}; if (headers['x-vercel-protection-bypass'] !== process.env.VERCEL_AUTOMATION_BYPASS_SECRET) { throw new Error('Lighthouse config is missing the Vercel protection bypass header.'); } console.log('Lighthouse config includes the Vercel protection bypass header.');"
 
       - name: Run Lighthouse CI
         id: lighthouse

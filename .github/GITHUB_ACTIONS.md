@@ -77,6 +77,8 @@ This repository includes comprehensive GitHub Actions workflows for automated te
 - Core Web Vitals monitoring
 - PR comments with performance scores and workflow artifact/report context
 - Vercel Preview checks use the `VERCEL_AUTOMATION_BYPASS_SECRET` Actions secret with Vercel Protection Bypass for Automation and fail fast if the response is still the Vercel authentication shell
+- Vercel Preview checks verify that Lighthouse CI is configured with the bypass header before the audit starts
+- A preview `x-robots-tag: noindex` header is reported as a notice because Vercel may add it to preview deployments even when the app is reachable
 - Lighthouse report uploads use the Lighthouse action `resultsPath` output so HTML/JSON artifacts are collected from the actual generated results directory
 
 ### 7. Dependency Updates (`dependabot.yml`)
