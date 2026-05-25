@@ -28,8 +28,8 @@ import {
 } from '@mantine/core';
 import { IconBrandYoutube, IconClock, IconPlayerPlay, IconVideoOff } from '@tabler/icons-react';
 import { memo, useMemo } from 'react';
+import ResumeYouTubeEmbed from './ResumeYouTubeEmbed';
 
-const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube.com/embed';
 const YOUTUBE_THUMBNAIL_BASE_URL = 'https://img.youtube.com/vi';
 
 const getVideoStatusLabel = (video: WatchVideo) => {
@@ -301,15 +301,12 @@ const WatchSection = memo(() => {
                   boxShadow: featuredVideoShadow,
                 }}
               >
-                <iframe
-                  src={`${YOUTUBE_EMBED_BASE_URL}/${featuredVideo.youtubeId}`}
+                <ResumeYouTubeEmbed
+                  youtubeId={featuredVideo.youtubeId}
                   title={`${featuredVideo.title} video`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
                   style={{
                     width: '100%',
                     height: '100%',
-                    border: 0,
                   }}
                 />
               </Box>
