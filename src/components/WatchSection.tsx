@@ -150,7 +150,11 @@ const VideoCard = ({ video }: { video: WatchVideo }) => {
   );
 
   if (!isPlayable) {
-    return <Box aria-label={`${video.title}: ${getVideoStatusLabel(video)}`}>{cardContent}</Box>;
+    return (
+      <Box role="group" aria-label={`${video.title}: ${getVideoStatusLabel(video)}`}>
+        {cardContent}
+      </Box>
+    );
   }
 
   return (
