@@ -51,9 +51,10 @@ jobs:
           exit 1
 
       - name: Run Lighthouse CI
+        id: lighthouse
         uses: treosh/lighthouse-ci-action@v12
         with:
-          configPath: './lighthouserc.json'
+          configPath: './lighthouserc.cjs'
           urls: |
             http://localhost:3000/
           uploadArtifacts: false
@@ -61,24 +62,28 @@ jobs:
 
       - name: Upload Lighthouse Results
         uses: actions/upload-artifact@v7
-        if: always()
+        if: always() && steps.lighthouse.outcome != 'skipped'
         with:
           name: lighthouse-reports-local-production-${{ github.run_id }}
           path: |
-            .lighthouseci/**/*.html
-            .lighthouseci/**/*.json
+            ${{ steps.lighthouse.outputs.resultsPath || '.lighthouseci' }}/*.html
+            ${{ steps.lighthouse.outputs.resultsPath || '.lighthouseci' }}/*.json
+          if-no-files-found: error
+          include-hidden-files: true
           retention-days: 30
 
       - name: Comment PR with local production Lighthouse results
         uses: actions/github-script@v9
+        env:
+          LIGHTHOUSE_RESULTS_PATH: ${{ steps.lighthouse.outputs.resultsPath }}
         with:
           script: |
             const fs = require('fs');
             const path = require('path');
 
-            const resultsPath = path.join(process.cwd(), '.lighthouseci');
+            const resultsPath = process.env.LIGHTHOUSE_RESULTS_PATH || path.join(process.cwd(), '.lighthouseci');
             if (!fs.existsSync(resultsPath)) {
-              core.info('No .lighthouseci directory found; skipping performance comment.');
+              core.info(`No Lighthouse results directory found at ${resultsPath}; skipping performance comment.`);
               return;
             }
 
@@ -180,10 +185,37 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Verify Vercel preview URL bypass
+        env:
+          DEPLOYMENT_URL: ${{ github.event.deployment_status.environment_url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          set -euo pipefail
+
+          header_args=()
+          if [ -n "${VERCEL_AUTOMATION_BYPASS_SECRET:-}" ]; then
+            header_args+=(--header "x-vercel-protection-bypass: ${VERCEL_AUTOMATION_BYPASS_SECRET}")
+          else
+            echo "::warning::VERCEL_AUTOMATION_BYPASS_SECRET is not configured; preflight will run without bypass headers."
+          fi
+
+          final_url="$(curl -LsS -o /dev/null -w '%{url_effective}' "${header_args[@]}" "${DEPLOYMENT_URL}")"
+
+          echo "Requested deployment URL: ${DEPLOYMENT_URL}"
+          echo "Final deployment URL: ${final_url}"
+
+          if [[ "${final_url}" == https://vercel.com/login* || "${final_url}" == *"//vercel.com/login"* ]]; then
+            echo "::error::Vercel preview URL resolved to a login redirect. Configure VERCEL_AUTOMATION_BYPASS_SECRET for Lighthouse automation."
+            exit 1
+          fi
+
       - name: Run Lighthouse CI
+        id: lighthouse
         uses: treosh/lighthouse-ci-action@v12
+        env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         with:
-          configPath: './lighthouserc.json'
+          configPath: './lighthouserc.cjs'
           urls: |
             ${{ github.event.deployment_status.environment_url }}
           uploadArtifacts: false
@@ -191,16 +223,20 @@ jobs:
 
       - name: Upload Lighthouse Results
         uses: actions/upload-artifact@v7
-        if: always()
+        if: always() && steps.lighthouse.outcome != 'skipped'
         with:
           name: lighthouse-reports-vercel-preview-${{ github.run_id }}
           path: |
-            .lighthouseci/**/*.html
-            .lighthouseci/**/*.json
+            ${{ steps.lighthouse.outputs.resultsPath || '.lighthouseci' }}/*.html
+            ${{ steps.lighthouse.outputs.resultsPath || '.lighthouseci' }}/*.json
+          if-no-files-found: error
+          include-hidden-files: true
           retention-days: 30
 
       - name: Comment PR with Vercel preview Lighthouse results
         uses: actions/github-script@v9
+        env:
+          LIGHTHOUSE_RESULTS_PATH: ${{ steps.lighthouse.outputs.resultsPath }}
         with:
           script: |
             const fs = require('fs');
@@ -219,9 +255,9 @@ jobs:
               return;
             }
 
-            const resultsPath = path.join(process.cwd(), '.lighthouseci');
+            const resultsPath = process.env.LIGHTHOUSE_RESULTS_PATH || path.join(process.cwd(), '.lighthouseci');
             if (!fs.existsSync(resultsPath)) {
-              core.info('No .lighthouseci directory found; skipping performance comment.');
+              core.info(`No Lighthouse results directory found at ${resultsPath}; skipping performance comment.`);
               return;
             }
 
@@ -244,7 +280,8 @@ jobs:
               const lcp = auditNumber('largest-contentful-paint');
               const fid = auditNumber('max-potential-fid');
               const cls = auditNumber('cumulative-layout-shift');
-              const testedDeployment = context.payload.deployment_status?.environment_url || lhr.finalDisplayedUrl || lhr.finalUrl || 'Not reported';
+              const requestedDeployment = context.payload.deployment_status?.environment_url || 'Not reported';
+              const finalAuditedUrl = lhr.finalDisplayedUrl || lhr.finalUrl || 'Not reported';
               const runUrl =
                 context.serverUrl && context.repo?.owner && context.repo?.repo && context.runId
                   ? `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
@@ -267,7 +304,8 @@ jobs:
                 `- **CLS**: ${Number.isFinite(cls) ? cls.toFixed(3) : 'Not reported'}`,
                 '',
                 '### Run Context',
-                `- **Tested deployment**: ${testedDeployment}`
+                `- **Requested deployment**: ${requestedDeployment}`,
+                `- **Final audited URL**: ${finalAuditedUrl}`
               ];
 
               if (runUrl) {
