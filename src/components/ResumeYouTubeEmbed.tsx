@@ -5,8 +5,8 @@ import { IconPlayerPlay } from '@tabler/icons-react';
 import { memo, useEffect, useRef, useState } from 'react';
 
 const YOUTUBE_IFRAME_API_SRC = 'https://www.youtube.com/iframe_api';
-const YOUTUBE_PRIVACY_HOST = 'https://www.youtube-nocookie.com';
-const YOUTUBE_EMBED_BASE_URL = `${YOUTUBE_PRIVACY_HOST}/embed`;
+const YOUTUBE_EMBED_HOST = 'https://www.youtube.com';
+const YOUTUBE_EMBED_BASE_URL = `${YOUTUBE_EMBED_HOST}/embed`;
 const PROGRESS_KEY_PREFIX = 'bbg-video-progress';
 const RESUME_AFTER_SECONDS = 10;
 const NEAR_END_SECONDS = 15;
@@ -40,6 +40,7 @@ interface YouTubePlayerOptions {
   playerVars?: {
     autoplay?: 0;
     enablejsapi?: 1;
+    origin?: string;
     playsinline?: 1;
     rel?: 0;
   };
@@ -68,8 +69,32 @@ let youtubeApiPromise: Promise<YouTubeApi> | undefined;
 
 const getProgressKey = (youtubeId: string) => `${PROGRESS_KEY_PREFIX}:${youtubeId}`;
 
+const getCurrentOrigin = () => {
+  if (typeof window === 'undefined') {
+    return undefined;
+  }
+
+  return window.location.origin;
+};
+
+const getEmbedSearchParams = () => {
+  const params = new URLSearchParams({
+    autoplay: '0',
+    enablejsapi: '1',
+    playsinline: '1',
+    rel: '0',
+  });
+  const origin = getCurrentOrigin();
+
+  if (origin) {
+    params.set('origin', origin);
+  }
+
+  return params;
+};
+
 const getFallbackEmbedUrl = (youtubeId: string) =>
-  `${YOUTUBE_EMBED_BASE_URL}/${youtubeId}?autoplay=0&rel=0&playsinline=1`;
+  `${YOUTUBE_EMBED_BASE_URL}/${youtubeId}?${getEmbedSearchParams().toString()}`;
 
 const getThumbnailUrl = (youtubeId: string, quality: 'hqdefault' | 'mqdefault' = 'hqdefault') =>
   `https://img.youtube.com/vi/${youtubeId}/${quality}.jpg`;
@@ -239,12 +264,13 @@ const ResumeYouTubeEmbed = memo(
 
           playerRef.current = new YT.Player(containerRef.current, {
             height: '100%',
-            host: YOUTUBE_PRIVACY_HOST,
+            host: YOUTUBE_EMBED_HOST,
             videoId: youtubeId,
             width: '100%',
             playerVars: {
               autoplay: 0,
               enablejsapi: 1,
+              origin: getCurrentOrigin(),
               playsinline: 1,
               rel: 0,
             },

@@ -10,6 +10,7 @@ const files = {
   layout: 'src/app/layout.tsx',
   page: 'src/app/page.tsx',
   footer: 'src/components/Footer.tsx',
+  resumeYouTubeEmbed: 'src/components/ResumeYouTubeEmbed.tsx',
   watchSection: 'src/components/WatchSection.tsx',
   watchVideos: 'src/data/watch-videos.ts',
 };
@@ -185,6 +186,28 @@ check(
 check(
   includes(sources.watchSection, "video.status === 'coming-soon'"),
   `${pathLabel(files.watchSection)} must communicate coming-soon video state.`
+);
+check(
+  includes(sources.resumeYouTubeEmbed, 'enablejsapi: 1') &&
+    includes(sources.resumeYouTubeEmbed, "enablejsapi: '1'"),
+  `${pathLabel(files.resumeYouTubeEmbed)} must enable the YouTube IFrame API for embedded players.`
+);
+check(
+  includes(sources.resumeYouTubeEmbed, 'autoplay: 0') &&
+    includes(sources.resumeYouTubeEmbed, "autoplay: '0'"),
+  `${pathLabel(files.resumeYouTubeEmbed)} must not autoplay the native YouTube player.`
+);
+check(
+  includes(sources.resumeYouTubeEmbed, "const YOUTUBE_EMBED_HOST = 'https://www.youtube.com'") &&
+    includes(sources.resumeYouTubeEmbed, 'host: YOUTUBE_EMBED_HOST'),
+  `${pathLabel(files.resumeYouTubeEmbed)} must use the standard YouTube embed host for native player controls.`
+);
+check(
+  includes(sources.resumeYouTubeEmbed, 'const getCurrentOrigin') &&
+    includes(sources.resumeYouTubeEmbed, 'window.location.origin') &&
+    includes(sources.resumeYouTubeEmbed, 'origin: getCurrentOrigin()') &&
+    includes(sources.resumeYouTubeEmbed, "params.set('origin', origin)"),
+  `${pathLabel(files.resumeYouTubeEmbed)} must pass the current page origin to YouTube embeds.`
 );
 
 if (failures.length > 0) {

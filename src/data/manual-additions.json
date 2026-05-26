@@ -3,7 +3,7 @@
   "_note": "This file contains manually added data that supplements the auto-generated about-metadata.json. Add new skills, projects, or other data here.",
   "personalInfo": {
     "email": "hello@builtbygervonte.com",
-    "summary": "Full-stack software engineer with fintech experience, an M.S. in Computer Science, and hands-on work across React, Node.js, AI/ML research, and production-ready systems."
+    "summary": "Full-stack software engineer with venture-backed fintech experience, an M.S. in Computer Science, and hands-on work across React, Node.js, APIs, AI/ML research, and production-ready systems."
   },
   "leadership": [
     {
@@ -246,6 +246,26 @@
     {
       "name": "Linear MCP",
       "level": "intermediate",
+      "category": "ai-ml"
+    },
+    {
+      "name": "GitHub Copilot",
+      "level": "advanced",
+      "category": "ai-ml"
+    },
+    {
+      "name": "ChatGPT",
+      "level": "advanced",
+      "category": "ai-ml"
+    },
+    {
+      "name": "LLM Evaluation",
+      "level": "intermediate",
+      "category": "ai-ml"
+    },
+    {
+      "name": "Prompt Engineering",
+      "level": "advanced",
       "category": "ai-ml"
     }
   ]
