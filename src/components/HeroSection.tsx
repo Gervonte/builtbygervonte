@@ -60,7 +60,8 @@ const HeroSection = memo(() => {
                   color: commonColors.textSecondary,
                 }}
                 role="text"
-                aria-label="Software, content, and systems built by a creative engineer born and raised in The Bahamas"
+                aria-label="Full-stack software engineer building fintech products, technical content, and 0 to
+                1 creative systems."
               >
                 Full-stack software engineer building fintech products, technical content, and 0 to
                 1 creative systems.
