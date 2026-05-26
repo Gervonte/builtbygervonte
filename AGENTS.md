@@ -20,7 +20,8 @@ For all Codex tasks from Linear:
 - Use the PR title format `[LINEAR-KEY] Brief description`.
   - Example: `[BBG-42] Add Codex workflow instructions`
 - Use the uppercase Linear key in PR text.
-- Use `Closes LINEAR-KEY` in the PR Linear section.
+- Link the Linear issue in the PR Linear section.
+  - Example: `- [BBG-42](https://linear.app/gervonte/issue/BBG-42/example-issue)`
 - Summarize changed files and validation steps in the PR description.
 
 ## Commit messages

@@ -238,6 +238,27 @@ jobs:
         run: |
           node -e "const config = require('./lighthouserc.cjs'); const rawHeaders = config?.ci?.collect?.settings?.extraHeaders; const headers = typeof rawHeaders === 'string' ? JSON.parse(rawHeaders) : rawHeaders || {}; if (headers['x-vercel-protection-bypass'] !== process.env.VERCEL_AUTOMATION_BYPASS_SECRET) { throw new Error('Lighthouse config is missing the Vercel protection bypass header.'); } console.log('Lighthouse config includes the Vercel protection bypass header.');"
 
+      - name: Warm Vercel preview before Lighthouse
+        env:
+          DEPLOYMENT_URL: ${{ github.event.deployment_status.environment_url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          set -euo pipefail
+
+          header_args=()
+          if [ -n "${VERCEL_AUTOMATION_BYPASS_SECRET:-}" ]; then
+            header_args+=(--header "x-vercel-protection-bypass: ${VERCEL_AUTOMATION_BYPASS_SECRET}")
+          fi
+
+          for attempt in 1 2 3; do
+            echo "Warmup request ${attempt}/3 to ${DEPLOYMENT_URL}"
+            curl -fsS -L "${header_args[@]}" -o /dev/null "${DEPLOYMENT_URL}"
+
+            if [ "${attempt}" -lt 3 ]; then
+              sleep 5
+            fi
+          done
+
       - name: Run Lighthouse CI
         id: lighthouse
         uses: treosh/lighthouse-ci-action@v12
