@@ -62,8 +62,8 @@ const HeroSection = memo(() => {
                 role="text"
                 aria-label="Software, content, and systems built by a creative engineer born and raised in The Bahamas"
               >
-                Software, content, and systems built by a creative Bahamian engineer based in the
-                U.S.
+                Full-stack software engineer building fintech products, technical content, and 0 to
+                1 creative systems.
                 <br />
                 <span aria-hidden="true">🇧🇸</span>
               </Text>

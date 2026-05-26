@@ -42,8 +42,8 @@ export const watchVideos: WatchVideo[] = [
   {
     id: 'ten-years-of-april',
     slug: 'ten-years-of-april',
-    title: 'How I Turned Scholarships & a Student Visa Into $250K by 24',
-    subtitle: '10+ Years of April',
+    title: 'How I Turned Scholarships & A Student Visa Into $250K by 24',
+    subtitle: 'A Lighthouse for a Nontraditional Path',
     description:
       'A long-form reflection on becoming a software engineer from The Bahamas, covering scholarships, student visa life, access to work, fintech, career disruption, immigration, forming an LLC, and building Rainy Day. The story behind BuiltByGervonte.',
     category: 'founder-story',
@@ -88,7 +88,7 @@ export const watchVideos: WatchVideo[] = [
     title: 'LEETCODE BEASTMODE - BEHIND THE SONG',
     subtitle: 'The DAW, the Mix, and the LeetCode Era',
     description:
-      'Behind the scenes of “LEETCODE BEASTMODE.” I break down the DAW setup, vocal chain, mixing choices, and the early 2023 to summer 2024 era in The Bahamas, when I was sharpening system design and LeetCode-styled questions before returning to the U.S. for my master’s degree.',
+      'Behind the scenes of “LEETCODE BEASTMODE.” I break down the DAW setup, vocal chain, mixing choices, and the early 2023 to summer 2024 era in The Bahamas, when I was sharpening my skillset across system design and LeetCode style questions while searching locally for software roles before ultimately returning to the U.S. for my master’s degree and access to a larger job market.',
     category: 'creative-breakdown',
     collection: 'Creative / Culture',
     youtubeUrl: 'https://www.youtube.com/watch?v=GlbWLTu42Ws',

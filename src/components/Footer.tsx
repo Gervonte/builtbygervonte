@@ -55,8 +55,9 @@ export default function Footer() {
                 About
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
-                Professional portfolio showcasing AI-assisted and traditional development work with
-                a touch of mono no aware aesthetics.
+                Full-stack software engineer building fintech products, technical content, and
+                creative systems with a focus on clear UX, practical workflows, and thoughtful
+                execution.
               </Text>
               <Group gap="xs">
                 <IconMapPin size={16} style={{ color: commonColors.accentPrimary }} />
@@ -181,12 +182,12 @@ export default function Footer() {
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
                 Built with Codex, Next.js, TypeScript, Mantine UI, and sakura.js for a modern,
-                responsive experience.
+                responsive experience shaped by mono no aware aesthetics.
               </Text>
               <Group gap="xs">
                 <IconHeart size={16} style={{ color: commonColors.accentPrimary }} />
                 <Text size="xs" c="dimmed">
-                  Made with passion and sakura petals
+                  Made with taste.
                 </Text>
               </Group>
             </Stack>
