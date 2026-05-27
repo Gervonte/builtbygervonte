@@ -2,6 +2,7 @@
 
 import { useCommonColors } from '@/lib/theme-aware-colors';
 import { Badge, Box, Group, Stack, Text, ThemeIcon, Title } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { memo } from 'react';
 import { MobileTooltip } from '../../MobileTooltip';
 import { HeaderSectionProps } from '../types';
@@ -20,16 +21,40 @@ const HeaderSection = memo(
     titleHeadingOrder = 3,
   }: HeaderSectionProps) => {
     const commonColors = useCommonColors();
+    const isMobile = useMediaQuery('(max-width: 48em)');
+
+    const timelineBadge = timeline && infoBoxDescription && (
+      <Badge
+        color="sakura"
+        variant="light"
+        size="sm"
+        style={{
+          cursor: 'default',
+          transition: 'all 0.2s ease',
+          alignSelf: 'flex-start',
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.transform = 'scale(1.05)';
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.boxShadow = 'none';
+        }}
+      >
+        {timeline}
+      </Badge>
+    );
 
     return (
-      <Group justify="space-between" align="flex-start" mb="sm">
-        <Group>
-          <Box>
+      <Group justify="space-between" align="flex-start" wrap="nowrap" mb="sm">
+        <Group style={{ flex: 1, minWidth: 0 }}>
+          <Box style={{ minWidth: 0, width: '100%' }}>
             <Stack gap="xs">
               <Box>
                 {infoBoxDescription ? (
                   // Work experience layout with icon, title/subtitle, and description
-                  <Group align="flex-start" gap="md">
+                  <Group align="flex-start" gap="md" wrap="nowrap" style={{ minWidth: 0 }}>
                     {headerIcon && (
                       <ThemeIcon
                         color={headerIconColor}
@@ -38,6 +63,7 @@ const HeaderSection = memo(
                         style={{
                           cursor: 'default',
                           transition: 'all 0.2s ease',
+                          flexShrink: 0,
                         }}
                         onMouseEnter={e => {
                           e.currentTarget.style.transform = 'scale(1.1)';
@@ -52,32 +78,70 @@ const HeaderSection = memo(
                       </ThemeIcon>
                     )}
                     <Box style={{ flex: 1, minWidth: 0 }}>
-                      <Group align="center" gap="md" mb="xs">
-                        <Title
-                          order={titleHeadingOrder}
-                          size="h3"
-                          c={commonColors.textPrimary}
-                          style={{
-                            wordBreak: 'break-word',
-                            lineHeight: 1.2,
-                          }}
-                        >
-                          {title}
-                        </Title>
-                        {subtitle && (
-                          <Text
-                            size="md"
-                            c={subtitleColor || 'sakura'}
-                            fw={400}
+                      {isMobile ? (
+                        <Stack gap={2} mb="xs" style={{ minWidth: 0 }}>
+                          <Title
+                            order={titleHeadingOrder}
+                            size="h3"
+                            c={commonColors.textPrimary}
                             style={{
-                              wordBreak: 'break-word',
-                              lineHeight: 1.3,
+                              wordBreak: 'normal',
+                              overflowWrap: 'normal',
+                              hyphens: 'none',
+                              lineHeight: 1.2,
                             }}
                           >
-                            {subtitle}
-                          </Text>
-                        )}
-                      </Group>
+                            {title}
+                          </Title>
+                          {subtitle && (
+                            <Text
+                              size="md"
+                              c={subtitleColor || 'sakura'}
+                              fw={400}
+                              style={{
+                                wordBreak: 'normal',
+                                overflowWrap: 'normal',
+                                hyphens: 'none',
+                                lineHeight: 1.3,
+                              }}
+                            >
+                              {subtitle}
+                            </Text>
+                          )}
+                          {timelineBadge}
+                        </Stack>
+                      ) : (
+                        <Group align="baseline" gap="md" wrap="wrap" mb="xs">
+                          <Title
+                            order={titleHeadingOrder}
+                            size="h3"
+                            c={commonColors.textPrimary}
+                            style={{
+                              wordBreak: 'normal',
+                              overflowWrap: 'normal',
+                              hyphens: 'none',
+                              lineHeight: 1.2,
+                            }}
+                          >
+                            {title}
+                          </Title>
+                          {subtitle && (
+                            <Text
+                              size="md"
+                              c={subtitleColor || 'sakura'}
+                              fw={400}
+                              style={{
+                                wordBreak: 'normal',
+                                overflowWrap: 'normal',
+                                hyphens: 'none',
+                                lineHeight: 1.3,
+                              }}
+                            >
+                              {subtitle}
+                            </Text>
+                          )}
+                        </Group>
+                      )}
                       {/* Description */}
                       {(description || longDescription) && (
                         <Group align="center" gap="xs">
@@ -149,6 +213,7 @@ const HeaderSection = memo(
                         style={{
                           cursor: 'default',
                           transition: 'all 0.2s ease',
+                          flexShrink: 0,
                         }}
                         onMouseEnter={e => {
                           e.currentTarget.style.transform = 'scale(1.1)';
@@ -168,7 +233,9 @@ const HeaderSection = memo(
                         size="h4"
                         c={commonColors.textPrimary}
                         style={{
-                          wordBreak: 'break-word',
+                          wordBreak: 'normal',
+                          overflowWrap: 'normal',
+                          hyphens: 'none',
                           lineHeight: 1.2,
                         }}
                       >
@@ -179,7 +246,9 @@ const HeaderSection = memo(
                           size="sm"
                           c={subtitleColor || 'sakura'}
                           style={{
-                            wordBreak: 'break-word',
+                            wordBreak: 'normal',
+                            overflowWrap: 'normal',
+                            hyphens: 'none',
                             lineHeight: 1.3,
                           }}
                         >
@@ -211,27 +280,7 @@ const HeaderSection = memo(
           </Box>
         </Group>
         {/* Timeline badge for work experience only */}
-        {timeline && infoBoxDescription && (
-          <Badge
-            color="sakura"
-            variant="light"
-            size="sm"
-            style={{
-              cursor: 'default',
-              transition: 'all 0.2s ease',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-          >
-            {timeline}
-          </Badge>
-        )}
+        {!isMobile && timelineBadge}
       </Group>
     );
   }

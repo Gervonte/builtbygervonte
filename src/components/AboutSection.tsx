@@ -36,7 +36,6 @@ import {
   IconCloud,
   IconCode,
   IconDatabase,
-  IconFileText,
   IconRobot,
   IconSchool,
   IconShield,
@@ -96,6 +95,14 @@ const getCategoryDisplayName = (category: string) => {
   }
 };
 
+const getSkillCardTitle = (category: string) => {
+  if (category === 'ai-ml') {
+    return 'AI Engineering Workflow';
+  }
+
+  return `${getCategoryDisplayName(category)} Skills`;
+};
+
 // Utility function to get ELI5 description for category
 const getCategoryELI5Description = (category: string): string => {
   switch (category) {
@@ -110,7 +117,7 @@ const getCategoryELI5Description = (category: string): string => {
     case 'tools':
       return 'The digital toolbox that helps developers work smarter';
     case 'ai-ml':
-      return 'AI copilots and workflow tools that sharpen product and engineering work';
+      return 'AI copilots, coding agents, and workflow tools used across product planning, implementation, review, and documentation.';
     case 'soft':
       return 'The people skills that make technical work successful';
     default:
@@ -165,9 +172,14 @@ const getSkillIconComponent = (skillName: string) => {
     case 'sentry':
       return <IconShield size={16} />;
     case 'codex':
-      return <IconRobot size={16} />;
     case 'linear mcp':
+    case 'chatgpt':
       return <IconRobot size={16} />;
+    case 'github copilot':
+      return <IconBrandGithub size={16} />;
+    case 'llm evaluation':
+    case 'prompt engineering':
+      return <IconTarget size={16} />;
 
     // Default fallback
     default:
@@ -186,21 +198,8 @@ const AboutSection = memo(() => {
       <Stack gap="xl">
         {/* Hero Section */}
         <Box ta="center" mb="xl">
-          <Group justify="center" mb="md">
-            <BadgeWithTooltip
-              contextType="projectType"
-              contextValue="resume-parsed"
-              leftSection={<IconFileText size={14} />}
-              color="sakura"
-              variant="light"
-              size="lg"
-              radius="xl"
-            >
-              Generated from Resume
-            </BadgeWithTooltip>
-          </Group>
           <Title
-            order={1}
+            order={2}
             size="h1"
             mb="md"
             style={{
@@ -211,7 +210,7 @@ const AboutSection = memo(() => {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            About Me
+            Qualifications
           </Title>
           <Text size="xl" c={commonColors.textSecondary} maw={800} mx="auto">
             {personalInfo.summary}
@@ -227,7 +226,7 @@ const AboutSection = memo(() => {
             {Object.entries(skillCategories).map(([category, categorySkills]) => (
               <UnifiedCard
                 key={category}
-                title={`${getCategoryDisplayName(category)} Skills`}
+                title={getSkillCardTitle(category)}
                 subtitle={getCategoryELI5Description(category)}
                 subtitleColor="dimmed"
                 headerIcon={getCategoryIconComponent(category as Skill['category'])}

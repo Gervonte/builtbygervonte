@@ -425,6 +425,48 @@ export const technologyContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'What It Does:',
   },
+  'GitHub Copilot': {
+    title: 'GitHub Copilot',
+    description: 'AI pair programmer used for implementation, review, and editor-native assistance',
+    capabilities: [
+      'Accelerating implementation inside the editor',
+      'Reviewing code changes and suggesting improvements',
+      'Helping with repetitive development tasks',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  ChatGPT: {
+    title: 'ChatGPT',
+    description:
+      'General-purpose AI assistant for planning, research, debugging, and documentation',
+    capabilities: [
+      'Exploring product and technical decisions',
+      'Drafting documentation and implementation notes',
+      'Researching unfamiliar APIs and approaches',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'LLM Evaluation': {
+    title: 'LLM Evaluation',
+    description: 'Practical evaluation of AI outputs for correctness, usefulness, and reliability',
+    capabilities: [
+      'Comparing AI outputs against expected behavior',
+      'Identifying failure modes and quality gaps',
+      'Refining prompts and workflows from evaluation results',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Prompt Engineering': {
+    title: 'Prompt Engineering',
+    description:
+      'Structuring instructions and context so AI tools produce usable engineering output',
+    capabilities: [
+      'Writing clear task instructions and acceptance criteria',
+      'Providing repository and product context to AI tools',
+      'Iterating prompts for implementation, review, and documentation',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
   Vite: {
     title: 'Vite',
     description: 'Fast build tool and development server',

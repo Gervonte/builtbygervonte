@@ -39,7 +39,7 @@ const WorkSection = memo(() => {
         {/* Header */}
         <Box ta="center" mb="xl">
           <Title
-            order={1}
+            order={2}
             size="h1"
             mb="md"
             style={{
@@ -50,7 +50,7 @@ const WorkSection = memo(() => {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            My Work
+            Software
           </Title>
           <Text size="xl" c="dimmed" maw={800} mx="auto">
             A showcase of my most recent projects, highlighting both &apos;vibe coded&apos;

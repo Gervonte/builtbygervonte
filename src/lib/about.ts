@@ -93,6 +93,26 @@ const deduplicateResearchProjects = (projects: ResearchProject[]): ResearchProje
   });
 };
 
+const normalizeExperienceCompany = (company: string): string =>
+  company.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+const deduplicateExperience = (experience: Experience[]): Experience[] => {
+  const seen = new Set<string>();
+  return experience.filter(item => {
+    const key = normalizeExperienceCompany(item.company);
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+};
+
+const getExperienceStartYear = (period: string): number => {
+  const match = period.match(/\b\d{4}\b/);
+  return match ? Number(match[0]) : 0;
+};
+
 // Merge data from both files
 // about-metadata.json: Auto-generated from resume parsing (DO NOT EDIT)
 // manual-additions.json: Manual additions and custom data (EDIT THIS)
@@ -111,7 +131,10 @@ const mergedData: AboutData = {
           }
         : skill
     ),
-  experience: [...(manualAdditions.experience || []), ...aboutMetadata.experience],
+  experience: deduplicateExperience([
+    ...(manualAdditions.experience || []),
+    ...aboutMetadata.experience,
+  ]).sort((a, b) => getExperienceStartYear(b.period) - getExperienceStartYear(a.period)),
   education: [...aboutMetadata.education, ...(manualAdditions.education || [])],
   researchProjects: deduplicateResearchProjects([
     ...(manualAdditions.researchProjects || []),

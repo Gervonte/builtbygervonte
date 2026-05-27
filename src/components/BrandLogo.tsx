@@ -51,6 +51,7 @@ export default function BrandLogo({
         alt={alt}
         width={1208}
         height={530}
+        loading="lazy"
         style={{
           display: 'block',
           width: '100%',

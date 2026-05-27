@@ -55,15 +55,18 @@ const HeroSection = memo(() => {
                 size="xl"
                 mb="xl"
                 style={{
-                  maxWidth: '850px',
+                  maxWidth: '900px',
                   lineHeight: 1.6,
                   color: commonColors.textSecondary,
                 }}
                 role="text"
-                aria-label="Professional summary and qualifications"
+                aria-label="Full-stack software engineer building fintech products, technical content, and 0 to
+                1 creative systems."
               >
-                M.S. Computer Science | 2 Years of Engineering Experience at Series B Fintech
-                Startup
+                Full-stack software engineer building fintech products, technical content, and 0 to
+                1 creative systems.
+                <br />
+                <span aria-hidden="true">🇧🇸</span>
               </Text>
             </ParallaxElement>
             <ParallaxElement speed={getHeroSpeed('buttons')}>
@@ -71,7 +74,7 @@ const HeroSection = memo(() => {
                 <Button
                   size="lg"
                   color="sakura"
-                  aria-label="View my work projects and portfolio"
+                  aria-label="Explore founder stories, product demos, and creative content"
                   role="button"
                   tabIndex={0}
                   style={{
@@ -81,7 +84,7 @@ const HeroSection = memo(() => {
                     transition: 'all 0.3s ease',
                   }}
                   onClick={() => {
-                    document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('watch')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.transform = 'translateY(-2px)';
@@ -94,17 +97,17 @@ const HeroSection = memo(() => {
                   onKeyDown={e => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('watch')?.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
                 >
-                  View My Work
+                  Explore Content
                 </Button>
                 <Button
                   size="lg"
-                  variant="filled"
                   color="sakura"
-                  aria-label="Contact me for job opportunities and collaboration"
+                  variant="filled"
+                  aria-label="Explore software projects and product work"
                   role="button"
                   tabIndex={0}
                   style={{
@@ -116,7 +119,7 @@ const HeroSection = memo(() => {
                     transition: 'all 0.3s ease',
                   }}
                   onClick={() => {
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.transform = 'translateY(-2px)';
@@ -129,11 +132,11 @@ const HeroSection = memo(() => {
                   onKeyDown={e => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
                 >
-                  Contact Me
+                  Explore Software
                 </Button>
               </Group>
             </ParallaxElement>

@@ -15,6 +15,7 @@ import ThemeModeSelector from './ThemeModeSelector';
 import ThemeToggle from './ThemeToggle';
 
 const HEADER_HEIGHT = 60;
+const HEADER_Z_INDEX = 1100;
 
 interface HeaderProps {
   links: Array<{ link: string; label: string }>;
@@ -40,7 +41,8 @@ export default function Header({ links }: HeaderProps) {
       setScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -79,7 +81,7 @@ export default function Header({ links }: HeaderProps) {
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 100,
+        zIndex: HEADER_Z_INDEX,
         transition: 'all 0.3s ease',
         background: scrolled
           ? withOpacity(warmColors[0] ?? '#FDFCFB', 0.95)
