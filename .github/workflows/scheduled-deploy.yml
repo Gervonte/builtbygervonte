@@ -30,6 +30,8 @@ jobs:
 
       - name: Run build check
         run: pnpm run build:ci
+        env:
+          PNPM_CONFIG_MINIMUM_RELEASE_AGE: '0'
 
       - name: Check for pending PRs
         id: check-prs

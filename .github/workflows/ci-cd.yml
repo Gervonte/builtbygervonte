@@ -52,6 +52,7 @@ jobs:
       - name: Build application
         run: pnpm run build:ci
         env:
+          PNPM_CONFIG_MINIMUM_RELEASE_AGE: '0'
           NODE_ENV: production
           RESEND_API_KEY: 'dummy_key_for_build'
 

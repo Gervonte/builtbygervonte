@@ -5,7 +5,7 @@ inputs:
   install-command:
     description: Install command to run after setup. Leave empty to skip install.
     required: false
-    default: pnpm install --frozen-lockfile
+    default: pnpm install --frozen-lockfile --config.minimum-release-age=0
 
 runs:
   using: composite
@@ -24,3 +24,5 @@ runs:
       if: inputs.install-command != ''
       shell: bash
       run: ${{ inputs.install-command }}
+      env:
+        PNPM_CONFIG_MINIMUM_RELEASE_AGE: '0'

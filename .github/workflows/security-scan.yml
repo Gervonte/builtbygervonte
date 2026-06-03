@@ -39,7 +39,7 @@ jobs:
 
       - name: Install dependencies for audit
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --config.minimum-release-age=0
 
       - name: Run security audit
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
