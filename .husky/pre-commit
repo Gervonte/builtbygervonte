@@ -4,6 +4,7 @@
 # Prefer pnpm for this repo and fall back to local binaries when available.
 # Ensure common Node install locations are available when PATH is minimal.
 export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.volta/bin:$PATH"
+export PNPM_CONFIG_MINIMUM_RELEASE_AGE="0"
 
 if command -v pnpm >/dev/null 2>&1; then
 	pnpm exec lint-staged
