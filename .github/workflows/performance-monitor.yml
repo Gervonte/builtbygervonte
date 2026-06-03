@@ -20,6 +20,8 @@ jobs:
     name: Local Production Lighthouse
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    env:
+      PNPM_CONFIG_MINIMUM_RELEASE_AGE: '0'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
