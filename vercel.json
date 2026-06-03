@@ -1,8 +1,8 @@
 {
   "framework": "nextjs",
-  "buildCommand": "pnpm run build",
+  "buildCommand": "PNPM_CONFIG_MINIMUM_RELEASE_AGE=0 pnpm run build",
   "devCommand": "pnpm run dev",
-  "installCommand": "pnpm install --frozen-lockfile",
+  "installCommand": "pnpm install --frozen-lockfile --config.minimum-release-age=0",
   "outputDirectory": ".next",
   "headers": [
     {
