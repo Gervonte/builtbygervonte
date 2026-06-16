@@ -1,7 +1,7 @@
 ﻿Lakeland, FL
 (863)513-6851
 gervontefowler.dev@outlook.com | github.com/gervonte
-Gervonte Fowler
+Gervonte Fowler A long, thin rectangle to divide sections of the document 
 
 
 SKILLS
@@ -12,34 +12,31 @@ API Development & Consumption, Docker (basic), LLM Evaluation, Prompt Engineerin
 PRODUCT EXPERIENCE  
 Product Thinking, Agile Development, Developer Experience, Human-in-the-loop Evaluation, API Usability & Documentation, UI/UX Iteration
 EXPERIENCE
-BuiltByGervonte LLC, Lakeland, FL — Founder & Software Engineer
-November 2025 - Present
-* Designed and built Rainy Day, a full-stack financial data platform enabling user-permissioned personal finance management in Caribbean markets where connected-account coverage is limited, using uploaded bank statements as the primary data source.
-* Expanded Rainy Day statement ingestion across CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, normalizing local bank and credit union statements into a canonical transaction model.
-* Implemented Supabase/Postgres persistence with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication to prevent duplicate transactions across overlapping user-selected CSV and PDF statement imports.
-* Developed deterministic financial analysis workflows that classify transaction history into recurring bills, income/payday signals, and confidence-based spending categories, generating projected cash flow with user-facing explanations and source attribution.
-* Added parser validation and ingestion regression tests covering CSV/PDF edge cases across supported institution formats, including malformed rows, date parsing inconsistencies, and duplicate-detection failures.
-Nova Credit (Fintech Startup), San Francisco, CA — Full Stack Software Engineer
+NovaCredit (Fintech Startup), San Francisco, CA — Software Engineer, Full Stack
 August 2020 - June 2022
-* Engineered features that expanded Credit Passport® capabilities into Nova Credit’s Public API, enabling international financial partners to access cross-border credit data through developer-facing infrastructure tied to HSBC’s global Credit Passport® partnership and $10M HSBC Ventures investment.
-* Owned Public API integration work for Philippines, Kenya, and Dominican Republic within a 13-country rollout, resolving bureau-specific requirements, verification flows, and market edge cases to create a more consistent partner integration experience.
-* Built and refined secure REST API workflows using TypeScript, Node.js, React, and PostgreSQL to expose real-time international credit data through developer-facing endpoints.
-* Implemented bureau-specific retry logic by identifying supported markets, defining expected behavior, updating technical documentation, and validating flows through integration testing.
-Quickbase, Salt Lake City Metropolitan Area, UT — Full Stack Software Engineer Intern
-June 2019 - August 2019
-* Built early engineering fundamentals through production tasks connected to the platform’s transition from legacy C++ systems toward React-based interfaces.
-* Supported other interns through pair programming, debugging, and helping move user stories forward more quickly.
+* Shipped production-ready full-stack features using React, Node.js, and PostgreSQL, exposing real-time credit data through secure, scalable REST APIs.
+* Refactored internal APIs into developer-facing public endpoints, complete with API documentation, onboarding flows, and test sandboxes.
+* Collaborated on testing, deployment, and monitoring pipelines to ensure reliability and traceability across internal and partner-facing systems.
+* Built modular React (TypeScript) components to support iterative product experiments and rapid A/B testing.
+
 
 PROJECTS & RESEARCH
-LLM Evaluation for Agile User Story Generation and Story-Point Estimation — Graduate Research Project
+AI-Assisted User Story Generation — Graduate Research Project
 Spring 2025
-* Completed M.S. Computer Science research evaluating 20 LLMs for Agile user story generation and story-point estimation using a 40,014-story dataset across 34 real-world projects.
+* Evaluated LLMs (ChatGPT, Gemini, QWEN) for generating Agile user stories using structured metrics such as coherence, completeness, and relevance.
+* Developed a lightweight framework for integrating LLM outputs into real-world Agile workflows to improve clarity and delivery speed.
+* Simulated product integration and human-in-the-loop validation, emphasizing real-world usage and developer trust.
+Enhancing Fake News Detection with Explainability — Graduate Research Project
+Spring 2025
+* Added LIME-based explainability to a high-accuracy classification model for fake news detection, improving transparency for non-technical stakeholders.
+* Built interactive HTML visualizations of model decisions to simulate user-facing explainability tools.
+* Analyzed the system’s robustness and generalizability to mimic production-ready ML pipelines.
 EDUCATION
 Florida Polytechnic University, Lakeland, FL — M.S. Computer Science
 June 2025 | GPA 3.26
 Florida Polytechnic University, Lakeland, FL — B.S. Computer Science
 May 2020 | GPA 3.54
 LEADERSHIP & INITIATIVES
-Member, Alumni Leadership Committee
-Florida Polytechnic University
-* Oversee events and initiatives to engage and support alumni.
+Treasurer, National Society of Black Engineers (NSBE)
+Florida Polytechnic University Chapter
+* Oversaw budgeting and logistics for conference attendance, managing registrations, hotels, and travel.
