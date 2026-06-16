@@ -184,8 +184,8 @@
     {
       "id": "rainy-day",
       "title": "Rainy Day",
-      "description": "Rainy Day is a financial clarity app built with the banking realities of The Bahamas (and broader Caribbean region) in mind.\n\nAt this stage, it is built to securely support FirstCaribbean (FCIB) through statement ingestion as well as managing cash manually, with plans to expand to PDF support, other local banks (starting with ScotiaBank in the next upcoming release), and hybrid (Plaid-accessible) users combining and utilizing pre-existing data sources as the product grows.",
-      "longDescription": "Rainy Day is meant to help its users save and manage their money through industry standard software and is currently at [v0.1.0/MVP].\n\nBy supporting data aggregation for local banks such as FirstCaribbean (FCIB) and manually tracking cash, financial clarity is provided through an overview dashboard with insights and the ability to securely manage transactions, statements, categories, and accounts. Additional technical details are included below.",
+      "description": "Rainy Day is a full-stack financial data platform for user-permissioned personal finance management in Caribbean markets where connected-account coverage is limited.\n\nStatement uploads from CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union are normalized into a canonical transaction model for analysis and cash-flow projection.",
+      "longDescription": "Rainy Day enables personal finance management through uploaded bank statements as the primary data source in markets without reliable open banking APIs.\n\nThe platform ingests CSV and PDF statements across supported Caribbean institutions, persists data in Supabase/Postgres with Row Level Security, and runs deterministic financial analysis—recurring bills, income signals, spending categories, and projected cash flow with user-facing explanations and source attribution.",
       "type": "standard-work",
       "technologies": [
         "TypeScript",
@@ -194,6 +194,9 @@
         "Supabase",
         "PostgreSQL",
         "CSV Ingestion",
+        "PDF Ingestion",
+        "Row Level Security",
+        "Integration Testing",
         "Linear",
         "Vercel",
         "Mintlify",
@@ -214,10 +217,11 @@
         "grid": 1.34
       },
       "achievements": [
-        "Shipped normalized FirstCaribbean (FCIB) CSV statement ingestion and manual cash transactions, along with categorization, charts and summaries.",
-        "Built a spreadsheet-like workflow with upload, searchable transaction review, filters, and server-side pagination and sorting",
-        "Delivered management pages for statements, categories, accounts, and manual cash account support",
-        "Released overview, auth, settings, and stability polish while deferring richer forecasting, additional banks and review logic to [v0.2.0]"
+        "Designed and built a user-permissioned financial data platform using uploaded bank statements as the primary data source for Caribbean markets with limited connected-account coverage.",
+        "Expanded statement ingestion across CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union into a canonical transaction model.",
+        "Implemented Supabase/Postgres persistence with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication across CSV and PDF imports.",
+        "Developed deterministic financial analysis workflows for recurring bills, income/payday signals, confidence-based spending categories, and projected cash flow with explanations and source attribution.",
+        "Added parser validation and ingestion regression tests covering CSV/PDF edge cases across supported institution formats."
       ],
       "timeline": "Ongoing",
       "category": "Early Stage Fintech SaaS",
@@ -226,7 +230,7 @@
         "product": {
           "enabled": true,
           "showScreenshots": true,
-          "description": "Rainy Day [v0.1.0] shipped FirstCaribbean (FCIB) CSV ingestion into a normalized Supabase model, upload and transaction review flows, management pages for statements, categories, and accounts, a calm overview dashboard with minimal insights, and baseline auth and settings.\n\nManagement is done through spreadsheet-like interfaces with searchable transaction review, filters, and server-side pagination and sorting.\n\nMore complex features, including automated categorization and additional local banks have been deferred in order to ship the Minimum Viable Prototype (MVP)\n\nIt has been built with structure using Linear and Mintlify and architected to scale. Product and business decisions have been sharpened through consistent strategic reading.\n\nAI is passively used in the form of GitHub Copilot for PR reviews, Codex/ChatGPT along with the newly introduced Linear MCP to help further define product decisions as well as break tasks down into steps for me to code or accomplish manually when needed, similar to an in-house staff/senior engineer. (Manual tasks such as setting up auth, databases, hosted product documentation, etc.)",
+          "description": "Rainy Day is a full-stack financial data platform built for Caribbean markets where connected-account coverage is limited. Users upload bank statements as the primary data source for personal finance management.\n\nStatement ingestion spans CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, with parsers normalizing local bank and credit union formats into a canonical transaction model.\n\nThe persistence layer uses Supabase/Postgres with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication to prevent duplicate transactions across overlapping CSV and PDF imports.\n\nDeterministic financial analysis classifies transaction history into recurring bills, income/payday signals, and confidence-based spending categories, generating projected cash flow with user-facing explanations and source attribution.\n\nParser validation and ingestion regression tests cover CSV/PDF edge cases across supported institution formats, including malformed rows, date parsing inconsistencies, and duplicate-detection failures.",
           "tools": [
             "TypeScript",
             "React",
@@ -234,6 +238,9 @@
             "Supabase",
             "PostgreSQL",
             "CSV Ingestion",
+            "PDF Ingestion",
+            "Row Level Security",
+            "Integration Testing",
             "Linear",
             "Vercel",
             "Mintlify",
