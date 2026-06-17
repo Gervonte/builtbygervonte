@@ -92,8 +92,10 @@ public/images/technical/*
 public/images/technical/rainy-day/*
 !public/images/technical/rainy-day/auth.png
 !public/images/technical/rainy-day/overview.png
+!public/images/technical/rainy-day/mobile-overview.png
+!public/images/technical/rainy-day/forecast.png
+!public/images/technical/rainy-day/review.png
 !public/images/technical/rainy-day/transactions.png
-!public/images/technical/rainy-day/statements.png
 
 # Storybook build outputs
 .out

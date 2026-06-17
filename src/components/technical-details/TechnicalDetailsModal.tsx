@@ -230,6 +230,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         title="Technical Details"
         centered
         size={MODAL_CONFIG.detailsSize}
+        zIndex={MODAL_CONFIG.detailsZIndex}
         withCloseButton={false}
         classNames={{
           content: 'technical-modal-content',
@@ -261,6 +262,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         returnFocus={true}
         centered
         size={MODAL_CONFIG.detailsSize}
+        zIndex={MODAL_CONFIG.detailsZIndex}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         role="dialog"
@@ -359,6 +361,7 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
         opened={!!selectedImage}
         onClose={() => setSelectedImage(null)}
         fullScreen
+        zIndex={MODAL_CONFIG.lightboxZIndex}
         title={
           <Group justify="space-between" w="100%">
             <Text size="lg" fw={600} c={commonColors.textPrimary}>
