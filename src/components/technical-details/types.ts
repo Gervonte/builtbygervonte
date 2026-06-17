@@ -83,4 +83,7 @@ export const MODAL_CONFIG = {
   detailsMaxWidth: '1120px',
   detailsMaxHeight: '78vh',
   imageMaxHeight: '86vh',
+  /** Above site header (Header.tsx uses 1100) */
+  detailsZIndex: 1150,
+  lightboxZIndex: 1200,
 } as const;
