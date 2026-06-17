@@ -10,13 +10,17 @@ export function TooltipZIndexProvider({ value, children }: { value: number; chil
   return <TooltipZIndexContext.Provider value={value}>{children}</TooltipZIndexContext.Provider>;
 }
 
-interface MobileTooltipProps extends Omit<TooltipProps, 'opened' | 'onOpen' | 'onClose'> {
+interface MobileTooltipProps extends Omit<
+  TooltipProps,
+  'opened' | 'onOpen' | 'onClose' | 'zIndex'
+> {
   children: ReactNode;
   label: string | ReactNode;
   delay?: number;
   disabled?: boolean;
   trigger?: 'hover' | 'click' | 'both';
   mobileBehavior?: 'tap' | 'hold' | 'both';
+  zIndex?: number;
 }
 
 /**
