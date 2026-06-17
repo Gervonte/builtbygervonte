@@ -23,8 +23,8 @@
       "period": "November 2025 - Present",
       "location": "Lakeland, Florida",
       "companyUrl": "https://builtbygervonte.com",
-      "description": "Software studio building practical fintech products and creator-led content for emerging Caribbean markets.",
-      "longDescription": "BuiltByGervonte LLC is the creative software studio behind Ignition Labs, focused on innovative fintech products and creator-led software content.\n\nRainy Day is the first product in the suite, starting with consumer-permissioned bank statement data for Caribbean markets where open banking standards or APIs are limited.",
+      "description": "Software studio building Rainy Day, a user-permissioned financial data platform for Caribbean markets where connected-account coverage is limited.",
+      "longDescription": "BuiltByGervonte LLC is the creative software studio behind Ignition Labs, focused on practical fintech products for emerging Caribbean markets.\n\nRainy Day is a full-stack financial data platform that uses uploaded bank statements as the primary data source where open banking standards or APIs are limited, enabling user-permissioned personal finance management across local banks and credit unions.",
       "technologies": [
         "TypeScript",
         "React",
@@ -32,17 +32,23 @@
         "Supabase",
         "PostgreSQL",
         "CSV Ingestion",
+        "PDF Ingestion",
+        "Row Level Security",
+        "Integration Testing",
         "Linear",
         "Vercel",
         "Mintlify",
         "Resend",
         "Supabase Auth",
-        "Google Cloud Platform"
+        "Google Cloud Platform",
+        "Data Normalization"
       ],
       "achievements": [
-        "Established a software product suite within the company (Ignition Labs) focused on building consumer fintech tools for underserved Caribbean (Bahamian) users.",
-        "Built Rainy Day as the first product in the suite, focused on practical financial clarity through data aggregation for regions with limited banking integrations and CSV/PDF-only data access.",
-        "Lead product strategy, UX, documentation, and full-stack engineering efforts across the software side as well as managing business operations including company budgeting, vendor setup, virtual address and mail handling, business account administration, and early business credit-building workflows."
+        "Designed and built Rainy Day, a full-stack financial data platform enabling user-permissioned personal finance management in Caribbean markets where connected-account coverage is limited, using uploaded bank statements as the primary data source.",
+        "Expanded Rainy Day statement ingestion across CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, normalizing local bank and credit union statements into a canonical transaction model.",
+        "Developed deterministic financial analysis workflows that classify transaction history into recurring bills, income/payday signals, and confidence-based spending categories, generating projected cash flow with user-facing explanations and source attribution.",
+        "Implemented Supabase/Postgres persistence with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication to prevent duplicate transactions across overlapping user-selected CSV and PDF statement imports.",
+        "Added parser validation and ingestion regression tests covering CSV/PDF edge cases across supported institution formats, including malformed rows, date parsing inconsistencies, and duplicate-detection failures."
       ]
     },
     {
@@ -66,9 +72,10 @@
         "GitHub Actions"
       ],
       "achievements": [
-        "Contributed extensively to Credit Passport® and Nova Credit’s Public API, helping scale the company’s cross-border credit platform as partnerships expanded, including HSBC.",
-        "Helped deliver the Public API across 13 countries, working through bureau-specific requirements, verification flows, and edge cases to support a more consistent partner integration experience.",
-        "Contributed to bureau-specific retry logic by identifying supported markets, implementing the behavior, updating documentation, and validating flows through integration testing."
+        "Engineered features that expanded Credit Passport® capabilities into Nova Credit’s Public API, enabling international financial partners to access cross-border credit data through developer-facing infrastructure tied to HSBC’s global Credit Passport® partnership and $10M HSBC Ventures investment.",
+        "Owned Public API integration work for Philippines, Kenya, and Dominican Republic within a 13-country rollout, resolving bureau-specific requirements, verification flows, and market edge cases to create a more consistent partner integration experience.",
+        "Built and refined secure REST API workflows using TypeScript, Node.js, React, and PostgreSQL to expose real-time international credit data through developer-facing endpoints.",
+        "Implemented bureau-specific retry logic by identifying supported markets, defining expected behavior, updating technical documentation, and validating flows through integration testing."
       ]
     },
     {
