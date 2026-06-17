@@ -273,6 +273,48 @@ export const technologyContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'What It Does:',
   },
+  'Row Level Security': {
+    title: 'Row Level Security',
+    description: 'Postgres security policy layer for enforcing user-scoped data access',
+    capabilities: [
+      'Restricting database rows by authenticated user',
+      'Protecting account, statement, and transaction records at the database layer',
+      'Reducing reliance on application-only access checks',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Data Normalization': {
+    title: 'Data Normalization',
+    description:
+      'Process for converting inconsistent source data into a consistent application model',
+    capabilities: [
+      'Mapping bank-specific statement formats into shared transaction records',
+      'Standardizing dates, descriptions, amounts, accounts, and categories',
+      'Creating reliable downstream inputs for summaries, review flows, and forecasts',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'PDF Ingestion': {
+    title: 'PDF Ingestion',
+    description: 'Import workflow for extracting transaction data from uploaded PDF statements',
+    capabilities: [
+      'Parsing PDF bank statements into structured transaction data',
+      'Handling institution-specific statement layouts and edge cases',
+      'Supporting uploaded-statement workflows where direct API coverage is limited',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  'Integration Testing': {
+    title: 'Integration Testing',
+    description:
+      'Testing approach for validating that connected product workflows behave correctly together',
+    capabilities: [
+      'Checking parser, persistence, and review flows across realistic inputs',
+      'Catching regressions in CSV and PDF ingestion behavior',
+      'Validating edge cases such as malformed rows, date parsing, and duplicate detection',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
   MongoDB: {
     title: 'MongoDB',
     description: 'NoSQL document database for modern applications',
