@@ -85,5 +85,7 @@ export const MODAL_CONFIG = {
   imageMaxHeight: '86vh',
   /** Above site header (Header.tsx uses 1100) */
   detailsZIndex: 1150,
+  /** Above details modal, below lightbox */
+  tooltipZIndex: 1160,
   lightboxZIndex: 1200,
 } as const;

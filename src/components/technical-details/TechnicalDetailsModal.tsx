@@ -1,6 +1,7 @@
 'use client';
 
 import { useCommonColors } from '@/lib/theme-aware-colors';
+import { TooltipZIndexProvider } from '@/components/MobileTooltip';
 import '@/styles/technical-modal.css';
 import { Alert, Box, Button, Group, Modal, Text } from '@mantine/core';
 import { IconAlertCircle, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
@@ -291,69 +292,79 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
           </div>
         }
       >
-        <div>
-          {technicalSections.map(({ key, section }) => (
-            <div key={key} style={{ display: activeTab === key ? 'block' : 'none' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                {/* Overview Card */}
-                <OverviewCard section={section} sectionKey={key} commonColors={commonColors} />
+        <TooltipZIndexProvider value={MODAL_CONFIG.tooltipZIndex}>
+          <div>
+            {technicalSections.map(({ key, section }) => (
+              <div key={key} style={{ display: activeTab === key ? 'block' : 'none' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  {/* Overview Card */}
+                  <OverviewCard section={section} sectionKey={key} commonColors={commonColors} />
 
-                {/* Metrics Display */}
-                {shouldShowSection(section, 'metrics') ? (
-                  <MetricsCard section={section} sectionKey={key} commonColors={commonColors} />
-                ) : null}
+                  {/* Metrics Display */}
+                  {shouldShowSection(section, 'metrics') ? (
+                    <MetricsCard section={section} sectionKey={key} commonColors={commonColors} />
+                  ) : null}
 
-                {/* Tools & Technologies */}
-                {shouldShowSection(section, 'tools') ? (
-                  <ToolsCard section={section} sectionKey={key} commonColors={commonColors} />
-                ) : null}
+                  {/* Tools & Technologies */}
+                  {shouldShowSection(section, 'tools') ? (
+                    <ToolsCard section={section} sectionKey={key} commonColors={commonColors} />
+                  ) : null}
 
-                {/* Monitoring Data */}
-                {shouldShowSection(section, 'monitoring') ? (
-                  <MonitoringCard section={section} sectionKey={key} commonColors={commonColors} />
-                ) : null}
+                  {/* Monitoring Data */}
+                  {shouldShowSection(section, 'monitoring') ? (
+                    <MonitoringCard
+                      section={section}
+                      sectionKey={key}
+                      commonColors={commonColors}
+                    />
+                  ) : null}
 
-                {/* Workflows */}
-                {shouldShowSection(section, 'workflows') ? (
-                  <WorkflowsCard section={section} sectionKey={key} commonColors={commonColors} />
-                ) : null}
+                  {/* Workflows */}
+                  {shouldShowSection(section, 'workflows') ? (
+                    <WorkflowsCard section={section} sectionKey={key} commonColors={commonColors} />
+                  ) : null}
 
-                {/* Performance Metrics */}
-                <PerformanceCard section={section} sectionKey={key} commonColors={commonColors} />
+                  {/* Performance Metrics */}
+                  <PerformanceCard section={section} sectionKey={key} commonColors={commonColors} />
 
-                {/* Architecture Data */}
-                {shouldShowSection(section, 'architecture') ? (
-                  <ArchitectureCard
-                    section={section}
-                    sectionKey={key}
-                    commonColors={commonColors}
-                  />
-                ) : null}
+                  {/* Architecture Data */}
+                  {shouldShowSection(section, 'architecture') ? (
+                    <ArchitectureCard
+                      section={section}
+                      sectionKey={key}
+                      commonColors={commonColors}
+                    />
+                  ) : null}
 
-                {/* Deployment Data for CI/CD */}
-                {key === 'cicd' && shouldShowSection(section, 'deployment') ? (
-                  <DeploymentCard section={section} sectionKey={key} commonColors={commonColors} />
-                ) : null}
+                  {/* Deployment Data for CI/CD */}
+                  {key === 'cicd' && shouldShowSection(section, 'deployment') ? (
+                    <DeploymentCard
+                      section={section}
+                      sectionKey={key}
+                      commonColors={commonColors}
+                    />
+                  ) : null}
 
-                {/* Screenshots Section */}
-                {shouldShowSection(section, 'screenshots') ? (
-                  <ScreenshotGallery
-                    screenshots={section.screenshots}
-                    sectionKey={key}
-                    commonColors={commonColors}
-                    onImageSelect={image => {
-                      setSelectedImage(image);
-                      const index = currentTabScreenshots.findIndex(img => img.src === image.src);
-                      if (index !== -1) {
-                        setCurrentImageIndex(index);
-                      }
-                    }}
-                  />
-                ) : null}
+                  {/* Screenshots Section */}
+                  {shouldShowSection(section, 'screenshots') ? (
+                    <ScreenshotGallery
+                      screenshots={section.screenshots}
+                      sectionKey={key}
+                      commonColors={commonColors}
+                      onImageSelect={image => {
+                        setSelectedImage(image);
+                        const index = currentTabScreenshots.findIndex(img => img.src === image.src);
+                        if (index !== -1) {
+                          setCurrentImageIndex(index);
+                        }
+                      }}
+                    />
+                  ) : null}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </TooltipZIndexProvider>
       </Modal>
 
       {/* Image Modal */}

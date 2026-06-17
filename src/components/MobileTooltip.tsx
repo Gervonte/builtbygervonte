@@ -2,15 +2,25 @@
 
 import { useMobileTooltip } from '@/hooks/useMobileTooltip';
 import { Tooltip, TooltipProps } from '@mantine/core';
-import { ReactNode } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 
-interface MobileTooltipProps extends Omit<TooltipProps, 'opened' | 'onOpen' | 'onClose'> {
+const TooltipZIndexContext = createContext<number | undefined>(undefined);
+
+export function TooltipZIndexProvider({ value, children }: { value: number; children: ReactNode }) {
+  return <TooltipZIndexContext.Provider value={value}>{children}</TooltipZIndexContext.Provider>;
+}
+
+interface MobileTooltipProps extends Omit<
+  TooltipProps,
+  'opened' | 'onOpen' | 'onClose' | 'zIndex'
+> {
   children: ReactNode;
   label: string | ReactNode;
   delay?: number;
   disabled?: boolean;
   trigger?: 'hover' | 'click' | 'both';
   mobileBehavior?: 'tap' | 'hold' | 'both';
+  zIndex?: number;
 }
 
 /**
@@ -28,8 +38,12 @@ export function MobileTooltip({
   withArrow = true,
   position = 'top',
   offset = 8,
+  zIndex,
   ...props
 }: MobileTooltipProps) {
+  const contextZIndex = useContext(TooltipZIndexContext);
+  const resolvedZIndex = zIndex ?? contextZIndex ?? 1000;
+
   const { opened, handlers, ref } = useMobileTooltip({
     delay,
     disabled,
@@ -46,6 +60,7 @@ export function MobileTooltip({
     withArrow,
     position,
     offset,
+    zIndex: resolvedZIndex,
     // Mobile-specific styling
     styles: {
       tooltip: {
@@ -54,10 +69,10 @@ export function MobileTooltip({
         padding: '8px 12px',
         borderRadius: '8px',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-        zIndex: 1000,
+        zIndex: resolvedZIndex,
       },
       arrow: {
-        zIndex: 1001,
+        zIndex: resolvedZIndex + 1,
       },
     },
     // Prevent tooltip from being cut off on mobile
