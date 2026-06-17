@@ -65,7 +65,6 @@ const BadgeWithTooltip = memo(
         withArrow
         position="top"
         offset={8}
-        zIndex={1000}
       >
         <Badge
           {...badgeProps}
