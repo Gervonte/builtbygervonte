@@ -2,7 +2,7 @@
   "name": "portfolio-ai",
   "version": "1.0.0",
   "type": "module",
-  "description": "Professional portfolio showcasing AI-assisted and traditional development work",
+  "description": "BuiltByGervonte portfolio and studio site featuring Rainy Day, Caribbean fintech product work, software demos, founder stories, and technical projects.",
   "private": true,
   "packageManager": "pnpm@11.2.2",
   "scripts": {
