@@ -171,7 +171,8 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
     header: {
       background: commonColors.backgroundCard,
       borderBottom: 'none',
-      padding: 'var(--mantine-spacing-xl) var(--mantine-spacing-md) 0 var(--mantine-spacing-md)',
+      padding:
+        'var(--mantine-spacing-xl) var(--mantine-spacing-md) var(--mantine-spacing-md) var(--mantine-spacing-md)',
       marginBottom: 0,
       position: 'relative' as const,
       zIndex: 100,

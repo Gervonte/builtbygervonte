@@ -184,8 +184,8 @@
     {
       "id": "rainy-day",
       "title": "Rainy Day",
-      "description": "Rainy Day is a full-stack financial data platform for user-permissioned personal finance management in Caribbean markets where connected-account coverage is limited.\n\nStatement uploads from CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union are normalized into a canonical transaction model for analysis and cash-flow projection.",
-      "longDescription": "Rainy Day enables personal finance management through uploaded bank statements as the primary data source in markets without reliable open banking APIs.\n\nThe platform ingests CSV and PDF statements across supported Caribbean institutions, persists data in Supabase/Postgres with Row Level Security, and runs deterministic financial analysis: recurring bills, income signals, spending categories, and projected cash flow with user-facing explanations and source attribution.",
+      "description": "Rainy Day is a full-stack financial data platform for user-permissioned personal finance management in Caribbean markets where connected-account coverage is limited.\n\nThe system parses CSV and PDF statements from CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union into one consistent transaction model. Supabase/Postgres, Row Level Security, statement hashing, and overlap-safe deduplication keep imported data secure, traceable, and reliable enough for analysis and cash-flow projection.",
+      "longDescription": "The latest update to Rainy Day expands its statement-based personal finance management for Caribbean markets without reliable open banking APIs.\n\nIt supports CSV and PDF uploads from CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, helping users move from manual statement review to recurring bill detection, income signals, spending categories, and cash-flow forecasts.",
       "type": "standard-work",
       "technologies": [
         "TypeScript",
@@ -193,6 +193,8 @@
         "Next.js",
         "Supabase",
         "PostgreSQL",
+        "PostHog",
+        "Sentry",
         "CSV Ingestion",
         "PDF Ingestion",
         "Row Level Security",
@@ -206,7 +208,7 @@
       ],
       "status": "in-progress",
       "featured": true,
-      "liveUrl": "https://rainyday.ignitionlabs.app/auth",
+      "liveUrl": "https://rainyday.ignitionlabs.app/demo",
       "imagePath": "rainy-day/overview.png",
       "thumbnailPosition": {
         "featured": "center 40%",
@@ -237,6 +239,8 @@
             "Next.js",
             "Supabase",
             "PostgreSQL",
+            "PostHog",
+            "Sentry",
             "CSV Ingestion",
             "PDF Ingestion",
             "Row Level Security",
@@ -300,38 +304,62 @@
               "modalScale": 1
             }
           ]
+        },
+        "monitoring": {
+          "enabled": true,
+          "showScreenshots": true,
+          "description": "Rainy Day uses privacy-aware product analytics and runtime monitoring to understand demo behavior, collect feedback, catch errors, and turn operational signals into follow-up product work without exposing raw financial payloads.",
+          "tools": ["PostHog", "Sentry", "Linear"],
+          "screenshots": [
+            {
+              "src": "rainy-day/demo-feedback-survey.png",
+              "caption": "PostHog demo feedback survey showing early comfort, usefulness, and requested institution support signals from the public demo.",
+              "alt": "PostHog survey dashboard for Rainy Day demo feedback",
+              "modalFit": "contain",
+              "modalPosition": "center center",
+              "modalScale": 1
+            },
+            {
+              "src": "rainy-day/sentry-verification-error.png",
+              "caption": "Sentry verification issue showing server-side monitoring, stack trace context, and resolved status for Rainy Day.",
+              "alt": "Sentry issue details for Rainy Day server monitoring verification",
+              "modalFit": "contain",
+              "modalPosition": "center center",
+              "modalScale": 1
+            }
+          ]
         }
       }
     }
   ],
   "categories": {
     "vibe-coded": {
-      "title": "Vibe Coded Projects",
-      "subtitle": "AI-Led Development",
-      "description": "Projects where I collaborated heavily with AI tools to enhance development speed, creativity, and problem-solving capabilities",
+      "title": "Experiments",
+      "subtitle": "Rapid Product Exploration",
+      "description": "Experiments and tools built with heavy AI collaboration to explore ideas quickly while applying product, design, and engineering judgment.",
       "icon": "brain",
       "color": "sakura"
     },
     "standard-work": {
-      "title": "Standard Work Projects",
-      "subtitle": "Traditional Development",
-      "description": "Projects built using traditional development approaches, showcasing core programming, problem-solving and systems thinking",
+      "title": "Product Builds",
+      "subtitle": "Production-Minded Engineering",
+      "description": "Products built with full-stack architecture, release discipline, observability, analytics, and real user workflows.",
       "icon": "code",
       "color": "blue"
     }
   },
   "philosophy": {
     "title": "My Development Philosophy",
-    "description": "I believe in the power of both traditional programming skills and 'vibe coded' development. Each approach has its place:",
+    "description": "I use the right workflow for the job, from fast AI-assisted exploration to production-minded product engineering.",
     "vibeCoded": {
-      "title": "Vibe Coded",
-      "description": "AI tools enhance creativity, accelerate development, and help explore new possibilities. Perfect for rapid prototyping, research, and innovative solutions.",
+      "title": "Experiments",
+      "description": "AI tools help explore ideas quickly while product, design, and engineering judgment keep the work useful and reviewable.",
       "icon": "brain",
       "color": "sakura"
     },
     "standardWork": {
-      "title": "Standard Work",
-      "description": "Traditional development builds strong fundamentals, deep understanding, and reliable systems. Essential for production-ready applications and complex problem-solving.",
+      "title": "Product Builds",
+      "description": "Production-minded engineering emphasizes architecture, release discipline, observability, analytics, and real user workflows.",
       "icon": "code",
       "color": "blue"
     }
