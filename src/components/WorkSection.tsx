@@ -27,6 +27,10 @@ const getTypeColor = (type: Project['type']) => {
   return type === 'vibe-coded' ? 'sakura' : 'earth';
 };
 
+const getProjectTypeLabel = (type: Project['type']) => {
+  return type === 'vibe-coded' ? 'AI-Assisted Experiment' : 'Product Build';
+};
+
 const WorkSection = memo(() => {
   const colorCombinations = useColorCombinations();
   const vibeCodedProjects = useMemo(() => getProjectsByType('vibe-coded'), []);
@@ -53,8 +57,7 @@ const WorkSection = memo(() => {
             Software
           </Title>
           <Text size="xl" c="dimmed" maw={800} mx="auto">
-            A showcase of my most recent projects, highlighting both &apos;vibe coded&apos;
-            development and traditional programming approaches
+            A showcase of rapid AI-assisted experiments and production-minded product builds.
           </Text>
         </Box>
 
@@ -93,7 +96,7 @@ const WorkSection = memo(() => {
                   headerIcon={getProjectIcon(project.type)}
                   headerIconColor={getTypeColor(project.type)}
                   statusBadge={{
-                    text: project.type === 'vibe-coded' ? 'Vibe Coded' : 'Traditional',
+                    text: getProjectTypeLabel(project.type),
                     color: getTypeColor(project.type),
                     contextType: 'projectType',
                     contextValue: project.type,
@@ -117,7 +120,8 @@ const WorkSection = memo(() => {
                           label: 'Live Demo',
                           icon: <IconExternalLink size={14} />,
                           href: project.liveUrl,
-                          tooltip: 'View Live Demo',
+                          tooltip:
+                            project.id === 'rainy-day' ? 'Open Public Demo' : 'View Live Demo',
                         }
                       : undefined
                   }
@@ -145,10 +149,10 @@ const WorkSection = memo(() => {
         <Tabs defaultValue="vibe-coded" variant="pills" color="sakura">
           <Tabs.List justify="center" mb="xl">
             <Tabs.Tab value="vibe-coded" leftSection={<IconBrain size={16} />} fw={600}>
-              Vibe Coded
+              Experiments
             </Tabs.Tab>
             <Tabs.Tab value="standard-work" leftSection={<IconCode size={16} />} fw={600}>
-              Traditional Work
+              Product Builds
             </Tabs.Tab>
           </Tabs.List>
 
@@ -156,7 +160,7 @@ const WorkSection = memo(() => {
             <Box>
               <Group justify="center" mb="xl">
                 <Title order={2} ta="center">
-                  Vibe Coded Projects
+                  Experiments
                 </Title>
                 <Badge
                   leftSection={<IconSparkles size={14} />}
@@ -165,17 +169,19 @@ const WorkSection = memo(() => {
                   size="lg"
                   radius="xl"
                 >
-                  AI-Led Development
+                  Rapid Product Exploration
                 </Badge>
               </Group>
               <Text ta="center" c="dimmed" mb="xl" maw={600} mx="auto">
                 {projectsData.categories['vibe-coded'].description}
               </Text>
-              <SimpleGrid cols={{ base: 1, md: 2, lg: 3 }} spacing="xl">
-                {vibeCodedProjects.map(project => (
-                  <ExpandableProjectCard key={project.id} project={project} type="vibe-coded" />
-                ))}
-              </SimpleGrid>
+              <Box maw={960} mx="auto">
+                <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+                  {vibeCodedProjects.map(project => (
+                    <ExpandableProjectCard key={project.id} project={project} type="vibe-coded" />
+                  ))}
+                </SimpleGrid>
+              </Box>
             </Box>
           </Tabs.Panel>
 
@@ -183,7 +189,7 @@ const WorkSection = memo(() => {
             <Box>
               <Group justify="center" mb="xl">
                 <Title order={2} ta="center">
-                  Traditional Work Projects
+                  Product Builds
                 </Title>
                 <Badge
                   leftSection={<IconTools size={14} />}
@@ -192,17 +198,23 @@ const WorkSection = memo(() => {
                   size="lg"
                   radius="xl"
                 >
-                  HandCrafted Development
+                  Production-Minded Engineering
                 </Badge>
               </Group>
               <Text ta="center" c="dimmed" mb="xl" maw={600} mx="auto">
                 {projectsData.categories['standard-work'].description}
               </Text>
-              <SimpleGrid cols={{ base: 1, md: 2, lg: 3 }} spacing="xl">
-                {standardWorkProjects.map(project => (
-                  <ExpandableProjectCard key={project.id} project={project} type="standard-work" />
-                ))}
-              </SimpleGrid>
+              <Box maw={960} mx="auto">
+                <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl">
+                  {standardWorkProjects.map(project => (
+                    <ExpandableProjectCard
+                      key={project.id}
+                      project={project}
+                      type="standard-work"
+                    />
+                  ))}
+                </SimpleGrid>
+              </Box>
             </Box>
           </Tabs.Panel>
         </Tabs>
