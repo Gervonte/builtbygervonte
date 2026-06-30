@@ -33,8 +33,8 @@ export interface WatchVideo {
 }
 
 export const watchCollections: WatchVideoCollection[] = [
-  'Founder Stories',
   'Software Demos',
+  'Founder Stories',
   'Creative / Culture',
 ];
 
@@ -52,13 +52,12 @@ export const watchVideos: WatchVideo[] = [
     youtubeId: 'AbYNHzYtm_s',
     duration: '1:13:01',
     status: 'published',
-    featured: true,
   },
   {
     id: 'rainy-day-v0-1-0',
     slug: 'rainy-day-v0-1-0',
     title: 'Rainy Day v0.1.0',
-    subtitle: 'Personal Finance for The Bahamas',
+    subtitle: 'Statement-Based PFM · Early Prototype',
     description:
       'A proof of concept demo for Rainy Day, showing how consumer-permissioned bank statement data can power personal finance management in markets without open banking standards or APIs.',
     category: 'software-demo',
@@ -67,6 +66,22 @@ export const watchVideos: WatchVideo[] = [
     youtubeId: 'DleHQK9KH-8',
     duration: '10:16',
     status: 'published',
+  },
+  {
+    id: 'rainy-day-v0-2-0-placeholder',
+    slug: 'rainy-day-v0-2-0-placeholder',
+    title: 'Rainy Day v0.2.0',
+    subtitle:
+      'Expanded Statement Support · Deterministic Intelligence · Privacy-Safe Analytics · Private Alpha',
+    description:
+      'See how Rainy Day turns consumer-permissioned data into a clearer financial picture, moving beyond manual statement review with categorization suggestions, subscription tracking, and cash-flow forecasts.',
+    category: 'software-demo',
+    collection: 'Software Demos',
+    youtubeUrl: 'https://www.youtube.com/watch?v=DleHQK9KH-8',
+    youtubeId: 'DleHQK9KH-8',
+    duration: '10:16',
+    status: 'published',
+    featured: true,
   },
   {
     id: 'leetcode-beastmode',
