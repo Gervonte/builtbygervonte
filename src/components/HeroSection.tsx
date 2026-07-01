@@ -72,19 +72,18 @@ const HeroSection = memo(() => {
             <ParallaxElement speed={getHeroSpeed('buttons')}>
               <Group justify="center" gap="md" role="group" aria-label="Navigation actions">
                 <Button
+                  component="a"
+                  href="https://rainyday.ignitionlabs.app/demo"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   size="lg"
                   color="sakura"
-                  aria-label="Explore founder stories, product demos, and creative content"
-                  role="button"
-                  tabIndex={0}
+                  aria-label="Try Rainy Day public demo"
                   style={{
                     background: colorCombinations.primaryGradient,
                     border: 'none',
                     boxShadow: `0 4px 15px ${commonColors.shadowPrimary}`,
                     transition: 'all 0.3s ease',
-                  }}
-                  onClick={() => {
-                    document.getElementById('watch')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.transform = 'translateY(-2px)';
@@ -94,20 +93,14 @@ const HeroSection = memo(() => {
                     e.currentTarget.style.transform = 'translateY(0)';
                     e.currentTarget.style.boxShadow = `0 4px 15px ${commonColors.shadowPrimary}`;
                   }}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      document.getElementById('watch')?.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
                 >
-                  Explore Content
+                  Try Rainy Day
                 </Button>
                 <Button
                   size="lg"
                   color="sakura"
                   variant="filled"
-                  aria-label="Explore software projects and product work"
+                  aria-label="Watch the Rainy Day demo in the content section"
                   role="button"
                   tabIndex={0}
                   style={{
@@ -119,7 +112,7 @@ const HeroSection = memo(() => {
                     transition: 'all 0.3s ease',
                   }}
                   onClick={() => {
-                    document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('watch')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.transform = 'translateY(-2px)';
@@ -132,11 +125,11 @@ const HeroSection = memo(() => {
                   onKeyDown={e => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('watch')?.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
                 >
-                  Explore Software
+                  Watch Demo
                 </Button>
               </Group>
             </ParallaxElement>

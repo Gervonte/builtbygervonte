@@ -5,6 +5,8 @@ import ThemeWrapper from '@/components/ThemeWrapper';
 import {
   generatePageMetadata,
   generatePersonStructuredData,
+  generateRainyDayStructuredData,
+  generateRainyDayVideoStructuredData,
   generateStructuredData,
 } from '@/lib/seo';
 import { ThemeProvider } from '@/lib/theme-context';
@@ -52,6 +54,8 @@ export const metadata: Metadata = generatePageMetadata();
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const organizationStructuredData = generateStructuredData();
   const personStructuredData = generatePersonStructuredData();
+  const rainyDayStructuredData = generateRainyDayStructuredData();
+  const rainyDayVideoStructuredData = generateRainyDayVideoStructuredData();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -69,6 +73,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(personStructuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(rainyDayStructuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(rainyDayVideoStructuredData),
           }}
         />
         {/* Favicon */}

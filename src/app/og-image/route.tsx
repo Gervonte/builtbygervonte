@@ -52,7 +52,7 @@ export async function GET() {
             textShadow: '0 4px 8px rgba(0,0,0,0.1)',
           }}
         >
-          Gervonte Fowler
+          BuiltByGervonte
         </div>
 
         {/* Title */}
@@ -66,7 +66,7 @@ export async function GET() {
             lineHeight: 1.2,
           }}
         >
-          Full-Stack Software Engineer & AI Researcher
+          Rainy Day, Caribbean Fintech, and Software Demos
         </div>
 
         {/* Description */}
@@ -79,7 +79,8 @@ export async function GET() {
             marginBottom: 40,
           }}
         >
-          Building scalable software solutions and advancing AI research
+          Statement-based personal finance for Caribbean markets, plus founder stories and technical
+          product work.
         </div>
 
         {/* Tech stack */}
@@ -92,7 +93,7 @@ export async function GET() {
             marginBottom: 30,
           }}
         >
-          {['React', 'Node.js', 'TypeScript', 'Python', 'AI/ML'].map(tech => (
+          {['Rainy Day', 'Caribbean Fintech', 'Software Demos', 'Private Alpha'].map(tech => (
             <div
               key={tech}
               style={{

@@ -96,6 +96,8 @@ public/images/technical/rainy-day/*
 !public/images/technical/rainy-day/forecast.png
 !public/images/technical/rainy-day/review.png
 !public/images/technical/rainy-day/transactions.png
+!public/images/technical/rainy-day/demo-feedback-survey.png
+!public/images/technical/rainy-day/sentry-verification-error.png
 
 # Storybook build outputs
 .out
