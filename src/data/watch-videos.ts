@@ -68,8 +68,8 @@ export const watchVideos: WatchVideo[] = [
     status: 'published',
   },
   {
-    id: 'rainy-day-v0-2-0-placeholder',
-    slug: 'rainy-day-v0-2-0-placeholder',
+    id: 'rainy-day-v0-2-0',
+    slug: 'rainy-day-v0-2-0',
     title: 'Rainy Day v0.2.0',
     subtitle: 'Deterministic Intelligence, Observability & Public Demo',
     description:
