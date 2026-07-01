@@ -209,10 +209,10 @@ export function generateRainyDayVideoStructuredData() {
     name: 'Rainy Day v0.2.0',
     description:
       'A Rainy Day software demo covering expanded statement support, deterministic intelligence, privacy-safe analytics, and the private alpha path for real users.',
-    thumbnailUrl: ['https://i.ytimg.com/vi/DleHQK9KH-8/maxresdefault.jpg'],
-    duration: 'PT10M16S',
-    contentUrl: 'https://www.youtube.com/watch?v=DleHQK9KH-8',
-    embedUrl: 'https://www.youtube.com/embed/DleHQK9KH-8',
+    thumbnailUrl: ['https://i.ytimg.com/vi/98GISOrBvts/maxresdefault.jpg'],
+    duration: 'PT27M30S',
+    contentUrl: 'https://www.youtube.com/watch?v=98GISOrBvts',
+    embedUrl: 'https://www.youtube.com/embed/98GISOrBvts',
     publisher: {
       '@type': 'Organization',
       '@id': `${seoConfig.url}/#organization`,
