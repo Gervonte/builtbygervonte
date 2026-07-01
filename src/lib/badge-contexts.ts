@@ -55,22 +55,24 @@ export const skillLevelContexts: Record<string, BadgeContext> = {
 // Project type contexts
 export const projectTypeContexts: Record<string, BadgeContext> = {
   'vibe-coded': {
-    title: 'AI-Led Development',
-    description: 'Leveraging AI tools to enhance productivity and code quality',
+    title: 'Rapid Product Exploration',
+    description:
+      'Experiments and tools built with heavy AI collaboration while applying product, design, and engineering judgment',
     capabilities: [
-      'Collaborating with AI for code generation and optimization',
-      'Using AI for debugging and problem-solving',
-      'Implementing AI-assisted testing and quality assurance',
+      'Exploring ideas quickly with AI-assisted implementation',
+      'Applying human product and design judgment to prototypes',
+      'Keeping experiments scoped, reviewable, and useful',
     ],
     capabilitiesLabel: 'How It Works:',
   },
   'standard-work': {
-    title: 'HandCrafted Development',
-    description: 'Built using established methodologies and proven practices',
+    title: 'Production-Minded Engineering',
+    description:
+      'Products built with full-stack architecture, release discipline, observability, analytics, and real user workflows',
     capabilities: [
-      'Writing maintainable, well-documented code',
-      'Implementing comprehensive testing strategies',
-      'Following industry-standard deployment workflows',
+      'Designing full-stack product architecture',
+      'Shipping with release discipline and observability',
+      'Turning measured product signals into follow-up work',
     ],
     capabilitiesLabel: 'How It Works:',
   },
@@ -526,6 +528,16 @@ export const technologyContexts: Record<string, BadgeContext> = {
       'Building accessible React components',
       'Creating consistent design systems',
       'Rapid UI development with pre-built components',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  PostHog: {
+    title: 'PostHog',
+    description: 'Product analytics and feedback platform for understanding user behavior',
+    capabilities: [
+      'Tracking activation and product usage events',
+      'Collecting demo feedback through surveys',
+      'Turning product signals into follow-up work',
     ],
     capabilitiesLabel: 'What It Does:',
   },

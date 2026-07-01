@@ -241,6 +241,11 @@
       "category": "tools"
     },
     {
+      "name": "PostHog",
+      "level": "intermediate",
+      "category": "tools"
+    },
+    {
       "name": "Mintlify",
       "level": "advanced",
       "category": "tools"
