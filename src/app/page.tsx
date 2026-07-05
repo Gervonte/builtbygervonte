@@ -62,7 +62,8 @@ const HomePage = memo(() => {
             aria-label="Professional experience"
             style={{
               minHeight: '100vh',
-              padding: '4rem 0',
+              padding: '8rem 0 4rem',
+              scrollMarginTop: '7rem',
             }}
           >
             <LazyExperienceSection />
