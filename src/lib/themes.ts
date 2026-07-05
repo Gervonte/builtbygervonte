@@ -230,4 +230,4 @@ export const themes = {
 export const getTheme = (themeName: ThemeName, colorScheme: ResolvedColorScheme = 'light') =>
   themes[themeName][colorScheme];
 
-export const defaultTheme: ThemeName = 'sakura';
+export const defaultTheme: ThemeName = 'ocean';

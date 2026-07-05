@@ -18,6 +18,8 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const THEME_STORAGE_KEY = 'portfolio-theme';
 const THEME_MODE_STORAGE_KEY = 'portfolio-theme-mode';
+const THEME_DEFAULT_VERSION_STORAGE_KEY = 'portfolio-theme-default-version';
+const CURRENT_THEME_DEFAULT_VERSION = 'rainy-day-ocean-v1';
 
 function getSystemColorScheme(): ResolvedColorScheme {
   if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
@@ -29,6 +31,13 @@ function getSystemColorScheme(): ResolvedColorScheme {
 
 function getStoredTheme(): ThemeName {
   if (typeof window === 'undefined') {
+    return defaultTheme;
+  }
+
+  const storedDefaultVersion = localStorage.getItem(THEME_DEFAULT_VERSION_STORAGE_KEY);
+  if (storedDefaultVersion !== CURRENT_THEME_DEFAULT_VERSION) {
+    localStorage.setItem(THEME_DEFAULT_VERSION_STORAGE_KEY, CURRENT_THEME_DEFAULT_VERSION);
+    localStorage.setItem(THEME_STORAGE_KEY, defaultTheme);
     return defaultTheme;
   }
 
