@@ -7,7 +7,7 @@ The portfolio now has two separate theme controls:
 - **Palette**: `Sakura` or `Ocean`
 - **Appearance Mode**: `Auto`, `Light`, or `Dark`
 
-`Auto` follows the user's system theme preference. Palette and appearance mode are stored separately in `localStorage`, so both settings persist across refreshes.
+Fresh visits default to the `Ocean` palette for the Rainy Day-led portfolio flow. The Rainy Day default includes a one-time localStorage migration so browsers that previously stored the old Sakura default also move to Ocean. `Auto` follows the user's system theme preference. Palette and appearance mode are stored separately in `localStorage`, so both settings persist across refreshes after that migration.
 
 ## How It Works
 

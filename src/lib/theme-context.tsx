@@ -18,6 +18,24 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const THEME_STORAGE_KEY = 'portfolio-theme';
 const THEME_MODE_STORAGE_KEY = 'portfolio-theme-mode';
+const THEME_DEFAULT_VERSION_STORAGE_KEY = 'portfolio-theme-default-version';
+const CURRENT_THEME_DEFAULT_VERSION = 'rainy-day-ocean-v1';
+
+function getLocalStorageItem(key: string): string | null {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function setLocalStorageItem(key: string, value: string) {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Storage may be blocked or unavailable; keep the in-memory theme state.
+  }
+}
 
 function getSystemColorScheme(): ResolvedColorScheme {
   if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
@@ -32,7 +50,14 @@ function getStoredTheme(): ThemeName {
     return defaultTheme;
   }
 
-  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  const storedDefaultVersion = getLocalStorageItem(THEME_DEFAULT_VERSION_STORAGE_KEY);
+  if (storedDefaultVersion !== CURRENT_THEME_DEFAULT_VERSION) {
+    setLocalStorageItem(THEME_DEFAULT_VERSION_STORAGE_KEY, CURRENT_THEME_DEFAULT_VERSION);
+    setLocalStorageItem(THEME_STORAGE_KEY, defaultTheme);
+    return defaultTheme;
+  }
+
+  const storedTheme = getLocalStorageItem(THEME_STORAGE_KEY);
   return storedTheme === 'sakura' || storedTheme === 'ocean' ? storedTheme : defaultTheme;
 }
 
@@ -41,7 +66,7 @@ function getStoredThemeMode(): ThemeMode {
     return 'auto';
   }
 
-  const storedThemeMode = localStorage.getItem(THEME_MODE_STORAGE_KEY);
+  const storedThemeMode = getLocalStorageItem(THEME_MODE_STORAGE_KEY);
   return storedThemeMode === 'light' || storedThemeMode === 'dark' || storedThemeMode === 'auto'
     ? storedThemeMode
     : 'auto';
@@ -68,7 +93,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    localStorage.setItem(THEME_STORAGE_KEY, currentTheme);
+    setLocalStorageItem(THEME_STORAGE_KEY, currentTheme);
   }, [currentTheme, isHydrated]);
 
   useEffect(() => {
@@ -76,7 +101,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    localStorage.setItem(THEME_MODE_STORAGE_KEY, themeMode);
+    setLocalStorageItem(THEME_MODE_STORAGE_KEY, themeMode);
   }, [themeMode, isHydrated]);
 
   useEffect(() => {

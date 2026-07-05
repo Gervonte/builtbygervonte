@@ -29,6 +29,8 @@ export interface WatchVideo {
   publishedAt?: string;
   status: WatchVideoStatus;
   featured?: boolean;
+  // Preserve videos for future pages while excluding them from the homepage Content grid.
+  showInMainContent?: boolean;
   relatedLinks?: WatchVideoLink[];
 }
 
@@ -52,6 +54,7 @@ export const watchVideos: WatchVideo[] = [
     youtubeId: 'AbYNHzYtm_s',
     duration: '1:13:01',
     status: 'published',
+    showInMainContent: false,
   },
   {
     id: 'rainy-day-v0-1-0',
@@ -126,12 +129,16 @@ export const getWatchVideoBySlug = (slug: string): WatchVideo | undefined => {
 };
 
 export const getWatchVideosByCollection = (collection: WatchVideoCollection): WatchVideo[] => {
-  return watchVideos.filter(video => video.collection === collection);
+  return watchVideos.filter(
+    video => video.collection === collection && video.showInMainContent !== false
+  );
 };
 
 export const getWatchCollectionsWithVideos = (): WatchCollectionGroup[] => {
-  return watchCollections.map(collection => ({
-    collection,
-    videos: getWatchVideosByCollection(collection),
-  }));
+  return watchCollections
+    .map(collection => ({
+      collection,
+      videos: getWatchVideosByCollection(collection),
+    }))
+    .filter(group => group.videos.length > 0);
 };

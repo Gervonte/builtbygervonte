@@ -9,13 +9,14 @@ import {
 import { useTheme } from '@/lib/theme-context';
 import { Anchor, Box, Burger, Container, Group, Paper, Stack, Transition } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import ProfileAvatar from './ProfileAvatar';
 import ThemeModeSelector from './ThemeModeSelector';
 import ThemeToggle from './ThemeToggle';
 
 const HEADER_HEIGHT = 60;
 const HEADER_Z_INDEX = 1100;
+const BRAND_MARK_SIZE = 45;
 
 interface HeaderProps {
   links: Array<{ link: string; label: string }>;
@@ -100,7 +101,14 @@ export default function Header({ links }: HeaderProps) {
             style={{
               textDecoration: 'none',
               display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: BRAND_MARK_SIZE,
+              height: BRAND_MARK_SIZE,
               borderRadius: '999px',
+              background: commonColors.backgroundCard,
+              boxShadow: `0 2px 10px ${commonColors.shadowPrimaryLight}`,
+              border: `1px solid ${withOpacity(primaryColors[1] || '#FFCDD2', 0.28)}`,
             }}
             onClick={e => {
               e.preventDefault();
@@ -108,7 +116,18 @@ export default function Header({ links }: HeaderProps) {
               close();
             }}
           >
-            <ProfileAvatar />
+            <Image
+              src="/favicon.svg"
+              alt="BuiltByGervonte GF mark"
+              width={32}
+              height={32}
+              priority
+              style={{
+                display: 'block',
+                width: 32,
+                height: 32,
+              }}
+            />
           </Anchor>
 
           {/* Desktop Navigation */}

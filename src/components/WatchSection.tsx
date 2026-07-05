@@ -240,7 +240,7 @@ const WatchSection = memo(() => {
             Content
           </Title>
           <Text size="xl" c={commonColors.textSecondary} maw={800} mx="auto">
-            Founder stories, product demos, music breakdowns, and build notes from the studio.
+            Rainy Day demos, product build notes, and creative breakdowns from the studio.
           </Text>
         </Box>
 
@@ -250,7 +250,7 @@ const WatchSection = memo(() => {
               <Stack gap="md" justify="center">
                 <Group gap="xs">
                   <Badge color="sakura" variant="filled" radius="sm">
-                    Featured Film
+                    Featured Demo
                   </Badge>
                   {featuredVideo.duration && (
                     <Badge
