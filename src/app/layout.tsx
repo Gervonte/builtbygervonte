@@ -24,19 +24,15 @@ import '../styles/sakura-optimized.css';
 const inter = localFont({
   src: [
     {
-      path: './fonts/Inter-VariableFont_opsz,wght.ttf',
+      path: './fonts/Inter-Latin-VariableFont_opsz,wght.woff2',
       style: 'normal',
       weight: '100 900',
     },
-    {
-      path: './fonts/Inter-Italic-VariableFont_opsz,wght.ttf',
-      style: 'italic',
-      weight: '100 900',
-    },
   ],
-  display: 'swap',
+  display: 'optional',
   fallback: ['system-ui', 'Arial', 'sans-serif'],
-  preload: false,
+  adjustFontFallback: 'Arial',
+  preload: true,
   variable: '--font-inter',
 });
 

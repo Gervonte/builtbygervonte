@@ -30,7 +30,7 @@ const HeroSection = memo(() => {
       >
         <Container size="lg" py="xl">
           <Stack align="center" gap="xl">
-            <ParallaxElement speed={getHeroSpeed('title')}>
+            <ParallaxElement speed={getHeroSpeed('title')} deferUntilInteraction>
               <Title
                 order={1}
                 ta="center"
@@ -49,7 +49,7 @@ const HeroSection = memo(() => {
                 Hello, I&apos;m Gervonte Fowler
               </Title>
             </ParallaxElement>
-            <ParallaxElement speed={getHeroSpeed('subtitle')}>
+            <ParallaxElement speed={getHeroSpeed('subtitle')} deferUntilInteraction>
               <Text
                 ta="center"
                 size="xl"
@@ -67,7 +67,7 @@ const HeroSection = memo(() => {
                 <span aria-hidden="true">🇧🇸</span>
               </Text>
             </ParallaxElement>
-            <ParallaxElement speed={getHeroSpeed('buttons')}>
+            <ParallaxElement speed={getHeroSpeed('buttons')} deferUntilInteraction>
               <Group justify="center" gap="md" role="group" aria-label="Navigation actions">
                 <Button
                   component="a"
