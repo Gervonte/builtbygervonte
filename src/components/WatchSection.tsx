@@ -5,6 +5,8 @@ import {
   getWatchCollectionsWithVideos,
   type WatchVideo,
 } from '@/data/watch-videos';
+import { useModal } from '@/lib/modal-context';
+import { getProjectById } from '@/lib/projects';
 import {
   useColorCombinations,
   useCommonColors,
@@ -26,11 +28,19 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { IconBrandYoutube, IconClock, IconPlayerPlay, IconVideoOff } from '@tabler/icons-react';
-import { memo, useMemo } from 'react';
+import {
+  IconBrandYoutube,
+  IconClock,
+  IconPlayerPlay,
+  IconSettings,
+  IconVideoOff,
+} from '@tabler/icons-react';
+import Image from 'next/image';
+import { memo, useMemo, useState } from 'react';
+import { LazyTechnicalDetailsModal } from './LazyComponents';
 import ResumeYouTubeEmbed from './ResumeYouTubeEmbed';
 
-const YOUTUBE_THUMBNAIL_BASE_URL = 'https://img.youtube.com/vi';
+const YOUTUBE_THUMBNAIL_BASE_URL = 'https://i.ytimg.com/vi';
 
 const getVideoStatusLabel = (video: WatchVideo) => {
   if (video.status === 'coming-soon') {
@@ -82,9 +92,7 @@ const VideoCard = ({ video }: { video: WatchVideo }) => {
             position: 'relative',
             aspectRatio: '16 / 9',
             borderRadius: '8px',
-            background: thumbnailUrl
-              ? `linear-gradient(rgba(14, 20, 27, 0.04), rgba(14, 20, 27, 0.08)), url(${thumbnailUrl}) center / cover`
-              : colorCombinations.primaryGradientLight,
+            background: colorCombinations.primaryGradientLight,
             border: `1px solid ${commonColors.borderPrimary}`,
             display: 'flex',
             alignItems: 'center',
@@ -92,6 +100,26 @@ const VideoCard = ({ video }: { video: WatchVideo }) => {
             overflow: 'hidden',
           }}
         >
+          {thumbnailUrl && (
+            <>
+              <Image
+                src={thumbnailUrl}
+                alt=""
+                aria-hidden="true"
+                fill
+                sizes="(max-width: 48em) 100vw, (max-width: 75em) 50vw, 33vw"
+                style={{ objectFit: 'cover' }}
+              />
+              <Box
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(rgba(14, 20, 27, 0.04), rgba(14, 20, 27, 0.08))',
+                }}
+              />
+            </>
+          )}
           {video.duration && (
             <Badge
               color="dark"
@@ -105,6 +133,7 @@ const VideoCard = ({ video }: { video: WatchVideo }) => {
                 background: 'rgba(14, 20, 27, 0.82)',
                 color: '#FFFFFF',
                 backdropFilter: 'blur(8px)',
+                zIndex: 1,
               }}
             >
               {video.duration}
@@ -176,7 +205,16 @@ const WatchSection = memo(() => {
   const primaryColors = usePrimaryColors();
   const warmColors = useWarmColors();
   const { resolvedColorScheme } = useTheme();
+  const { setModalOpen } = useModal();
+  const [technicalDetailsOpened, setTechnicalDetailsOpened] = useState(false);
   const featuredVideo = useMemo(() => getFeaturedWatchVideo(), []);
+  const featuredTechnicalProject = useMemo(
+    () =>
+      featuredVideo?.technicalDetailsProjectId
+        ? getProjectById(featuredVideo.technicalDetailsProjectId)
+        : undefined,
+    [featuredVideo]
+  );
   const collectionGroups = useMemo(() => getWatchCollectionsWithVideos(), []);
   const isDark = resolvedColorScheme === 'dark';
   const featuredCardStyles = {
@@ -193,6 +231,7 @@ const WatchSection = memo(() => {
     : commonColors.backgroundSecondary;
   const featuredVideoShadow = commonColors.shadowCard;
   const featuredButtonShadow = `0 4px 15px ${commonColors.shadowPrimary}`;
+  const featuredSecondaryButtonShadow = `0 4px 15px ${commonColors.shadowMedium}`;
 
   return (
     <Container size="lg">
@@ -212,13 +251,53 @@ const WatchSection = memo(() => {
 
         .bbg-watch-featured-grid {
           display: grid;
-          grid-template-columns: minmax(0, 0.9fr) minmax(520px, 1.25fr);
-          gap: 2rem;
-          align-items: center;
+          grid-template-columns: minmax(540px, 1fr) minmax(500px, 1.1fr);
+          grid-template-areas:
+            'content video'
+            'actions video';
+          column-gap: 2rem;
+          row-gap: 1rem;
+          align-items: start;
+          align-content: center;
         }
 
-        @media (max-width: 64em) {
+        .bbg-watch-featured-content {
+          grid-area: content;
+        }
+
+        .bbg-watch-featured-video {
+          grid-area: video;
+          align-self: center;
+        }
+
+        .bbg-watch-featured-actions {
+          grid-area: actions;
+          flex-wrap: nowrap;
+        }
+
+        @media (max-width: 78em) {
           .bbg-watch-featured-grid {
+            grid-template-columns: 1fr;
+            grid-template-areas:
+              'content'
+              'video'
+              'actions';
+            row-gap: 1.5rem;
+          }
+
+          .bbg-watch-featured-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            width: 100%;
+          }
+
+          .bbg-watch-featured-actions > * {
+            width: 100%;
+          }
+        }
+
+        @media (max-width: 48em) {
+          .bbg-watch-featured-actions {
             grid-template-columns: 1fr;
           }
         }
@@ -240,14 +319,15 @@ const WatchSection = memo(() => {
             Content
           </Title>
           <Text size="xl" c={commonColors.textSecondary} maw={800} mx="auto">
-            Rainy Day demos, product build notes, and creative breakdowns from the studio.
+            Watch Rainy Day evolve through product demos, engineering decisions, and lessons from
+            user feedback, alongside creative work from the studio.
           </Text>
         </Box>
 
         {featuredVideo?.youtubeId && (
           <Paper p={{ base: 'md', md: 'xl' }} radius="md" withBorder style={featuredCardStyles}>
             <Box className="bbg-watch-featured-grid">
-              <Stack gap="md" justify="center">
+              <Stack className="bbg-watch-featured-content" gap="md" justify="center">
                 <Group gap="xs">
                   <Badge color="sakura" variant="filled" radius="sm">
                     Featured Demo
@@ -276,38 +356,10 @@ const WatchSection = memo(() => {
                 </Box>
 
                 <Text c={featuredDescriptionColor}>{featuredVideo.description}</Text>
-
-                {featuredVideo.youtubeUrl && (
-                  <Group>
-                    <Button
-                      component="a"
-                      href={featuredVideo.youtubeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      leftSection={<IconBrandYoutube size={18} />}
-                      radius="md"
-                      style={{
-                        background: colorCombinations.primaryGradient,
-                        border: 'none',
-                        boxShadow: featuredButtonShadow,
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={e => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = `0 6px 20px ${commonColors.shadowPrimary}`;
-                      }}
-                      onMouseLeave={e => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = featuredButtonShadow;
-                      }}
-                    >
-                      Watch on YouTube
-                    </Button>
-                  </Group>
-                )}
               </Stack>
 
               <Box
+                className="bbg-watch-featured-video"
                 style={{
                   aspectRatio: '16 / 9',
                   borderRadius: '8px',
@@ -325,6 +377,67 @@ const WatchSection = memo(() => {
                   }}
                 />
               </Box>
+
+              {(featuredVideo.youtubeUrl || featuredTechnicalProject?.enableTechnicalDetails) && (
+                <Group className="bbg-watch-featured-actions">
+                  {featuredTechnicalProject?.enableTechnicalDetails && (
+                    <Button
+                      leftSection={<IconSettings size={18} />}
+                      radius="md"
+                      style={{
+                        background: colorCombinations.primaryGradient,
+                        border: 'none',
+                        boxShadow: featuredButtonShadow,
+                        transition: 'all 0.3s ease',
+                      }}
+                      onClick={() => {
+                        setTechnicalDetailsOpened(true);
+                        setModalOpen(true);
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = `0 6px 20px ${commonColors.shadowPrimary}`;
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = featuredButtonShadow;
+                      }}
+                    >
+                      View Technical Details
+                    </Button>
+                  )}
+                  {featuredVideo.youtubeUrl && (
+                    <Button
+                      component="a"
+                      href={featuredVideo.youtubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      color="sakura"
+                      variant="filled"
+                      leftSection={<IconBrandYoutube size={18} />}
+                      radius="md"
+                      style={{
+                        background: commonColors.accentSecondary + '1A',
+                        color: commonColors.accentPrimary,
+                        border: 'none',
+                        borderColor: commonColors.accentPrimary,
+                        boxShadow: featuredSecondaryButtonShadow,
+                        transition: 'all 0.3s ease',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = `0 6px 20px ${commonColors.shadowMedium}`;
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = featuredSecondaryButtonShadow;
+                      }}
+                    >
+                      Watch on YouTube
+                    </Button>
+                  )}
+                </Group>
+              )}
             </Box>
           </Paper>
         )}
@@ -349,6 +462,16 @@ const WatchSection = memo(() => {
           ))}
         </Stack>
       </Stack>
+      {featuredTechnicalProject?.enableTechnicalDetails && (
+        <LazyTechnicalDetailsModal
+          project={featuredTechnicalProject}
+          opened={technicalDetailsOpened}
+          onClose={() => {
+            setTechnicalDetailsOpened(false);
+            setModalOpen(false);
+          }}
+        />
+      )}
     </Container>
   );
 });

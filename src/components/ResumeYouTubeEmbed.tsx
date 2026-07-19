@@ -2,6 +2,7 @@
 
 import { Box, Stack, Text, type BoxProps } from '@mantine/core';
 import { IconPlayerPlay } from '@tabler/icons-react';
+import Image from 'next/image';
 import { memo, useEffect, useRef, useState } from 'react';
 
 const YOUTUBE_IFRAME_API_SRC = 'https://www.youtube.com/iframe_api';
@@ -97,7 +98,7 @@ const getFallbackEmbedUrl = (youtubeId: string) =>
   `${YOUTUBE_EMBED_BASE_URL}/${youtubeId}?${getEmbedSearchParams().toString()}`;
 
 const getThumbnailUrl = (youtubeId: string, quality: 'hqdefault' | 'mqdefault' = 'hqdefault') =>
-  `https://img.youtube.com/vi/${youtubeId}/${quality}.jpg`;
+  `https://i.ytimg.com/vi/${youtubeId}/${quality}.jpg`;
 
 const getStoredProgress = (youtubeId: string) => {
   try {
@@ -377,27 +378,22 @@ const ResumeYouTubeEmbed = memo(
             ...style,
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             alt=""
             aria-hidden="true"
             src={thumbnailSrc}
-            loading="lazy"
-            decoding="async"
-            onError={event => {
+            fill
+            sizes="(max-width: 78em) 100vw, 55vw"
+            onError={() => {
               const nextSrc = getThumbnailUrl(youtubeId, 'mqdefault');
 
-              if (event.currentTarget.src.endsWith('/mqdefault.jpg')) {
+              if (thumbnailSrc.endsWith('/mqdefault.jpg')) {
                 return;
               }
 
               setThumbnailSrc(nextSrc);
             }}
             style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
               objectFit: 'cover',
               pointerEvents: 'none',
             }}

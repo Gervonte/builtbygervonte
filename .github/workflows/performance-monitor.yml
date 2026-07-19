@@ -118,7 +118,7 @@ jobs:
               const scorePercent = category => Math.round(category.score * 100);
               const auditNumber = auditName => lhr.audits[auditName]?.numericValue;
               const lcp = auditNumber('largest-contentful-paint');
-              const fid = auditNumber('max-potential-fid');
+              const tbt = auditNumber('total-blocking-time');
               const cls = auditNumber('cumulative-layout-shift');
               const testedUrl = 'http://localhost:3000/';
               const runUrl =
@@ -137,9 +137,9 @@ jobs:
                 `| Best Practices | ${scorePercent(scores['best-practices'])} | ${scores['best-practices'].score >= 0.9 ? 'Pass' : 'Fail'} |`,
                 `| SEO | ${scorePercent(scores.seo)} | ${scores.seo.score >= 0.9 ? 'Pass' : 'Fail'} |`,
                 '',
-                '### Core Web Vitals',
+                '### Key Lighthouse Metrics',
                 `- **LCP**: ${Number.isFinite(lcp) ? `${Math.round(lcp)}ms` : 'Not reported'}`,
-                `- **FID**: ${Number.isFinite(fid) ? `${Math.round(fid)}ms` : 'Not reported'}`,
+                `- **TBT**: ${Number.isFinite(tbt) ? `${Math.round(tbt)}ms` : 'Not reported'}`,
                 `- **CLS**: ${Number.isFinite(cls) ? cls.toFixed(3) : 'Not reported'}`,
                 '',
                 '### Run Context',
@@ -342,7 +342,7 @@ jobs:
               const scorePercent = category => Math.round(category.score * 100);
               const auditNumber = auditName => lhr.audits[auditName]?.numericValue;
               const lcp = auditNumber('largest-contentful-paint');
-              const fid = auditNumber('max-potential-fid');
+              const tbt = auditNumber('total-blocking-time');
               const cls = auditNumber('cumulative-layout-shift');
               const isCrawlableAudit = lhr.audits['is-crawlable'];
               const requestedDeployment = context.payload.deployment_status?.environment_url || 'Not reported';
@@ -363,9 +363,9 @@ jobs:
                 `| Best Practices | ${scorePercent(scores['best-practices'])} | ${scores['best-practices'].score >= 0.9 ? 'Pass' : 'Fail'} |`,
                 `| SEO | ${scorePercent(scores.seo)} | ${scores.seo.score >= 0.9 ? 'Pass' : 'Fail'} |`,
                 '',
-                '### Core Web Vitals',
+                '### Key Lighthouse Metrics',
                 `- **LCP**: ${Number.isFinite(lcp) ? `${Math.round(lcp)}ms` : 'Not reported'}`,
-                `- **FID**: ${Number.isFinite(fid) ? `${Math.round(fid)}ms` : 'Not reported'}`,
+                `- **TBT**: ${Number.isFinite(tbt) ? `${Math.round(tbt)}ms` : 'Not reported'}`,
                 `- **CLS**: ${Number.isFinite(cls) ? cls.toFixed(3) : 'Not reported'}`,
                 '',
                 '### Run Context',

@@ -11,6 +11,7 @@ interface ParallaxElementProps {
   className?: string;
   children?: React.ReactNode;
   style?: React.CSSProperties;
+  deferUntilInteraction?: boolean;
 }
 
 export default function ParallaxElement({
@@ -20,6 +21,7 @@ export default function ParallaxElement({
   className = '',
   children,
   style = {},
+  deferUntilInteraction = false,
 }: ParallaxElementProps) {
   const elementRef = useRef<HTMLDivElement>(null);
   const instanceRef = useRef<RellaxInstance | null>(null);
@@ -39,31 +41,91 @@ export default function ParallaxElement({
       instanceRef.current = null;
     }
 
-    // Wait a bit for the element to be fully rendered
     let isCancelled = false;
-    const timer = setTimeout(async () => {
-      if (isCancelled || !element.isConnected) {
+    let delayId: number | undefined;
+    let idleId: number | undefined;
+    let observer: IntersectionObserver | undefined;
+    let isWaitingForInteraction = false;
+
+    const initialize = async () => {
+      if (isCancelled || !element.isConnected || instanceRef.current) {
         return;
       }
 
-      const instance = await createRellaxInstance(element, speed, {
-        center,
-        horizontal,
-      });
+      const instance = await createRellaxInstance(element, speed, { center, horizontal });
 
       if (isCancelled && instance) {
         destroyRellaxInstance(instance);
+      } else if (instance) {
+        instanceRef.current = instance;
+      }
+    };
+
+    const removeInteractionListeners = () => {
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('pointerdown', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+      isWaitingForInteraction = false;
+    };
+
+    const scheduleInitialization = (delay = 750) => {
+      observer?.disconnect();
+
+      // Parallax is progressive enhancement. Keep it out of initial render and hydration work.
+      delayId = window.setTimeout(() => {
+        if ('requestIdleCallback' in window) {
+          idleId = window.requestIdleCallback(() => void initialize(), { timeout: 2000 });
+        } else {
+          void initialize();
+        }
+      }, delay);
+    };
+
+    function handleInteraction() {
+      removeInteractionListeners();
+      scheduleInitialization(0);
+    }
+
+    const requestInitialization = () => {
+      if (!deferUntilInteraction) {
+        scheduleInitialization();
         return;
       }
 
-      if (!isCancelled && instance) {
-        instanceRef.current = instance;
+      if (isWaitingForInteraction) {
+        return;
       }
-    }, 200);
+
+      isWaitingForInteraction = true;
+      window.addEventListener('scroll', handleInteraction, { passive: true, once: true });
+      window.addEventListener('pointerdown', handleInteraction, { passive: true, once: true });
+      window.addEventListener('keydown', handleInteraction, { once: true });
+    };
+
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(
+        entries => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            requestInitialization();
+          }
+        },
+        { rootMargin: '150px' }
+      );
+      observer.observe(element);
+    } else {
+      requestInitialization();
+    }
 
     return () => {
       isCancelled = true;
-      clearTimeout(timer);
+      observer?.disconnect();
+      removeInteractionListeners();
+      if (delayId !== undefined) {
+        window.clearTimeout(delayId);
+      }
+      if (idleId !== undefined && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleId);
+      }
       if (instanceRef.current) {
         destroyRellaxInstance(instanceRef.current);
         instanceRef.current = null;
@@ -77,6 +139,7 @@ export default function ParallaxElement({
     destroyRellaxInstance,
     isReducedMotion,
     globalSpeedMultiplier,
+    deferUntilInteraction,
   ]);
 
   return (

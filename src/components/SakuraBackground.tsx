@@ -62,16 +62,14 @@ export default function SakuraBackground({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Use requestIdleCallback for better performance, fallback to setTimeout
-    const scheduleInit = (callback: () => void) => {
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(callback, { timeout: 200 });
-      } else {
-        setTimeout(callback, 100);
-      }
-    };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
 
-    scheduleInit(() => {
+    let delayId: number | undefined;
+    let idleId: number | undefined;
+
+    const initialize = () => {
       const initSakura = async () => {
         try {
           // Load sakura-js as a script since it doesn't have proper ES module support
@@ -79,15 +77,8 @@ export default function SakuraBackground({
             await new Promise((resolve, reject) => {
               const script = document.createElement('script');
               script.src = '/js/sakura-fixed.js';
-              script.async = true; // Make script loading non-blocking
-              script.onload = () => {
-                // Use requestIdleCallback for initialization
-                if ('requestIdleCallback' in window) {
-                  requestIdleCallback(() => resolve(undefined), { timeout: 200 });
-                } else {
-                  setTimeout(() => resolve(undefined), 100);
-                }
-              };
+              script.async = true;
+              script.onload = () => resolve(undefined);
               script.onerror = error => {
                 console.error('Failed to load sakura script:', error);
                 reject(error);
@@ -128,7 +119,6 @@ export default function SakuraBackground({
 
             containerRef.current.appendChild(sakuraContainer);
 
-            // Use requestIdleCallback for sakura initialization
             const initSakuraEffect = () => {
               const element = document.getElementById(containerId);
               if (element) {
@@ -145,11 +135,7 @@ export default function SakuraBackground({
               }
             };
 
-            if ('requestIdleCallback' in window) {
-              requestIdleCallback(initSakuraEffect, { timeout: 200 });
-            } else {
-              setTimeout(initSakuraEffect, 0);
-            }
+            initSakuraEffect();
           }
         } catch (error) {
           console.warn('Failed to load sakura effect:', error);
@@ -157,9 +143,33 @@ export default function SakuraBackground({
       };
 
       initSakura();
-    });
+    };
+
+    const scheduleInitialization = () => {
+      // Decorative animation should not compete with the hero's initial render or hydration.
+      delayId = window.setTimeout(() => {
+        if ('requestIdleCallback' in window) {
+          idleId = window.requestIdleCallback(initialize, { timeout: 4000 });
+        } else {
+          initialize();
+        }
+      }, 2000);
+    };
+
+    if (document.readyState === 'complete') {
+      scheduleInitialization();
+    } else {
+      window.addEventListener('load', scheduleInitialization, { once: true });
+    }
 
     return () => {
+      window.removeEventListener('load', scheduleInitialization);
+      if (delayId !== undefined) {
+        window.clearTimeout(delayId);
+      }
+      if (idleId !== undefined && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleId);
+      }
       const currentContainer = containerRef.current;
       if (currentContainer) {
         const sakuraContainer = currentContainer.querySelector(
