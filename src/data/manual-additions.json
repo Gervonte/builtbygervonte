@@ -35,6 +35,7 @@
         "PDF Ingestion",
         "Row Level Security",
         "Integration Testing",
+        "Playwright",
         "Linear",
         "Vercel",
         "Mintlify",
@@ -44,11 +45,11 @@
         "Data Normalization"
       ],
       "achievements": [
-        "Designed and built Rainy Day, a full-stack financial data platform enabling user-permissioned personal finance management in Caribbean markets where connected-account coverage is limited, using uploaded bank statements as the primary data source.",
-        "Expanded Rainy Day statement ingestion across CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, normalizing local bank and credit union statements into a canonical transaction model.",
-        "Developed deterministic financial analysis workflows that classify transaction history into recurring bills, income/payday signals, and confidence-based spending categories, generating projected cash flow with user-facing explanations and source attribution.",
-        "Implemented Supabase/Postgres persistence with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication to prevent duplicate transactions across overlapping user-selected CSV and PDF statement imports.",
-        "Added parser validation and ingestion regression tests covering CSV/PDF edge cases across supported institution formats, including malformed rows, date parsing inconsistencies, and duplicate-detection failures."
+        "Founded Rainy Day, a statement-first personal finance platform for Caribbean consumers with limited connected-account coverage, using bank statements as the primary financial data source.",
+        "Expanded Rainy Day ingestion across 4 institutions including CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, normalizing CSV/PDF statements into a canonical transaction model.",
+        "Used PostHog funnel analytics to diagnose a profile-selection gate causing 77% drop-off before product entry; redesigned onboarding to raise first-time entry from 23% to 97% and full-product reach from 0% to 27% across 100+ demo users.",
+        "Designed deterministic analysis workflows for recurring bills, income signals, 10 automatic default categories, and projected cash flow with user-facing explanations.",
+        "Architected Supabase/Postgres persistence with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication."
       ]
     },
     {
@@ -72,10 +73,11 @@
         "GitHub Actions"
       ],
       "achievements": [
-        "Engineered features that expanded Credit Passport® capabilities into Nova Credit’s Public API, enabling international financial partners to access cross-border credit data through developer-facing infrastructure tied to HSBC’s global Credit Passport® partnership and $10M HSBC Ventures investment.",
-        "Owned Public API integration work for Philippines, Kenya, and Dominican Republic within a 13-country rollout, resolving bureau-specific requirements, verification flows, and market edge cases to create a more consistent partner integration experience.",
-        "Built and refined secure REST API workflows using TypeScript, Node.js, React, and PostgreSQL to expose real-time international credit data through developer-facing endpoints.",
-        "Implemented bureau-specific retry logic by identifying supported markets, defining expected behavior, updating technical documentation, and validating flows through integration testing."
+        "Engineered Public API features that expanded Credit Passport® for international partners, tying cross-border credit access to HSBC’s global partnership and $10M investment.",
+        "Owned Public API integration work for the Philippines, Kenya, and Dominican Republic within a 13-country rollout, improving partner integration consistency.",
+        "Built secure REST API workflows using TypeScript, Node.js, React, and PostgreSQL to expose real-time international credit data through developer endpoints.",
+        "Implemented bureau-specific retry logic across supported markets, defining expected behavior and validating flows through integration testing.",
+        "Created and maintained customer-facing API documentation from scratch, defining endpoints and request/response contracts for international partners."
       ]
     },
     {
@@ -108,9 +110,9 @@
         "Scikit-learn"
       ],
       "achievements": [
-        "Evaluated LLMs (ChatGPT, Gemini, QWEN) for generating Agile user stories using structured metrics such as coherence, completeness, and relevance.",
-        "Developed a lightweight framework for integrating LLM outputs into real-world Agile workflows to improve clarity and delivery speed.",
-        "Simulated product integration and human-in-the-loop validation, emphasizing real-world usage and developer trust."
+        "Co-authored IEEE publication evaluating 20+ large language models for Agile user-story generation and story-point estimation across a 40,014-story dataset.",
+        "Compared model performance across accuracy, cost efficiency, latency, and stability to produce deployment recommendations for production environments.",
+        "Produced implementation guidance balancing throughput, inference cost, and reasoning quality for different engineering use cases."
       ]
     },
     {
