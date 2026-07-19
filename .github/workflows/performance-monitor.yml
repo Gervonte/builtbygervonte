@@ -24,7 +24,7 @@ jobs:
       PNPM_CONFIG_MINIMUM_RELEASE_AGE: '0'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Node.js and pnpm
         uses: ./.github/actions/setup-node-pnpm
@@ -197,7 +197,7 @@ jobs:
       github.event.deployment_status.environment_url
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Verify Vercel preview URL bypass
         env:
