@@ -60,9 +60,9 @@ const HeroSection = memo(() => {
                   color: commonColors.textSecondary,
                 }}
                 role="text"
-                aria-label="M.S. Computer Science, IEEE LLM Research, Building Rainy Day in Public"
+                aria-label="M.S. Computer Science, IEEE LLM Research, Building Rainy Day"
               >
-                M.S. Computer Science • IEEE LLM Research • Building Rainy Day in Public
+                M.S. Computer Science • IEEE LLM Research • Building Rainy Day
                 <br />
                 <span aria-hidden="true">🇧🇸</span>
               </Text>
