@@ -97,6 +97,7 @@ export const watchVideos: WatchVideo[] = [
     youtubeUrl: 'https://www.youtube.com/watch?v=G8AT6G2Vm_Q',
     youtubeId: 'G8AT6G2Vm_Q',
     status: 'published',
+    duration: '06:56',
     featured: true,
     technicalDetailsProjectId: 'rainy-day',
   },
