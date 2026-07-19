@@ -35,11 +35,12 @@ import {
   IconSettings,
   IconVideoOff,
 } from '@tabler/icons-react';
+import Image from 'next/image';
 import { memo, useMemo, useState } from 'react';
 import { LazyTechnicalDetailsModal } from './LazyComponents';
 import ResumeYouTubeEmbed from './ResumeYouTubeEmbed';
 
-const YOUTUBE_THUMBNAIL_BASE_URL = 'https://img.youtube.com/vi';
+const YOUTUBE_THUMBNAIL_BASE_URL = 'https://i.ytimg.com/vi';
 
 const getVideoStatusLabel = (video: WatchVideo) => {
   if (video.status === 'coming-soon') {
@@ -91,9 +92,7 @@ const VideoCard = ({ video }: { video: WatchVideo }) => {
             position: 'relative',
             aspectRatio: '16 / 9',
             borderRadius: '8px',
-            background: thumbnailUrl
-              ? `linear-gradient(rgba(14, 20, 27, 0.04), rgba(14, 20, 27, 0.08)), url(${thumbnailUrl}) center / cover`
-              : colorCombinations.primaryGradientLight,
+            background: colorCombinations.primaryGradientLight,
             border: `1px solid ${commonColors.borderPrimary}`,
             display: 'flex',
             alignItems: 'center',
@@ -101,6 +100,26 @@ const VideoCard = ({ video }: { video: WatchVideo }) => {
             overflow: 'hidden',
           }}
         >
+          {thumbnailUrl && (
+            <>
+              <Image
+                src={thumbnailUrl}
+                alt=""
+                aria-hidden="true"
+                fill
+                sizes="(max-width: 48em) 100vw, (max-width: 75em) 50vw, 33vw"
+                style={{ objectFit: 'cover' }}
+              />
+              <Box
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(rgba(14, 20, 27, 0.04), rgba(14, 20, 27, 0.08))',
+                }}
+              />
+            </>
+          )}
           {video.duration && (
             <Badge
               color="dark"
@@ -114,6 +133,7 @@ const VideoCard = ({ video }: { video: WatchVideo }) => {
                 background: 'rgba(14, 20, 27, 0.82)',
                 color: '#FFFFFF',
                 backdropFilter: 'blur(8px)',
+                zIndex: 1,
               }}
             >
               {video.duration}
