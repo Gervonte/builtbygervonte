@@ -2,7 +2,12 @@ import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const rainyDayScreenshot = new URL(
+    '/images/technical/rainy-day/tour-overview.png',
+    request.url
+  ).toString();
+
   return new ImageResponse(
     <div
       style={{
@@ -10,116 +15,154 @@ export async function GET() {
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#FDFCFB',
-        backgroundImage: 'linear-gradient(135deg, #F8BBD9 0%, #E91E63 100%)',
+        backgroundColor: '#0D141C',
+        backgroundImage:
+          'radial-gradient(circle at 8% 10%, rgba(255, 93, 102, 0.18) 0%, transparent 30%), radial-gradient(circle at 94% 88%, rgba(248, 187, 217, 0.12) 0%, transparent 34%)',
+        color: '#F7F8FA',
         fontFamily: 'system-ui, sans-serif',
+        padding: '34px 52px',
       }}
     >
-      {/* Sakura petals decoration */}
       <div
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background:
-            'radial-gradient(circle at 20% 20%, rgba(248, 187, 217, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(233, 30, 99, 0.2) 0%, transparent 50%)',
-        }}
-      />
-
-      {/* Main content */}
-      <div
-        style={{
+          width: '100%',
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          padding: '60px',
-          zIndex: 1,
+          justifyContent: 'flex-start',
         }}
       >
-        {/* Name */}
-        <div
-          style={{
-            fontSize: 72,
-            fontWeight: 700,
-            color: '#E91E63',
-            marginBottom: 20,
-            textShadow: '0 4px 8px rgba(0,0,0,0.1)',
-          }}
-        >
-          BuiltByGervonte
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ fontSize: 31, fontWeight: 800 }}>BuiltByGervonte</div>
+          <div style={{ color: '#93A3B5', fontSize: 17, marginTop: 3 }}>
+            Software Studio By Gervonté Fowler
+          </div>
         </div>
+      </div>
 
-        {/* Title */}
+      <div
+        style={{
+          width: '100%',
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 34,
+          marginTop: 18,
+        }}
+      >
         <div
           style={{
-            fontSize: 36,
-            fontWeight: 600,
-            color: '#2C3E50',
-            marginBottom: 30,
-            maxWidth: 800,
-            lineHeight: 1.2,
-          }}
-        >
-          Rainy Day, Caribbean Fintech, and Software Demos
-        </div>
-
-        {/* Description */}
-        <div
-          style={{
-            fontSize: 24,
-            color: '#5A6C7D',
-            maxWidth: 700,
-            lineHeight: 1.4,
-            marginBottom: 40,
-          }}
-        >
-          Statement-based personal finance for Caribbean markets, plus founder stories and technical
-          product work.
-        </div>
-
-        {/* Tech stack */}
-        <div
-          style={{
+            width: 402,
+            height: '100%',
             display: 'flex',
-            flexWrap: 'wrap',
-            gap: 12,
+            flexDirection: 'column',
             justifyContent: 'center',
-            marginBottom: 30,
           }}
         >
-          {['Rainy Day', 'Caribbean Fintech', 'Software Demos', 'Private Alpha'].map(tech => (
-            <div
-              key={tech}
-              style={{
-                backgroundColor: 'rgba(233, 30, 99, 0.1)',
-                color: '#E91E63',
-                padding: '8px 16px',
-                borderRadius: 20,
-                fontSize: 18,
-                fontWeight: 500,
-                border: '2px solid rgba(233, 30, 99, 0.2)',
-              }}
-            >
-              {tech}
+          <div
+            style={{
+              color: '#FF7A82',
+              fontSize: 17,
+              fontWeight: 800,
+              letterSpacing: 2.2,
+              marginBottom: 14,
+            }}
+          >
+            STATEMENT-FIRST PERSONAL FINANCE
+          </div>
+
+          <div
+            style={{
+              fontSize: 44,
+              fontWeight: 800,
+              lineHeight: 1.05,
+              letterSpacing: -1.5,
+              marginBottom: 22,
+            }}
+          >
+            Built for The Bahamas, even when banks don’t connect.
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              paddingLeft: 18,
+              borderLeft: '4px solid #FF5D66',
+              marginBottom: 24,
+            }}
+          >
+            <div style={{ color: '#F7F8FA', fontSize: 21, fontWeight: 750 }}>
+              4 Caribbean institutions + cash.
             </div>
-          ))}
+            <div style={{ color: '#A9B8C8', fontSize: 20, marginTop: 4 }}>
+              One consistent financial picture.
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'nowrap',
+              alignItems: 'center',
+              gap: 4,
+              color: '#93A3B5',
+              fontSize: 12,
+              fontWeight: 650,
+              lineHeight: 1.35,
+            }}
+          >
+            <span>M.S. Computer Science •</span>
+            <span>IEEE LLM Research •</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span>Building Rainy Day</span>
+              <svg width="24" height="15" viewBox="0 0 32 20" aria-label="Flag of The Bahamas">
+                <rect width="32" height="6.67" fill="#00ABC9" />
+                <rect y="6.67" width="32" height="6.66" fill="#FAE042" />
+                <rect y="13.33" width="32" height="6.67" fill="#00ABC9" />
+                <path d="M0 0L12 10L0 20Z" fill="#000000" />
+              </svg>
+            </div>
+          </div>
         </div>
 
-        {/* Portfolio URL */}
         <div
           style={{
-            fontSize: 20,
-            color: '#7F8C8D',
-            fontWeight: 500,
+            width: 660,
+            height: 430,
+            display: 'flex',
+            position: 'relative',
+            padding: 2,
+            borderRadius: 20,
+            background: 'rgba(255, 176, 198, 0.38)',
+            boxShadow: '0 28px 70px rgba(0, 0, 0, 0.42)',
           }}
         >
-          builtbygervonte.com
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              overflow: 'hidden',
+              borderRadius: 18,
+              backgroundColor: '#080C11',
+            }}
+          >
+            {/* ImageResponse requires a native image element for remote or route-backed assets. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={rainyDayScreenshot}
+              alt="Rainy Day v0.2.1 guided demo overview"
+              width={640}
+              height={410}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+                transform: 'translateY(-7%) scale(1.28)',
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>,
