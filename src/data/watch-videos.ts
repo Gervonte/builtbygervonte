@@ -29,6 +29,7 @@ export interface WatchVideo {
   publishedAt?: string;
   status: WatchVideoStatus;
   featured?: boolean;
+  technicalDetailsProjectId?: string;
   // Preserve videos for future pages while excluding them from the homepage Content grid.
   showInMainContent?: boolean;
   relatedLinks?: WatchVideoLink[];
@@ -76,14 +77,28 @@ export const watchVideos: WatchVideo[] = [
     title: 'Rainy Day v0.2.0',
     subtitle: 'Deterministic Intelligence, Observability & Public Demo',
     description:
-      'See how Rainy Day turns consumer-permissioned data into a clearer financial picture, moving beyond manual statement review with categorization suggestions, subscription tracking, and cash-flow forecasts.',
+      'See how Rainy Day turns consumer-permissioned data into a clearer financial picture across 4 local institutions, moving beyond manual statement review with 10 automatic default categories, subscription tracking, and cash-flow forecasts.',
     category: 'software-demo',
     collection: 'Software Demos',
     youtubeUrl: 'https://www.youtube.com/watch?v=98GISOrBvts',
     youtubeId: '98GISOrBvts',
     duration: '27:30',
     status: 'published',
+  },
+  {
+    id: 'rainy-day-v0-2-1',
+    slug: 'rainy-day-v0-2-1',
+    title: 'Rainy Day v0.2.1',
+    subtitle: "Don't Make Me Think: Guided Demo & Field Testing Updates",
+    description:
+      'See how I applied Steve Krug’s Don’t Make Me Think principles after PostHog revealed a 77% onboarding drop-off, redesigning onboarding around a guided walkthrough that increased first-time product entry from 23% to 97% and full-product reach from 0% to 27% across 100+ demo users.',
+    category: 'build-log',
+    collection: 'Software Demos',
+    youtubeUrl: 'https://www.youtube.com/watch?v=G8AT6G2Vm_Q',
+    youtubeId: 'G8AT6G2Vm_Q',
+    status: 'published',
     featured: true,
+    technicalDetailsProjectId: 'rainy-day',
   },
   {
     id: 'leetcode-beastmode',
@@ -91,7 +106,7 @@ export const watchVideos: WatchVideo[] = [
     title: 'LEETCODE BEASTMODE',
     subtitle: 'From Internet Outage to Coding Anthem',
     description:
-      'The original LEETCODE BEASTMODE video posted by JamesPeraltaSWE, featuring a track I first recorded, mixed, and mastered at home in November 2023, originally released as “1337” after my internet went out while I was practicing LeetCode.',
+      'Recorded, mixed, and mastered at home in The Bahamas after my internet went out while writing code. The song later reached thousands of programmers through software engineering creator James Peralta’s channel, becoming part of listeners’ routines before contests, after solving problems, and during late-night practice sessions.',
     category: 'creative-breakdown',
     collection: 'Creative / Culture',
     youtubeUrl: 'https://www.youtube.com/watch?v=oOWc9QAoTKg',
@@ -105,7 +120,7 @@ export const watchVideos: WatchVideo[] = [
     title: 'LEETCODE BEASTMODE - BEHIND THE SONG',
     subtitle: 'The DAW, the Mix, and the LeetCode Era',
     description:
-      'Behind the scenes of “LEETCODE BEASTMODE.” I break down the DAW setup, vocal chain, mixing choices, and the early 2023 to summer 2024 era in The Bahamas, when I was sharpening my skillset across system design and LeetCode style questions while searching locally for software roles before ultimately returning to the U.S. for my master’s degree and access to a larger job market.',
+      'Originally recorded in November 2023, this is a behind-the-scenes look at the engineering of “LEETCODE BEASTMODE.” I break down the vocal chain, stereo imaging, arrangement, and mix decisions while revisiting the Bahamas coding era that inspired the record.',
     category: 'creative-breakdown',
     collection: 'Creative / Culture',
     youtubeUrl: 'https://www.youtube.com/watch?v=GlbWLTu42Ws',

@@ -60,11 +60,9 @@ const HeroSection = memo(() => {
                   color: commonColors.textSecondary,
                 }}
                 role="text"
-                aria-label="Full-stack software engineer building fintech products, technical content, and 0 to
-                1 creative systems."
+                aria-label="M.S. Computer Science, IEEE LLM Research, Building Rainy Day in Public"
               >
-                Full-stack software engineer building fintech products, technical content, and 0 to
-                1 creative systems.
+                M.S. Computer Science • IEEE LLM Research • Building Rainy Day in Public
                 <br />
                 <span aria-hidden="true">🇧🇸</span>
               </Text>
@@ -78,7 +76,7 @@ const HeroSection = memo(() => {
                   rel="noopener noreferrer"
                   size="lg"
                   color="sakura"
-                  aria-label="Try Rainy Day public demo"
+                  aria-label="Try the Rainy Day public guided demo"
                   style={{
                     background: colorCombinations.primaryGradient,
                     border: 'none',
