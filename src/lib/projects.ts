@@ -47,11 +47,20 @@ export interface ProjectScreenshot {
   modalFit?: 'contain' | 'cover';
 }
 
+export interface TechnicalOverviewCard {
+  icon: 'file-upload' | 'database' | 'checklist' | 'shield-check';
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
 export interface TechnicalSection {
   enabled?: boolean;
   showScreenshots?: boolean;
   screenshots: Array<string | ProjectScreenshot>;
   description: string;
+  overviewHeadline?: string;
+  overviewCards?: TechnicalOverviewCard[];
   [key: string]: unknown; // Allow for flexible additional properties
 }
 

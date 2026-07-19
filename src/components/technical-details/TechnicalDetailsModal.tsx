@@ -301,6 +301,22 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                   {/* Overview Card */}
                   <OverviewCard section={section} sectionKey={key} commonColors={commonColors} />
 
+                  {/* Screenshots Section */}
+                  {shouldShowSection(section, 'screenshots') ? (
+                    <ScreenshotGallery
+                      screenshots={section.screenshots}
+                      sectionKey={key}
+                      commonColors={commonColors}
+                      onImageSelect={image => {
+                        setSelectedImage(image);
+                        const index = currentTabScreenshots.findIndex(img => img.src === image.src);
+                        if (index !== -1) {
+                          setCurrentImageIndex(index);
+                        }
+                      }}
+                    />
+                  ) : null}
+
                   {/* Metrics Display */}
                   {shouldShowSection(section, 'metrics') ? (
                     <MetricsCard section={section} sectionKey={key} commonColors={commonColors} />
@@ -343,22 +359,6 @@ const TechnicalDetailsModal = memo(({ project, opened, onClose }: TechnicalDetai
                       section={section}
                       sectionKey={key}
                       commonColors={commonColors}
-                    />
-                  ) : null}
-
-                  {/* Screenshots Section */}
-                  {shouldShowSection(section, 'screenshots') ? (
-                    <ScreenshotGallery
-                      screenshots={section.screenshots}
-                      sectionKey={key}
-                      commonColors={commonColors}
-                      onImageSelect={image => {
-                        setSelectedImage(image);
-                        const index = currentTabScreenshots.findIndex(img => img.src === image.src);
-                        if (index !== -1) {
-                          setCurrentImageIndex(index);
-                        }
-                      }}
                     />
                   ) : null}
                 </div>

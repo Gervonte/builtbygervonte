@@ -195,10 +195,12 @@
         "PostgreSQL",
         "PostHog",
         "Sentry",
+        "Driver.js",
         "CSV Ingestion",
         "PDF Ingestion",
         "Row Level Security",
         "Integration Testing",
+        "Playwright",
         "Linear",
         "Vercel",
         "Mintlify",
@@ -232,7 +234,34 @@
         "product": {
           "enabled": true,
           "showScreenshots": true,
-          "description": "Rainy Day is a full-stack financial data platform built for Caribbean markets where connected-account coverage is limited. Users upload bank statements as the primary data source for personal finance management.\n\nStatement ingestion spans CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, with parsers normalizing local bank and credit union formats into a canonical transaction model.\n\nThe persistence layer uses Supabase/Postgres with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication to prevent duplicate transactions across overlapping CSV and PDF imports.\n\nDeterministic financial analysis classifies transaction history into recurring bills, income/payday signals, and confidence-based spending categories, generating projected cash flow with user-facing explanations and source attribution.\n\nParser validation and ingestion regression tests cover CSV/PDF edge cases across supported institution formats, including malformed rows, date parsing inconsistencies, and duplicate-detection failures.",
+          "description": "Rainy Day is a statement-first personal finance platform for Caribbean markets where connected-account coverage is limited. Uploaded bank statements provide the primary data source when connected accounts or open banking APIs are unavailable.",
+          "overviewHeadline": "What is Rainy Day?",
+          "overviewCards": [
+            {
+              "icon": "file-upload",
+              "eyebrow": "Ingestion & Normalization",
+              "title": "4 Caribbean institutions. Cash included. One consistent financial picture.",
+              "description": "CSV and PDF statements from four Caribbean banks and credit unions are normalized alongside manually tracked cash transactions. Support for additional institutions is prioritized and expanded based on user feedback."
+            },
+            {
+              "icon": "database",
+              "eyebrow": "Secure Persistence",
+              "title": "The same statement should never count twice.",
+              "description": "Supabase/Postgres, Row Level Security, transactional upload RPCs, statement hashing, and overlap-safe deduplication keep imports secure, traceable, and duplicate-free."
+            },
+            {
+              "icon": "checklist",
+              "eyebrow": "Reviewable Intelligence",
+              "title": "Automatic analysis. Human review where confidence drops.",
+              "description": "Deterministic analysis identifies recurring bills, income and payday signals, categories, and projected cash flow. Lower-confidence findings remain reviewable before they shape summaries or forecasts."
+            },
+            {
+              "icon": "shield-check",
+              "eyebrow": "Validation & Reliability",
+              "title": "Messy files shouldn’t create bad answers.",
+              "description": "Parser validation and ingestion regression tests cover malformed rows, inconsistent dates, institution-specific formats, and duplicate-detection failures before they affect the financial picture."
+            }
+          ],
           "tools": [
             "TypeScript",
             "React",
@@ -241,10 +270,12 @@
             "PostgreSQL",
             "PostHog",
             "Sentry",
+            "Driver.js",
             "CSV Ingestion",
             "PDF Ingestion",
             "Row Level Security",
             "Integration Testing",
+            "Playwright",
             "Linear",
             "Vercel",
             "Mintlify",
@@ -256,49 +287,57 @@
           ],
           "screenshots": [
             {
-              "src": "rainy-day/auth.png",
-              "caption": "Authentication flow for signing into Rainy Day",
-              "alt": "Rainy Day sign in experience",
+              "src": "rainy-day/auth-1.png",
+              "caption": "Redesigned passwordless entry with a prominent Try demo action and a clear less than 5 minutes expectation.",
+              "alt": "Rainy Day v0.2.1 passwordless sign-in and guided demo entry in dark mode",
               "modalFit": "contain",
               "modalPosition": "center center",
               "modalScale": 1
             },
             {
-              "src": "rainy-day/overview.png",
-              "caption": "Uploaded Caribbean bank statement data normalized into spending, income, categories, and recent transactions.",
-              "alt": "Rainy Day overview dashboard with CIBC Caribbean transactions",
+              "src": "rainy-day/auth-2.png",
+              "caption": "The redesigned entry previews upcoming bills, recurring expenses, and expected cash flow before visitors begin.",
+              "alt": "Rainy Day v0.2.1 auth entry previewing the forecast experience in dark mode",
               "modalFit": "contain",
               "modalPosition": "center center",
               "modalScale": 1
             },
             {
-              "src": "rainy-day/mobile-overview.png",
-              "caption": "Mobile overview with spending, income, net, and At a glance forecast insights.",
-              "alt": "Rainy Day mobile overview with At a glance forecast carousel",
+              "src": "rainy-day/auth-3.png",
+              "caption": "The auth entry explains review-before-trust: visitors confirm or correct findings before they shape the financial picture.",
+              "alt": "Rainy Day v0.2.1 auth entry previewing reviewable category suggestions in dark mode",
               "modalFit": "contain",
               "modalPosition": "center center",
               "modalScale": 1
             },
             {
-              "src": "rainy-day/transactions.png",
-              "caption": "Transactions page for reviewing imported financial activity",
-              "alt": "Rainy Day transactions page",
+              "src": "rainy-day/tour-overview.png",
+              "caption": "A Driver.js tour explains the Overview while the persistent Complete demo guide tracks progress and the profile switcher keeps fictional data explicit.",
+              "alt": "Rainy Day v0.2.1 Overview tour with fictional Reina profile and Complete demo progress guide",
               "modalFit": "contain",
               "modalPosition": "center center",
               "modalScale": 1
             },
             {
-              "src": "rainy-day/forecast.png",
-              "caption": "Deterministic projections from accepted activity, upcoming bills, and payday signals.",
-              "alt": "Rainy Day forecast dashboard with upcoming bills and payday signals",
+              "src": "rainy-day/tour-rey-transactions.png",
+              "caption": "The Transactions walkthrough teaches visitors to inspect statement details while persistent progress records the completed step.",
+              "alt": "Rainy Day v0.2.1 Transactions contextual tour for the fictional Rey profile in light mode",
               "modalFit": "contain",
               "modalPosition": "center center",
               "modalScale": 1
             },
             {
-              "src": "rainy-day/review.png",
-              "caption": "User-confirmed patterns keep summaries and forecasts grounded in reviewable evidence.",
-              "alt": "Rainy Day review page with user-confirmed patterns",
+              "src": "rainy-day/mobile-tour-review.png",
+              "caption": "The responsive Review tour keeps uncertain category suggestions visible until the visitor confirms or corrects them.",
+              "alt": "Rainy Day v0.2.1 responsive Review tour showing an uncertain category suggestion",
+              "modalFit": "contain",
+              "modalPosition": "center center",
+              "modalScale": 1
+            },
+            {
+              "src": "rainy-day/mobile-tour-guide.png",
+              "caption": "The expanded Complete demo guide connects product walkthroughs with feedback, early access, sharing, and final completion actions.",
+              "alt": "Rainy Day v0.2.1 responsive progress guide listing product, feedback, sharing, and completion steps",
               "modalFit": "contain",
               "modalPosition": "center center",
               "modalScale": 1
@@ -308,8 +347,8 @@
         "monitoring": {
           "enabled": true,
           "showScreenshots": true,
-          "description": "Rainy Day uses privacy-aware product analytics and runtime monitoring to understand demo behavior, collect feedback, catch errors, and turn operational signals into follow-up product work without exposing raw financial payloads.",
-          "tools": ["PostHog", "Sentry", "Linear"],
+          "description": "Rainy Day v0.2.1 adds Driver.js contextual tours and browser-persisted checklist progress to guide visitors through the public demo in less than 5 minutes. Privacy-safe PostHog event allowlists measure tour progress, demo completion, feedback, early-access requests, and sharing without capturing raw financial payloads. Sentry monitors runtime health, while Linear turns field-testing signals into focused follow-up improvements.",
+          "tools": ["Driver.js", "PostHog", "Sentry", "Linear"],
           "screenshots": [
             {
               "src": "rainy-day/demo-feedback-survey.png",

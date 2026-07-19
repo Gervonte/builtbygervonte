@@ -1,6 +1,7 @@
 'use client';
 
 import { getFeaturedProjects, getProjectsByType, projectsData, type Project } from '@/lib/projects';
+import { useModal } from '@/lib/modal-context';
 import { getProjectScreenshots } from '@/lib/screenshot';
 import { useColorCombinations } from '@/lib/theme-aware-colors';
 import { Badge, Box, Container, Group, SimpleGrid, Stack, Tabs, Text, Title } from '@mantine/core';
@@ -13,8 +14,9 @@ import {
   IconSparkles,
   IconTools,
 } from '@tabler/icons-react';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import ExpandableProjectCard from './ExpandableProjectCard';
+import { LazyTechnicalDetailsModal } from './LazyComponents';
 import UnifiedCard from './UnifiedCard';
 
 // Get projects from metadata file
@@ -33,6 +35,8 @@ const getProjectTypeLabel = (type: Project['type']) => {
 
 const WorkSection = memo(() => {
   const colorCombinations = useColorCombinations();
+  const { setModalOpen } = useModal();
+  const [featuredTechnicalProject, setFeaturedTechnicalProject] = useState<Project | null>(null);
   const vibeCodedProjects = useMemo(() => getProjectsByType('vibe-coded'), []);
   const standardWorkProjects = useMemo(() => getProjectsByType('standard-work'), []);
   const featuredProjects = useMemo(() => getFeaturedProjects(), []);
@@ -117,7 +121,7 @@ const WorkSection = memo(() => {
                   primaryAction={
                     project.liveUrl
                       ? {
-                          label: 'Live Demo',
+                          label: project.id === 'rainy-day' ? 'Try demo' : 'Live Demo',
                           icon: <IconExternalLink size={14} />,
                           href: project.liveUrl,
                           tooltip:
@@ -132,6 +136,15 @@ const WorkSection = memo(() => {
                           icon: <IconBrandGithub size={14} />,
                           href: project.githubUrl,
                           tooltip: 'View Source Code',
+                        }
+                      : undefined
+                  }
+                  enableTechnicalDetails={project.enableTechnicalDetails}
+                  onTechnicalDetailsClick={
+                    project.enableTechnicalDetails
+                      ? () => {
+                          setFeaturedTechnicalProject(project);
+                          setModalOpen(true);
                         }
                       : undefined
                   }
@@ -219,6 +232,16 @@ const WorkSection = memo(() => {
           </Tabs.Panel>
         </Tabs>
       </Stack>
+      {featuredTechnicalProject && (
+        <LazyTechnicalDetailsModal
+          project={featuredTechnicalProject}
+          opened={true}
+          onClose={() => {
+            setFeaturedTechnicalProject(null);
+            setModalOpen(false);
+          }}
+        />
+      )}
     </Container>
   );
 });
