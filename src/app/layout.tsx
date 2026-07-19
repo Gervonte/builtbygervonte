@@ -29,7 +29,7 @@ const inter = localFont({
       weight: '100 900',
     },
   ],
-  display: 'optional',
+  display: 'swap',
   fallback: ['system-ui', 'Arial', 'sans-serif'],
   adjustFontFallback: 'Arial',
   preload: true,
