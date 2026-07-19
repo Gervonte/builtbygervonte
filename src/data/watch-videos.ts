@@ -1,9 +1,5 @@
 export type WatchVideoCategory =
-  | 'founder-story'
-  | 'software-demo'
-  | 'build-log'
-  | 'creative-breakdown'
-  | 'life-discipline';
+  'founder-story' | 'software-demo' | 'build-log' | 'creative-breakdown' | 'life-discipline';
 
 export type WatchVideoCollection = 'Founder Stories' | 'Software Demos' | 'Creative / Culture';
 

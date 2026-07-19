@@ -8,13 +8,7 @@ import { MobileTooltip } from './MobileTooltip';
 
 interface BadgeWithTooltipProps extends BadgeProps {
   contextType:
-    | 'skill'
-    | 'projectType'
-    | 'status'
-    | 'technology'
-    | 'aiTool'
-    | 'cache'
-    | 'leadership';
+    'skill' | 'projectType' | 'status' | 'technology' | 'aiTool' | 'cache' | 'leadership';
   contextValue: string;
   showCapabilities?: boolean;
 }
