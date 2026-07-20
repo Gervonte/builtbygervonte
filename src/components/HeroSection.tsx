@@ -30,7 +30,7 @@ const HeroSection = memo(() => {
       >
         <Container size="lg" py="xl">
           <Stack align="center" gap="xl">
-            <ParallaxElement speed={getHeroSpeed('title')}>
+            <ParallaxElement speed={getHeroSpeed('title')} deferUntilInteraction>
               <Title
                 order={1}
                 ta="center"
@@ -49,7 +49,7 @@ const HeroSection = memo(() => {
                 Hello, I&apos;m Gervonte Fowler
               </Title>
             </ParallaxElement>
-            <ParallaxElement speed={getHeroSpeed('subtitle')}>
+            <ParallaxElement speed={getHeroSpeed('subtitle')} deferUntilInteraction>
               <Text
                 ta="center"
                 size="xl"
@@ -60,16 +60,14 @@ const HeroSection = memo(() => {
                   color: commonColors.textSecondary,
                 }}
                 role="text"
-                aria-label="Full-stack software engineer building fintech products, technical content, and 0 to
-                1 creative systems."
+                aria-label="M.S. Computer Science, IEEE LLM Research, Building Rainy Day"
               >
-                Full-stack software engineer building fintech products, technical content, and 0 to
-                1 creative systems.
+                M.S. Computer Science • IEEE LLM Research • Building Rainy Day
                 <br />
                 <span aria-hidden="true">🇧🇸</span>
               </Text>
             </ParallaxElement>
-            <ParallaxElement speed={getHeroSpeed('buttons')}>
+            <ParallaxElement speed={getHeroSpeed('buttons')} deferUntilInteraction>
               <Group justify="center" gap="md" role="group" aria-label="Navigation actions">
                 <Button
                   component="a"
@@ -78,7 +76,7 @@ const HeroSection = memo(() => {
                   rel="noopener noreferrer"
                   size="lg"
                   color="sakura"
-                  aria-label="Try Rainy Day public demo"
+                  aria-label="Try the Rainy Day public guided demo"
                   style={{
                     background: colorCombinations.primaryGradient,
                     border: 'none',

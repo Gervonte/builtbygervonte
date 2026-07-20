@@ -98,6 +98,13 @@ public/images/technical/rainy-day/*
 !public/images/technical/rainy-day/transactions.png
 !public/images/technical/rainy-day/demo-feedback-survey.png
 !public/images/technical/rainy-day/sentry-verification-error.png
+!public/images/technical/rainy-day/auth-1.png
+!public/images/technical/rainy-day/auth-2.png
+!public/images/technical/rainy-day/auth-3.png
+!public/images/technical/rainy-day/tour-overview.png
+!public/images/technical/rainy-day/tour-rey-transactions.png
+!public/images/technical/rainy-day/mobile-tour-review.png
+!public/images/technical/rainy-day/mobile-tour-guide.png
 
 # Storybook build outputs
 .out

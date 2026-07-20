@@ -74,7 +74,7 @@ This repository includes comprehensive GitHub Actions workflows for automated te
 
 - Local production-build Lighthouse checks on preview-targeting PRs
 - Vercel Preview deployment Lighthouse checks after successful preview deployments
-- Core Web Vitals monitoring
+- Lighthouse performance metric monitoring for LCP, TBT, and CLS
 - PR comments with performance scores and workflow artifact/report context
 - Vercel Preview checks use the `VERCEL_AUTOMATION_BYPASS_SECRET` Actions secret with Vercel Protection Bypass for Automation and fail fast if the response is still the Vercel authentication shell
 - Vercel Preview checks verify that Lighthouse CI is configured with the bypass header before the audit starts
@@ -261,7 +261,7 @@ The workflows enforce these performance standards:
 | Best Practices | ≥ 80%     | Warning |
 | SEO            | ≥ 80%     | Warning |
 | LCP            | ≤ 4s      | Warning |
-| FID            | ≤ 300ms   | Warning |
+| TBT            | ≤ 300ms   | Warning |
 | CLS            | ≤ 0.1     | Warning |
 
 ## 🛠️ Local Development

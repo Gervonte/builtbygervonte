@@ -15,7 +15,7 @@ const AchievementsSection = memo(
       <Box mb="sm">
         {professionalAchievements ? (
           <Stack gap="sm">
-            {(achievements.length > 0 ? achievements : highlights).slice(0, 3).map((item, idx) => (
+            {(achievements.length > 0 ? achievements : highlights).slice(0, 4).map((item, idx) => (
               <Text key={idx} size="sm" lh={1.5} c={commonColors.textSecondary} fs="italic">
                 {item}
               </Text>

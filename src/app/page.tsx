@@ -1,5 +1,3 @@
-'use client';
-
 import {
   LazyAboutSection,
   LazyContactSection,
@@ -7,112 +5,65 @@ import {
   LazyWatchSection,
   LazyWorkSection,
 } from '@/components/LazyComponents';
+import DeferredSection from '@/components/DeferredSection';
 import HeroSection from '@/components/HeroSection';
-import ParallaxElement from '@/components/ParallaxElement';
-import { ModalProvider } from '@/lib/modal-context';
+import HomePageProviders from '@/components/HomePageProviders';
 import { getSectionSpeed } from '@/lib/parallax-config';
-import { ParallaxProvider } from '@/lib/parallax-context';
-import { useCommonColors } from '@/lib/theme-aware-colors';
-import { Box } from '@mantine/core';
-import { memo } from 'react';
 
-const HomePage = memo(() => {
-  // Theme-aware colors
-  const commonColors = useCommonColors();
-
+export default function HomePage() {
   return (
-    <ModalProvider>
-      <ParallaxProvider>
-        {/* Hero Section */}
-        <HeroSection />
+    <HomePageProviders>
+      <HeroSection />
 
-        <ParallaxElement speed={getSectionSpeed('watch')}>
-          <Box
-            id="watch"
-            role="region"
-            aria-label="Content archive"
-            style={{
-              minHeight: '100vh',
-              padding: '4rem 0',
-            }}
-          >
-            <LazyWatchSection />
-          </Box>
-        </ParallaxElement>
+      <DeferredSection
+        id="watch"
+        label="Content archive"
+        minHeight="100vh"
+        padding="4rem 0"
+        speed={getSectionSpeed('watch')}
+      >
+        <LazyWatchSection />
+      </DeferredSection>
 
-        <ParallaxElement speed={getSectionSpeed('work')}>
-          <Box
-            id="work"
-            role="region"
-            aria-label="Software projects"
-            style={{
-              minHeight: '100vh',
-              padding: '4rem 0',
-              background: commonColors.backgroundPrimary,
-            }}
-          >
-            <LazyWorkSection />
-          </Box>
-        </ParallaxElement>
+      <DeferredSection
+        id="work"
+        label="Software projects"
+        minHeight="100vh"
+        padding="4rem 0"
+        speed={getSectionSpeed('work')}
+      >
+        <LazyWorkSection />
+      </DeferredSection>
 
-        <ParallaxElement speed={getSectionSpeed('experience')}>
-          <Box
-            id="experience"
-            role="region"
-            aria-label="Professional experience"
-            style={{
-              minHeight: '100vh',
-              padding: '8rem 0 4rem',
-              scrollMarginTop: '7rem',
-            }}
-          >
-            <LazyExperienceSection />
-          </Box>
-        </ParallaxElement>
+      <DeferredSection
+        id="experience"
+        label="Professional experience"
+        minHeight="100vh"
+        padding="8rem 0 4rem"
+        scrollMarginTop="7rem"
+        speed={getSectionSpeed('experience')}
+      >
+        <LazyExperienceSection />
+      </DeferredSection>
 
-        {/* About Section */}
-        <ParallaxElement speed={getSectionSpeed('about')}>
-          <Box
-            id="about"
-            role="region"
-            aria-label="Qualifications"
-            style={{
-              minHeight: '100vh',
-              padding: '4rem 0',
-              background: commonColors.backgroundPrimary,
-            }}
-          >
-            <LazyAboutSection />
-          </Box>
-        </ParallaxElement>
+      <DeferredSection
+        id="about"
+        label="Qualifications"
+        minHeight="100vh"
+        padding="4rem 0"
+        speed={getSectionSpeed('about')}
+      >
+        <LazyAboutSection />
+      </DeferredSection>
 
-        <ParallaxElement speed={getSectionSpeed('contact')}>
-          <Box
-            id="contact"
-            role="region"
-            aria-label="Contact information"
-            style={{
-              padding: '4rem 0 2rem',
-            }}
-          >
-            <LazyContactSection />
-          </Box>
-        </ParallaxElement>
-
-        {/* Scroll Indicator - Disabled!*/}
-        {/* <LazyScrollIndicator
-          sections={['hero', 'watch', 'work', 'experience', 'about', 'contact']}
-          showProgress={true}
-          showNavigation={true}
-          position="bottom"
-          orientation="horizontal"
-          variant="detailed"
-        /> */}
-      </ParallaxProvider>
-    </ModalProvider>
+      <DeferredSection
+        id="contact"
+        label="Contact information"
+        padding="4rem 0 2rem"
+        speed={getSectionSpeed('contact')}
+      >
+        <LazyContactSection />
+      </DeferredSection>
+    </HomePageProviders>
   );
-});
-
-HomePage.displayName = 'HomePage';
-
-export default HomePage;
+}
