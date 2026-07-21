@@ -137,6 +137,16 @@ export const technologyContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'What It Does:',
   },
+  'React.js': {
+    title: 'React.js',
+    description: 'Component-based JavaScript library for building interactive user interfaces',
+    capabilities: [
+      'Building reusable interface components',
+      'Managing state-driven user experiences',
+      'Creating responsive web application surfaces',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
   TypeScript: {
     title: 'TypeScript',
     description: 'Strongly-typed JavaScript for enterprise-scale applications',
@@ -235,6 +245,16 @@ export const technologyContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'What It Does:',
   },
+  'C++': {
+    title: 'C++',
+    description: 'Compiled programming language for performance-focused systems and applications',
+    capabilities: [
+      'Building performance-sensitive application logic',
+      'Working with memory, types, and low-level system behavior',
+      'Maintaining and modernizing established codebases',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
   FastAPI: {
     title: 'FastAPI',
     description: 'Modern Python web framework for building APIs',
@@ -314,6 +334,16 @@ export const technologyContexts: Record<string, BadgeContext> = {
       'Checking parser, persistence, and review flows across realistic inputs',
       'Catching regressions in CSV and PDF ingestion behavior',
       'Validating edge cases such as malformed rows, date parsing, and duplicate detection',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  Playwright: {
+    title: 'Playwright',
+    description: 'Browser automation framework for reliable end-to-end testing',
+    capabilities: [
+      'Testing user workflows across modern browsers',
+      'Validating responsive routes and interactive states',
+      'Capturing repeatable evidence for UI regressions',
     ],
     capabilitiesLabel: 'What It Does:',
   },
@@ -436,6 +466,37 @@ export const technologyContexts: Record<string, BadgeContext> = {
       'Keeping engineering execution aligned with product planning',
     ],
     capabilitiesLabel: 'What It Does:',
+  },
+  'Driver.js': {
+    title: 'Driver.js',
+    description: 'Lightweight library for contextual product tours and guided walkthroughs',
+    capabilities: [
+      'Highlighting interface elements with contextual guidance',
+      'Sequencing multi-step product tours',
+      'Helping first-time visitors learn product workflows',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
+  Agile: {
+    title: 'Agile',
+    description:
+      'Iterative product-development approach centered on feedback and incremental delivery',
+    capabilities: [
+      'Breaking product work into reviewable increments',
+      'Adapting plans from stakeholder and user feedback',
+      'Keeping delivery aligned through regular team rituals',
+    ],
+    capabilitiesLabel: 'How It Works:',
+  },
+  'Pair Programming': {
+    title: 'Pair Programming',
+    description: 'Collaborative development practice where two engineers solve problems together',
+    capabilities: [
+      'Sharing implementation context in real time',
+      'Reviewing decisions while code is written',
+      'Unblocking teammates through collaborative debugging',
+    ],
+    capabilitiesLabel: 'How It Works:',
   },
   Mintlify: {
     title: 'Mintlify',

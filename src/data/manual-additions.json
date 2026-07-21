@@ -47,7 +47,7 @@
       "achievements": [
         "Founded Rainy Day, a statement-first personal finance platform for Caribbean consumers with limited connected-account coverage, using bank statements as the primary financial data source.",
         "Expanded Rainy Day ingestion across 4 institutions including CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, normalizing CSV/PDF statements into a canonical transaction model.",
-        "Used PostHog funnel analytics to diagnose a profile-selection gate causing 77% drop-off before product entry; redesigned onboarding to raise first-time entry from 23% to 97% and full-product reach from 0% to 27% across 100+ demo users.",
+        "Used PostHog funnel analytics to diagnose a profile-selection gate causing 44% drop-off before product entry; redesigned onboarding to raise first-time entry to 97% and full-product reach from 0% to 30% across 60+ real demo users.",
         "Designed deterministic analysis workflows for recurring bills, income signals, 10 automatic default categories, and projected cash flow with user-facing explanations.",
         "Architected Supabase/Postgres persistence with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication."
       ]
