@@ -87,7 +87,7 @@ export const watchVideos: WatchVideo[] = [
     title: 'Rainy Day v0.2.1',
     subtitle: "Don't Make Me Think: Guided Demo & Field Testing Updates",
     description:
-      'See how I applied Steve Krug’s Don’t Make Me Think principles after PostHog revealed a 77% onboarding drop-off, redesigning onboarding around a guided walkthrough that increased first-time product entry from 23% to 97% and full-product reach from 0% to 27% across 100+ demo users.',
+      'See how I applied Steve Krug’s Don’t Make Me Think principles after PostHog revealed a 44% onboarding drop-off, redesigning onboarding around a guided walkthrough that increased first-time product entry to 97% and full-product reach from 0% to 30% across 60+ real demo users.',
     category: 'build-log',
     collection: 'Software Demos',
     youtubeUrl: 'https://www.youtube.com/watch?v=G8AT6G2Vm_Q',

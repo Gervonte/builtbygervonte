@@ -209,7 +209,7 @@ export function generateRainyDayVideoStructuredData() {
     '@id': `${seoConfig.url}/#rainy-day-v0-2-1-video`,
     name: "Don't Make Me Think: Guided Demo & Field Testing Updates",
     description:
-      'See how I applied Steve Krug’s Don’t Make Me Think principles after PostHog revealed a 77% onboarding drop-off, redesigning onboarding around a guided walkthrough that increased first-time product entry from 23% to 97% and full-product reach from 0% to 27% across 100+ demo users.',
+      'See how I applied Steve Krug’s Don’t Make Me Think principles after PostHog revealed a 44% onboarding drop-off, redesigning onboarding around a guided walkthrough that increased first-time product entry to 97% and full-product reach from 0% to 30% across 60+ real demo users.',
     thumbnailUrl: ['https://i.ytimg.com/vi/G8AT6G2Vm_Q/maxresdefault.jpg'],
     contentUrl: 'https://www.youtube.com/watch?v=G8AT6G2Vm_Q',
     embedUrl: 'https://www.youtube.com/embed/G8AT6G2Vm_Q',
