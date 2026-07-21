@@ -241,7 +241,7 @@
               "icon": "file-upload",
               "eyebrow": "Ingestion & Normalization",
               "title": "4 Caribbean institutions. Cash included. One consistent financial picture.",
-              "description": "CSV and PDF statements from four Caribbean banks and credit unions are normalized alongside manually tracked cash transactions. Support for additional institutions is prioritized and expanded based on user feedback."
+              "description": "CSV and PDF statements from CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union (TSWCCUL) are normalized alongside manually tracked cash transactions. Support for additional institutions is prioritized and expanded based on user feedback."
             },
             {
               "icon": "database",
