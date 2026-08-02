@@ -193,6 +193,7 @@
         "Next.js",
         "Supabase",
         "PostgreSQL",
+        "Langfuse",
         "PostHog",
         "Sentry",
         "Driver.js",
