@@ -23,14 +23,17 @@
       "period": "November 2025 - Present",
       "location": "Lakeland, Florida",
       "companyUrl": "https://builtbygervonte.com",
-      "description": "Software studio building Rainy Day, a user-permissioned financial data platform for Caribbean markets where connected-account coverage is limited.",
-      "longDescription": "BuiltByGervonte LLC is the creative software studio behind Ignition Labs, focused on practical fintech products for emerging Caribbean markets.\n\nRainy Day is a full-stack financial data platform that uses uploaded bank statements as the primary data source where open banking standards or APIs are limited, enabling user-permissioned personal finance management across local banks and credit unions.",
+      "description": "Software studio building Rainy Day, a deterministic-first financial intelligence platform for Caribbean consumers using bank statements as the primary data source.",
+      "longDescription": "BuiltByGervonte LLC is the creative software studio behind Ignition Labs, focused on practical fintech products for emerging Caribbean markets.\n\nRainy Day helps users understand years of spending with dramatically less manual review by combining deterministic financial processing, constrained AI suggestions, reviewable outputs, and privacy-safe observability.",
       "technologies": [
         "TypeScript",
         "React",
         "Next.js",
         "Supabase",
         "PostgreSQL",
+        "Langfuse",
+        "PostHog",
+        "Sentry",
         "CSV Ingestion",
         "PDF Ingestion",
         "Row Level Security",
@@ -45,11 +48,13 @@
         "Data Normalization"
       ],
       "achievements": [
-        "Founded Rainy Day, a statement-first personal finance platform for Caribbean consumers with limited connected-account coverage, using bank statements as the primary financial data source.",
-        "Expanded Rainy Day ingestion across 4 institutions including CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, normalizing CSV/PDF statements into a canonical transaction model.",
-        "Used PostHog funnel analytics to diagnose a profile-selection gate causing 44% drop-off before product entry; redesigned onboarding to raise first-time entry to 97% and full-product reach from 0% to 30% across 60+ real demo users.",
-        "Designed deterministic analysis workflows for recurring bills, income signals, 10 automatic default categories, and projected cash flow with user-facing explanations.",
-        "Architected Supabase/Postgres persistence with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication."
+        "Built statement ingestion for 4 institutions, including CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, normalizing to a canonical transaction model.",
+        "Designed a hybrid workflow that applies deterministic financial rules first, then constrained structured AI only for unresolved cases, keeping financial outputs reviewable.",
+        "Benchmarked approximately 1,400 real transactions across four years of statements, raising deterministic suggestion coverage from approximately 70% to 80% and classified coverage to approximately 94% on unresolved cases.",
+        "Reduced estimated manual review workload by approximately 50% through deterministic categorization, constrained AI recovery, and grouped review workflows.",
+        "Used Langfuse trace-level analysis to catch a recurring-transaction grouping defect before production, cut review time, and raise categorization accuracy through retraced runs.",
+        "Used PostHog funnel analytics to identify a profile-selection gate causing 44% drop-off before product entry; redesigned onboarding, raising first-time product entry to 97% and reaching 30% full app tour completion.",
+        "Built Supabase/Postgres persistence with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication."
       ]
     },
     {

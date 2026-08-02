@@ -43,10 +43,44 @@ body {
 }
 
 .hero-title {
+  --hero-title-min-height: 3.6em;
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
+}
+
+@media (max-width: 48em) {
+  .hero-title {
+    --hero-title-min-height: 4.8em;
+  }
+
+  .hero-actions {
+    width: min(calc(100vw - 2rem), 22rem);
+  }
+
+  .hero-actions > * {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hero-actions .mantine-Button-root {
+    padding-inline: 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+.hero-typewriter-caret {
+  color: #000 !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #000 !important;
+}
+
+@media (min-width: 64em) {
+  .hero-credentials {
+    white-space: nowrap;
+  }
 }
 
 .hero-subtitle {

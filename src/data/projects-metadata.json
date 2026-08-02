@@ -184,8 +184,8 @@
     {
       "id": "rainy-day",
       "title": "Rainy Day",
-      "description": "Rainy Day is a full-stack financial data platform for user-permissioned personal finance management in Caribbean markets where connected-account coverage is limited.\n\nThe system parses CSV and PDF statements from CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union into one consistent transaction model. Supabase/Postgres, Row Level Security, statement hashing, and overlap-safe deduplication keep imported data secure, traceable, and reliable enough for analysis and cash-flow projection.",
-      "longDescription": "The latest update to Rainy Day expands its statement-based personal finance management for Caribbean markets without reliable open banking APIs.\n\nIt supports CSV and PDF uploads from CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union, helping users move from manual statement review to recurring bill detection, income signals, spending categories, and cash-flow forecasts.",
+      "description": "Rainy Day is a deterministic-first financial intelligence platform that helps people understand years of spending with dramatically less manual review.\n\nThe system turns user-permissioned CSV and PDF statements from Caribbean banks and credit unions into reviewable workflow automation: known cases are handled deterministically, unresolved cases move through constrained AI suggestions, and every outcome stays traceable enough to verify before it shapes the financial picture.",
+      "longDescription": "Rainy Day reframes statement uploads as financial workflow automation for markets where connected-account coverage is limited.\n\nA four-year benchmark of approximately 1,400 transactions improved deterministic suggestion coverage from approximately 70% to 80%, then used constrained AI on unresolved cases to reach approximately 94% classified coverage while reducing estimated manual review workload by approximately 50%. Langfuse captures privacy-safe traces, validation outcomes, prompt/schema versions, latency, cost, and delayed review scores so automation quality can be measured instead of guessed.",
       "type": "standard-work",
       "technologies": [
         "TypeScript",
@@ -193,6 +193,7 @@
         "Next.js",
         "Supabase",
         "PostgreSQL",
+        "Langfuse",
         "PostHog",
         "Sentry",
         "Driver.js",
@@ -221,10 +222,13 @@
         "grid": 1.9
       },
       "achievements": [
-        "Designed and built a user-permissioned financial data platform using uploaded bank statements as the primary data source for Caribbean markets with limited connected-account coverage.",
+        "Benchmarked approximately 1,400 transactions across four years of statements to help users understand long-term spending patterns with dramatically less manual review.",
+        "Improved deterministic suggestion coverage from approximately 70% to 80%, then used constrained structured AI on unresolved cases to reach approximately 94% classified coverage.",
+        "Reduced estimated manual review workload by approximately 50% through deterministic categorization, reviewable AI suggestions, grouped review workflows, explanations, and source attribution.",
+        "Added Langfuse as a privacy-safe observability and evaluation layer for trace-level analysis, model/reasoning comparisons, validation outcomes, prompt/schema metadata, latency, cost, and delayed review scores.",
+        "Used PostHog funnel analytics to redesign demo onboarding, raising first-time product entry to 97% and full guided-tour completion to 30% across 60+ real demo users.",
         "Expanded statement ingestion across CIBC Caribbean, Scotiabank Caribbean, Bank of The Bahamas, and Teachers & Salaried Workers Co-operative Credit Union into a canonical transaction model.",
         "Implemented Supabase/Postgres persistence with Row Level Security, transactional upload RPCs, statement hashing, parser validation, and overlap-safe deduplication across CSV and PDF imports.",
-        "Developed deterministic financial analysis workflows for recurring bills, income/payday signals, confidence-based spending categories, and projected cash flow with explanations and source attribution.",
         "Added parser validation and ingestion regression tests covering CSV/PDF edge cases across supported institution formats."
       ],
       "timeline": "Ongoing",
@@ -268,6 +272,7 @@
             "Next.js",
             "Supabase",
             "PostgreSQL",
+            "Langfuse",
             "PostHog",
             "Sentry",
             "Driver.js",
