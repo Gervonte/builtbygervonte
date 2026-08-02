@@ -353,7 +353,7 @@
           "screenshots": [
             {
               "src": "rainy-day/langfuse-categorization-trace.png",
-              "caption": "Langfuse trace-level observability for Rainy Day’s categorization workflow, capturing validation steps, model and prompt versions, taxonomy metadata, latency, cost, and outcomes for reproducible evaluation.",
+              "caption": "Langfuse trace-level observability for Rainy Day’s hybrid categorization workflow, capturing validation steps, model and prompt versions, taxonomy metadata, latency, cost, and outcomes for reproducible evaluation.",
               "alt": "Langfuse trace showing Rainy Day AI categorization steps and versioned evaluation metadata",
               "modalFit": "contain",
               "modalPosition": "center center",
