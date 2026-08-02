@@ -52,6 +52,7 @@ export interface TechnicalOverviewCard {
   eyebrow: string;
   title: string;
   description: string;
+  emphasis?: string[];
 }
 
 export interface TechnicalSection {

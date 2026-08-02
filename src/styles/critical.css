@@ -77,6 +77,11 @@ body {
   -webkit-text-fill-color: #000 !important;
 }
 
+[data-mantine-color-scheme='dark'] .hero-typewriter-caret {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
 @media (min-width: 64em) {
   .hero-credentials {
     white-space: nowrap;
