@@ -169,7 +169,7 @@ export function generateRainyDayStructuredData() {
     operatingSystem: 'Web',
     url: 'https://rainyday.ignitionlabs.app/demo',
     description:
-      'Rainy Day is a statement-based personal finance platform for Caribbean markets where connected-account coverage is limited.',
+      'Rainy Day is a deterministic-first financial intelligence platform that helps users understand years of spending with less manual review by combining bank statement ingestion, reviewable workflow automation, and trustworthy AI.',
     creator: {
       '@type': 'Organization',
       '@id': `${seoConfig.url}/#organization`,
@@ -183,6 +183,10 @@ export function generateRainyDayStructuredData() {
     keywords: [
       'Caribbean fintech',
       'statement-based personal finance',
+      'deterministic financial intelligence',
+      'financial workflow automation',
+      'trustworthy AI',
+      'Langfuse observability',
       'bank statement uploads',
       'personal finance management',
       'cash-flow forecasting',

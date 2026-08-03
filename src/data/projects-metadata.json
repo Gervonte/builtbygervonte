@@ -193,6 +193,7 @@
         "Next.js",
         "Supabase",
         "PostgreSQL",
+        "Langfuse",
         "PostHog",
         "Sentry",
         "Driver.js",
@@ -228,7 +229,7 @@
         "Added parser validation and ingestion regression tests covering CSV/PDF edge cases across supported institution formats."
       ],
       "timeline": "Ongoing",
-      "category": "Early Stage Fintech SaaS",
+      "category": "Consumer Fintech · Caribbean Markets",
       "enableTechnicalDetails": true,
       "technicalDetails": {
         "product": {
@@ -252,8 +253,9 @@
             {
               "icon": "checklist",
               "eyebrow": "Reviewable Intelligence",
-              "title": "Automatic analysis. Human review where confidence drops.",
-              "description": "Deterministic analysis identifies recurring bills, income and payday signals, categories, and projected cash flow. Lower-confidence findings remain reviewable before they shape summaries or forecasts."
+              "title": "Understand years of spending in minutes.",
+              "description": "Deterministic intelligence handles known financial patterns first, while AI assists only where ambiguity remains. Benchmarked across ~1,400 transactions, this increased categorized coverage to ~94% on unresolved cases while cutting estimated manual review by ~50%.",
+              "emphasis": ["~1,400", "~94%", "~50%"]
             },
             {
               "icon": "shield-check",
@@ -348,8 +350,16 @@
           "enabled": true,
           "showScreenshots": true,
           "description": "Rainy Day v0.2.1 adds Driver.js contextual tours and browser-persisted checklist progress to guide visitors through the public demo in less than 5 minutes. Privacy-safe PostHog event allowlists measure tour progress, demo completion, feedback, early-access requests, and sharing without capturing raw financial payloads. Sentry monitors runtime health, while Linear turns field-testing signals into focused follow-up improvements.",
-          "tools": ["Driver.js", "PostHog", "Sentry", "Linear"],
+          "tools": ["Langfuse", "Driver.js", "PostHog", "Sentry", "Linear"],
           "screenshots": [
+            {
+              "src": "rainy-day/langfuse-categorization-trace.png",
+              "caption": "Langfuse trace-level observability for Rainy Day’s hybrid categorization workflow, capturing validation steps, model and prompt versions, taxonomy metadata, latency, cost, and outcomes for reproducible evaluation.",
+              "alt": "Langfuse trace showing Rainy Day AI categorization steps and versioned evaluation metadata",
+              "modalFit": "contain",
+              "modalPosition": "center center",
+              "modalScale": 1
+            },
             {
               "src": "rainy-day/demo-feedback-survey.png",
               "caption": "PostHog demo feedback survey showing early comfort, usefulness, and requested institution support signals from the public demo.",

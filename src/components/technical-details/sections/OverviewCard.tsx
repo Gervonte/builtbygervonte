@@ -22,6 +22,20 @@ const getOverviewCardIcon = (icon: TechnicalOverviewCard['icon']) => {
   }
 };
 
+const renderOverviewCardDescription = (card: TechnicalOverviewCard) => {
+  if (!card.emphasis?.length) {
+    return card.description;
+  }
+
+  const emphasizedText = new Set(card.emphasis);
+  const escapedTerms = card.emphasis.map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const parts = card.description.split(new RegExp(`(${escapedTerms.join('|')})`, 'g'));
+
+  return parts.map((part, index) =>
+    emphasizedText.has(part) ? <strong key={`${part}-${index}`}>{part}</strong> : part
+  );
+};
+
 const OverviewCard = memo(({ section, sectionKey, commonColors }: SectionCardProps) => {
   const overviewCards = section.overviewCards ?? [];
   const cardStyles = {
@@ -101,7 +115,7 @@ const OverviewCard = memo(({ section, sectionKey, commonColors }: SectionCardPro
                     {card.title}
                   </Title>
                   <Text size="sm" c={commonColors.textSecondary} lh={1.6}>
-                    {card.description}
+                    {renderOverviewCardDescription(card)}
                   </Text>
                 </Box>
               </Group>

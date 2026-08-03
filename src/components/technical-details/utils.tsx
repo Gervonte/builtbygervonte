@@ -66,6 +66,6 @@ export const shouldShowSection = (section: Record<string, unknown>, sectionType:
 export const formatSectionTitle = (key: string) => {
   if (key === 'cicd') return 'CI/CD';
   if (key === 'product') return 'Product';
-  if (key === 'monitoring') return 'Observability';
+  if (key === 'monitoring') return 'Evaluation & Reliability';
   return key.charAt(0).toUpperCase() + key.slice(1);
 };

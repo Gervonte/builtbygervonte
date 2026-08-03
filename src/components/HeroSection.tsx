@@ -4,6 +4,7 @@ import { getHeroSpeed } from '@/lib/parallax-config';
 import { useColorCombinations, useCommonColors } from '@/lib/theme-aware-colors';
 import { Box, Button, Container, Group, Stack, Text, Title } from '@mantine/core';
 import { memo } from 'react';
+import HeroTypewriter from './HeroTypewriter';
 import ParallaxElement from './ParallaxElement';
 import SakuraBackground from './SakuraBackground';
 
@@ -32,6 +33,7 @@ const HeroSection = memo(() => {
           <Stack align="center" gap="xl">
             <ParallaxElement speed={getHeroSpeed('title')} deferUntilInteraction>
               <Title
+                className="hero-title"
                 order={1}
                 ta="center"
                 mb="md"
@@ -42,33 +44,47 @@ const HeroSection = memo(() => {
                   WebkitTextFillColor: 'transparent',
                   fontSize: 'clamp(3.5rem, 6vw, 5rem)',
                   fontWeight: 700,
+                  minHeight: 'var(--hero-title-min-height, 3.6em)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   willChange: 'transform',
                   transform: 'translateZ(0)',
                 }}
               >
-                Hello, I&apos;m Gervonte Fowler
+                <HeroTypewriter />
               </Title>
             </ParallaxElement>
             <ParallaxElement speed={getHeroSpeed('subtitle')} deferUntilInteraction>
               <Text
+                className="hero-credentials"
                 ta="center"
                 size="xl"
                 mb="xl"
                 style={{
-                  maxWidth: '900px',
+                  width: '100%',
+                  maxWidth: '1100px',
                   lineHeight: 1.6,
                   color: commonColors.textSecondary,
                 }}
                 role="text"
-                aria-label="M.S. Computer Science, IEEE LLM Research, Building Rainy Day"
+                aria-label="Series B Fintech Startup Experience, M.S. Computer Science, IEEE LLM Research, Building Rainy Day"
               >
-                M.S. Computer Science • IEEE LLM Research • Building Rainy Day
+                Series B Fintech Startup Experience • M.S. Computer Science • IEEE LLM Research •
+                Building Rainy Day
                 <br />
                 <span aria-hidden="true">🇧🇸</span>
               </Text>
             </ParallaxElement>
             <ParallaxElement speed={getHeroSpeed('buttons')} deferUntilInteraction>
-              <Group justify="center" gap="md" role="group" aria-label="Navigation actions">
+              <Group
+                className="hero-actions"
+                justify="center"
+                gap="sm"
+                wrap="nowrap"
+                role="group"
+                aria-label="Navigation actions"
+              >
                 <Button
                   component="a"
                   href="https://rainyday.ignitionlabs.app/demo"
