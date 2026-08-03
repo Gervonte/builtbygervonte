@@ -110,6 +110,7 @@ export const watchVideos: WatchVideo[] = [
     youtubeId: 'oOWc9QAoTKg',
     duration: '1:07',
     status: 'published',
+    showInMainContent: false,
   },
   {
     id: 'leetcode-beastmode-bts',
@@ -124,6 +125,7 @@ export const watchVideos: WatchVideo[] = [
     youtubeId: 'GlbWLTu42Ws',
     duration: '9:41',
     status: 'published',
+    showInMainContent: false,
   },
 ];
 

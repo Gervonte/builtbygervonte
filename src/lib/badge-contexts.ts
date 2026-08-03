@@ -602,6 +602,16 @@ export const technologyContexts: Record<string, BadgeContext> = {
     ],
     capabilitiesLabel: 'What It Does:',
   },
+  Langfuse: {
+    title: 'Langfuse',
+    description: 'AI observability and evaluation platform for tracing model behavior',
+    capabilities: [
+      'Capturing privacy-safe traces and validation outcomes',
+      'Comparing model reasoning, latency, and cost',
+      'Tracking prompt and schema versions over time',
+    ],
+    capabilitiesLabel: 'What It Does:',
+  },
   Sentry: {
     title: 'Sentry',
     description: 'Error tracking and performance monitoring platform',

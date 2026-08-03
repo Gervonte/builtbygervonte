@@ -55,9 +55,8 @@ export default function Footer() {
                 About
               </Title>
               <Text size="sm" c="dimmed" lh={1.6}>
-                Full-stack software engineer building fintech products, technical content, and
-                creative systems with a focus on clear UX, practical workflows, and thoughtful
-                execution.
+                Full-stack software engineer building financial intelligence products that combine
+                reliable systems, trustworthy AI, and measurable business outcomes.
               </Text>
               <Group gap="xs">
                 <IconMapPin size={16} style={{ color: commonColors.accentPrimary }} />
